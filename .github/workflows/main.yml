@@ -11,21 +11,17 @@ permissions:
   id-token: write
 
 jobs:
-  convert:
-    runs-on: windows-latest
-    steps:
-      - name: Converts Markdown to HTML
-        uses: jaywcjlove/markdown-to-html-cli@main
-        with:
-          source: README.md
-          output: index.html
-
-
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      - name: Converts Markdown to HTML
+        uses: jaywcjlove/markdown-to-html-cli@main
+        with:
+          source: README.md
+          output: index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
