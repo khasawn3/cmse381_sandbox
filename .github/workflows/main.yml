@@ -14,9 +14,6 @@ jobs:
       with:
         files: |
           README.md
-          test/README.md
-          test/nested/readme.md
-          test/nested/twice/README.md
         out_path: out
         token: ${{ secrets.GITHUB_TOKEN }}
         custom_css: test/custom.css
