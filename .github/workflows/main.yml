@@ -1,43 +1,27 @@
-name: Build and Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main # Change this to your default branch
-
 jobs:
-  build_site:
-    runs-on: ubuntu-latest
+  build:
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+    - uses: wranders/markdown-to-pages-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        files: |-
+          README.md
+          test/README.md
+          test/nested/readme.md
+    - run: cp ./images ./dist/images/
+    - uses: actions/upload-pages-artifact@v3
+      with:
+        path: dist
 
-      # # Optional: Install Ruby/Jekyll if needed, otherwise skip
-      # - name: Setup Ruby
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     ruby-version: '3.0'
-          
-      - name: Build Site
-        run: |
-          # Create .nojekyll file to skip Jekyll processing touch .nojekyll
-          # If you have a build step (like jekyll build), add it here
-          # Example: gem install jekyll && jekyll build
-          # If just static markdown, skip this part
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.' # Directory containing your markdown and .nojekyll
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        
+  deploy:
+    needs: build
     permissions:
-      contents: read
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+    - uses: actions/deploy-pages@v4
+      id: deployment
