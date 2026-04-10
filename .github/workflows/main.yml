@@ -1,4 +1,5 @@
 jobs:
+runs=on: push
   build:
     steps:
     - uses: actions/checkout@v4
