@@ -20,7 +20,7 @@ jobs:
       - name: Converts Markdown to HTML
         uses: jaywcjlove/markdown-to-html-cli@main
         with:
-          source: ./lectures
+          source: README.md
           output: index.html
 
       - name: Setup Pages
