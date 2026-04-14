@@ -1,0 +1,784 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{} 
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 3.3: Even More Linear Regression}
+\subtitle{Lecture 7 - CMSE 381}
+\date{Wed, Jan 28, 2026}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+		\item 3.2 Multiple Linear Regression
+	\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\textbf{Announcements:}
+	\begin{itemize}
+		\item HW \#2 Due Sunday Feb 8.
+		% \item Office hours
+	\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item RSE, $R^2$
+	\item Confidence intervals and prediction intervals
+	\item Qualitative predictors
+	% \item Extending he linear model with interaction terms
+	% \item Hierarchy principle
+	% \item Polynomial regression
+\end{itemize}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{Continued: Questions to ask of your model }
+%=================
+
+\begin{frame}[c]{Linear Regression with Multiple Variables}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = .5\textwidth]{Fig3-4}
+\begin{itemize}
+	\item Predict $Y$ on a multiple variables $X$
+\begin{equation*}
+	Y = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p x_p + \e
+\end{equation*}
+	\item Find good guesses for $\hat \beta_0$, $\hat \beta_1,\cdots $.
+\item $	\hat y_i = \hat \beta_0 + \hat \beta_1 x_i + \cdots + \hat \beta_px_p$
+\end{itemize}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+\item $e_i = y_i - \hat y_i$ is the $i$th residual
+\item RSS $= \sum_i e_i^2$
+	\item RSS is minimized at \textit{least squares coefficient estimates}
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%---next frame---%
+\begin{frame}[c]{Review: Questions to ask of your model }
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\begin{enumerate}
+		\item Is at least one of the predictors $X_1, \cdots, X_p$ useful in predicting the response?
+	\item Do all the predictors help to explain $Y$, or is only a subset of the predictors useful?
+	% \item How well does the model fit the data?
+	% \item Given a set of predictor values, what response value should we predict, and how accurate is our prediction?
+	
+	\end{enumerate}
+	\column{.45\textwidth}
+	\centering
+	\InstructorList{
+	\item Hypothesis test, F-statistic, at least one $\beta_j$ is non-zero
+	\item Forward and Backward selection
+	\item RSE, $R^2$, eyeball test
+	\item Confidence intervals and prediction intervals
+	
+	}
+	\end{columns}
+	
+	\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+
+	\begin{columns}
+	\column{.5\textwidth}
+	\centering
+	\begin{block}
+		{Q3}
+	How well does the model fit the data?
+	\end{block}
+	
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	
+
+\begin{frame}[c]{Assessing the accuracy of the model}{Almost the same as before}
+	\centering
+\begin{columns}
+\column{.4\textwidth}
+% \centering
+\textbf{Residual standard error (RSE):}
+\begin{align*}
+	RSE &= \sqrt{ \frac{1}{n-{\color{red}p-1}} RSS}\\
+\end{align*}
+\InstructorNotes{measure lack of fit; }
+
+
+
+\column{.45\textwidth}
+
+\textbf{R squared:}
+\begin{align*}
+	R^2 &= \frac{TSS-RSS}{TSS} = 1-\frac{RSS}{TSS}
+\end{align*}
+% where total sum of squares is
+\begin{equation*}
+	TSS = \sum_i (y_i - \overline y)^2
+\end{equation*}
+\InstructorList{
+\item Proportion in [0,1]; variability in $Y$ that can be explained using $X$
+\item 0 means $Y$ not explained by linear regression on $X$}
+\end{columns}
+
+\end{frame}
+%------------------
+% {
+% 	\setbeamercolor{background canvas}{bg=Apricot!25}
+% \begin{frame}[c]{}
+
+% 	\centering 
+% 	Do Q3 section in jupyter notebook 
+
+% \end{frame}
+% }
+%--- Next Frame ---%
+\begin{frame}[c]{$R^2$ on Advertising data}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Just TV: $R^2 = 0.61$
+	\item Just TV and radio: $R^2 = 0.89719$
+	\item All three variables: $R^2 = 0.8972$
+\end{itemize}
+
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item $R^2$ always increases with more variables, even if those variables are weakly associated to the response
+\item Adding another variable decreases RSS on training
+\item Small increase in $R^2$ if we include newspaper to other two, so can safely ignore
+\item Large increase going from just TV to TV and Radio, so likely want to keep that
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{RSE on Advertising Data}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\centering
+\begin{itemize}
+	\item Just TV: $RSE = 3.26$
+	\item Just TV and radio: $RSE = 1.681$
+	\item All three variables: $RSE = 1.686$
+\end{itemize}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+\item Similar argument about big jump from TV to TV and radio, but small difference after that
+\item Even though RSS went down, RSE goes up at the end because increase in $p$ made a difference in the fraction $RSE = \sqrt{\frac{RSS}{n- p - 1}}$
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{If all else fails, look at the data}
+
+\begin{columns}
+\column{.5\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig3-5}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+\item Model overestimates sales for cases where either spent only on TV, or only spent on radio
+\item Underestimates sales where budget was split between the two
+\item Implies there are some synergy (interaction effects) between the two
+\item Later (next time?) we'll extend the model to allow for this interaction
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}
+
+\begin{columns}
+\column{.7\textwidth}
+\centering
+\begin{block}
+	{Q4}
+Given a set of predictor values, what response value should we predict, and how accurate is our prediction?
+\end{block}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Q4: Making predictions}
+
+\begin{columns}
+\column{.55\textwidth}
+% \centering
+Given estimates $\hat \beta_0,\cdots, \hat \beta_p$ for $\beta_0, \cdots, \beta_p$
+
+Least squares plane:
+\begin{equation*}
+	\hat Y = \hat \beta_0 + \hat \beta_1 X_1 + \cdots + \hat \beta_p X_p
+\end{equation*}
+estimate for the true population regression plane
+\begin{equation*}
+	f(X) =  \beta_0 +  \beta_1 X_1 + \cdots +  \beta_p X_p
+\end{equation*}
+
+\column{.4\textwidth}
+\centering
+
+\includegraphics[align = c, width = \textwidth]{Fig3-5}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Confidence vs Prediction Model}
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\textbf{Confidence Interval}
+	
+	
+	The range likely to contain the population parameter (mean, standard deviation) of interest.
+	
+	\InstructorNotes{Schrink with more data (n), converge to population regression line/plane.}
+	\qquad
+	
+	\textbf{Prediction Interval}
+	
+	The range that likely contains the value of the dependent variable for a single new observation given specific values of the independent variables.
+
+	\InstructorNotes{bound by irreducible error, increase n won't shrink it}
+
+	\column{.45\textwidth}
+	\centering
+	\includegraphics[width = \textwidth]{Advertising-TV-With-ConfidenceInterval}
+	\end{columns}
+	\end{frame}
+%--- Next Frame ---%
+
+
+%--- Next Frame ---%
+\begin{frame}[t]{Specific to the Advertising Data}
+
+	
+	\begin{columns}
+	\column{.4\textwidth}
+	% % \centering
+	\textbf{Confidence interval}: 
+	quantify the uncertainty surrounding the \emph{average} sales over a large number of cities.
+	
+	
+	
+	\qquad
+	
+	\textbf{Advertising example:} \\
+	If \$100K is spent on TV, and \$20K on radio, {\color{red}\textbf{in each of $n$ cities}} 
+	
+	\qquad 
+
+	95\% CI for \emph{average} sales: 
+	
+	[10,985,\, 11,528].
+
+	\tiny
+	 \InstructorNotes{
+	  Interpretation: if we collect a large number of data sets like the Advertising data
+	 set, and we construct a confidence interval for the average sales on the basis of each
+	 data set (given \$100,000 in TV and \$20,000 in radio advertising), then 95 \% of these 	 confidence intervals will contain the true value of average sales.
+	 }
+	
+	
+	\column{.4\textwidth}
+	% % \centering
+	\textbf{Prediction Interval:}
+	quantify the uncertainty in sales for a particular city.
+	
+	\qquad
+	
+	\textbf{Advertising example:} \\
+	Given that \$100,000 is spent on TV advertising and \$20,000 is spent on radio advertising in {\color{red}\textbf{Gotham City}}\\
+
+	\qquad 
+
+	% \centering
+	95\% prediction interval for Gotham:  
+
+	  [7,930, 14,580].
+	
+	\InstructorNotes{We interpret this to mean that 95\% of intervals of this form will contain the true value of Y for this city.}
+	
+	\end{columns}
+	% \InstructorNotes{Both centered at $\hat f(X) = 11,256$}
+	\end{frame}
+%--- Next Frame ---%
+%--- Next Frame ---%
+
+\begin{frame}[c]{Comparing the two}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+
+\InstructorList{
+\item Example showing the 1-d regression case
+\item Fixing TV = \$150, confindence interval for sales is tiny
+\item High probability the correct model takes a value in there
+\item OTOH, prediction interval is large
+\item Need wider band to be confident that a new observation is contained in there
+}
+
+\column{.5\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Advertising-TV-With-ConfidenceInterval}
+
+% \InstructorNotes{See jupyter notebook in folder for code to build this}
+\end{columns}
+
+\bvfill
+% \tiny{Image from \href{https://apmonitor.com/che263/index.php/Main/PythonRegressionStatistics}{apmonitor}}
+\end{frame}
+%--- Next Frame ---%
+{
+	\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Go take a look at the code under Q4
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+
+
+%---next frame---%
+\begin{frame}[c]{Review: Questions to ask of your model }
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\begin{enumerate}
+		\item Is at least one of the predictors $X_1, \cdots, X_p$ useful in predicting the response?
+	\item Do all the predictors help to explain $Y$, or is only a subset of the predictors useful?
+	\item How well does the model fit the data?
+	\item Given a set of predictor values, what response value should we predict, and how accurate is our prediction?
+	
+	\end{enumerate}
+
+	Test your understanding: \href{https://PollEv.com/multiple_choice_polls/mdZHSz9oQiNNvBuAYDjU0/respond}{PollEv}
+	\column{.45\textwidth}
+	\centering
+	\InstructorList{
+	\item Hypothesis test, F-statistic, at least one $\beta_j$ is non-zero
+	\item Forward and Backward selection
+	\item RSE, $R^2$, eyeball test
+	\item Confidence intervals and prediction intervals
+	
+	}
+	\end{columns}
+	
+	\end{frame}
+%=================
+\section{Qualitative Predictors}
+%=================
+\begin{frame}[t]{Reminder: Qualitative vs Quantitative predictors}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Quantitative:}
+\InstructorList{
+  \item Anything with values in either integers or real numbers 
+  \item Temperature 
+  \item Year (even though integers)
+  \item Weight 
+  \item Number of cylinders in a car 
+}
+\column{.45\textwidth}
+
+\centering
+\textbf{Qualitative/Categorical:}
+\InstructorList{
+  \item Anything from an unordered set 
+  \item Country of origin 
+  \item Brand names 
+  \item Anything yes/no (married, has a cat)
+}
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{New data set! Credit card balance}
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+
+	\includegraphics[width = \textwidth, align = c]{Figure3-6}
+
+	\column{.45\textwidth}
+	\centering
+
+	\begin{itemize}
+		\item \texttt{own}: house ownership 
+		\InstructorNotes{This is referenced in the text, but isn't in any of the online versions of the data set that I can find}
+		\item \texttt{student}: student status
+		\item \texttt{status}: marital status
+		\item \texttt{region}:	East, West, or South
+		\InstructorNotes{Also referenced in the book, but not in the online data sets}
+	\end{itemize}
+
+	\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{What if....}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+... your variables aren't quantitative?
+
+\begin{itemize}
+	\item Home ownership
+	\item Student status
+	\item Major
+	\item Gender
+	\item Ethnicity
+	\item Country of origin
+\end{itemize}
+\column{.45\textwidth}
+\centering
+\begin{block}{Example}
+Investigate differences in credit card balance between people who own a house and those who don't, ignoring the other variables.
+\end{block}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{One-hot encoding}
+\bvfill
+\begin{columns}
+\column{.6\textwidth}
+% \centering
+Create a new variable
+\begin{equation*}
+		x_i =
+	\begin{cases}
+		1 & \text{if $i$th person is a student}\\
+		0 & \text{if $i$th person is not a student}
+	\end{cases}
+\end{equation*}
+% \column{.45\textwidth}
+Model:
+\begin{align*}
+y_i &= \beta_0 + \beta_1x_i+\e_i\\
+&= 
+	\begin{cases}
+		\beta_0 + \beta_1+\e_i	 & \text{if $i$th person is student}\\
+		\beta_0 +\e_i & \text{if $i$th person isn't}
+	\end{cases}
+\end{align*}
+\tiny
+\InstructorList{
+\item $\beta_0$ is avg credit card balance among those who are not a student 
+\item $\beta_0 + \beta_1$ is the avg for those are
+\item $\beta_1$ is avg diff in balance
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Interpretation }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Table3-7_ReplaceWithStudent.png}
+
+\column{.45\textwidth}
+\centering
+Model:
+
+\begin{equation*}
+	y = 480.36 + 396.46 \cdot x_{student}
+\end{equation*}
+
+\end{columns}
+
+\InstructorList{
+\item Avg CC balance for non-students \$480.36,
+\item Students have \$396.46 additional debt, so \$876.83
+}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Who cares about 0/1?}
+
+\begin{columns}
+	\column{.45\textwidth}
+	\textbf{Old version: 0/1}
+\begin{equation*}
+		x_i =
+	\begin{cases}
+		1 & \text{if $i$th person is a student}\\
+		0 & \text{if $i$th person is not a student}
+	\end{cases}
+\end{equation*}
+% \column{.45\textwidth}
+Model:
+\begin{align*}
+y_i &= \beta_0 + \beta_1x_i+\e_i\\
+&= 
+	\begin{cases}
+		\beta_0 + \beta_1+\e_i	 & \text{if $i$th person is student}\\
+		\beta_0 +\e_i & \text{if $i$th person isn't}
+	\end{cases}
+\end{align*}
+
+\column{.45\textwidth}
+% \centering
+\textbf{Alternative version: $\pm 1$}
+\begin{equation*}
+		x_i =
+	\begin{cases}
+		1 & \text{if $i$th person is a student}\\
+		-1 & \text{if $i$th person is not a student}
+	\end{cases}
+\end{equation*}
+% \column{.45\textwidth}
+Model:
+\begin{align*}
+y_i &= \beta_0 + \beta_1x_i+\e_i\\
+&= 
+	\begin{cases}
+		\beta_0 + \beta_1+\e_i	 & \text{if $i$th person is student}\\
+		\beta_0 - \beta_1+\e_i & \text{if $i$th person isn't}
+	\end{cases}
+\end{align*}
+
+\end{columns}
+
+% \begin{equation*}
+% 	y = \$519.665 + \$49.865\cdot x_i + \e_i
+% \end{equation*}
+\bvfill
+\InstructorNotes{Note that the predictions will be the same}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Qualitiative Predictor with More than Two Levels}
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\texttt{Region}:
+
+\qquad
+
+\begin{tabular}{r|cc}
+	 & $x_{i1}$ & $x_{i2}$ \\ \hline
+	 & \\
+	South & \InstructorNotes{1 } & \InstructorNotes{0} \\
+	\\
+	West & \InstructorNotes{0 } & \InstructorNotes{1}\\
+	\\
+	East& \InstructorNotes{0 } & \InstructorNotes{0}\\
+	&
+\end{tabular}
+
+
+\column{.45\textwidth}
+\centering
+Create spare dummy variables:
+
+\begin{align*}
+		x_{i1} &=
+	\begin{cases}
+		1 & \text{if $i$th person from South}\\
+		0 & \text{if $i$th person not from South}
+	\end{cases}\\
+%
+		x_{i2} &=
+	\begin{cases}
+		1 & \text{if $i$th person from West}\\
+		0 & \text{if $i$th person not from West}
+	\end{cases}
+\end{align*}
+
+\end{columns}
+
+
+\begin{align*}
+y_i &= \beta_0 + \beta_1x_{i1}+ \beta_2x_{i2}+\e_i\\
+&=
+	\begin{cases}
+		\beta_0 + \beta_1x_{i1}+\e_i & \text{if $i$th person from South}\\
+		\beta_0 +  \beta_2x_{i2}+\e_i& \text{if $i$th person from West}\\
+		\beta_0 + \e_i & \text{if $i$th person from East}
+	\end{cases}
+\end{align*}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{More on multiple levels}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\InstructorList{
+\item Always one less variable than levels
+\item Level with no dummy variable is called the baseline
+
+}
+\column{.6\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Table3-8}
+\InstructorList{
+\item Balance for the baseline (EAST) is \$531
+\item South has \$18.69 less than east
+\item West has \$12.50 less than east
+\item p-values for dummy variables are large, so can't reject null hypothesis
+\item No statistical evidence that there's a diff in CC balance in different regions
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+{
+	\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{}
+	Do code section on "Playing with multi-level variables"
+	
+	\InstructorNotes{(If there's time, otherwise next time.)}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+
+%--- Next Frame ---%
+% %=================
+% \section{Potential Problems}
+% %=================
+% %=================
+% \section{Linear Regression vs.~KNN}
+% %=================
+% %----------------
+\begin{frame}[t]{Next time}
+
+
+	\includegraphics[width = .65\textwidth]{Schedule-S26-Lecs1_to_10}
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

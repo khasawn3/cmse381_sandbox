@@ -1,0 +1,710 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 10.1 - 10.3: Neural Nets}
+\subtitle{Lecture 25 - CMSE 381}
+\date{Mon, Apr 18, 2022}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Munch]{Prof.~Elizabeth Munch}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements }
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+	\item SVM Lab
+	\end{itemize}
+
+	\vspace{.2in}
+
+	\textbf{This lecture:}
+	\begin{itemize}
+		\item Feed Forward Neural Nets
+		\item CNNs
+\end{itemize}
+
+
+\column{.55\textwidth}
+\centering
+
+\textbf{Announcements:}
+	\begin{itemize}
+	\item Mon 4/18: 10.1-3
+	\item Weds 4/20: 10.4-5
+	\item Fri 4/22: Lab: 10.9
+	\begin{itemize}
+		\item HW \#10 Due Friday
+	\end{itemize}
+	\item Week of 4/25: Ch 12 Clustering
+	\item Final: May 4, 5:45 - 7:45 PM, Erickson 226
+
+	\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+%==========
+\section{Neural Nets}
+%==========
+
+\begin{frame}[t]{The idea}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Draw input of vector $p$ variables $X = (X_1,\cdots,X_p)$
+	\item Draw black box nonlinear function $f(X)$
+	\item Spit out response prediction $Y$
+	\\
+	\item We've had nonlinear stuff before like trees, boosting, GANs
+	\item Difference here is the structure
+}
+
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Feed Forward Neural Network: The cartoon}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-1}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Input layer is starting data
+	\item Each arrow means taking combo of those values with weights to get next value
+	\item Here there is one hidden layer then the output
+	\item Get to pick how many hidden units $K$, here we have $K=5$
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{A very simple example}
+	{Computing $A_k$ for $(1,0)$}
+
+\includegraphics[width = .4\textwidth, align = c]{Eq10-2}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex}
+\column{.45\textwidth}
+\centering
+\InstructorNotes{
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input10}
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input10-Soln}
+}
+\InstructorList{
+  \item $A_k$ called activations
+	\item Pick an activation function $g(z)$
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{A very simple example}
+	{Computing $Y$ for $(1,0)$}
+
+
+$\displaystyle{f(X) = \beta_0 + \sum_{k=1}^K \beta_k A_k}$
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex}
+\column{.45\textwidth}
+\centering
+\InstructorNotes{
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input10}
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input10-Soln}
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{A very simple example}
+	{Computing $Y$ for $(0,1)$}
+
+
+\includegraphics[width = .4\textwidth, align = c]{Eq10-2}
+\qquad
+$\displaystyle{f(X) = \beta_0 + \sum_{k=1}^K \beta_k A_k}$
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex}
+\column{.45\textwidth}
+\centering
+\InstructorNotes{
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input01}
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input01-Soln}
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Choices for activation function }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Sigmoid:
+\begin{equation*}
+	g(z) = \frac{e^z}{1+e^z} = \frac{1}{1+e^{-z}}
+\end{equation*}
+\InstructorList{
+  \item Converts linear function in probabilities in [0,1]
+}
+
+\column{.45\textwidth}
+\centering
+ReLU: Rectified linear unit
+\begin{equation*}
+	g(z) = (z)_+ =
+	\begin{cases}
+		0 & \text{if }z<0 \\
+		z & \text{else.}
+	\end{cases}
+\end{equation*}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Now what?}
+Choose parameters by minimizing RSS, $\sum_{i=1}^n(y_i - f(x_i))^2$
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Chosen in advance:}
+\InstructorList{
+  \item Number of layers (more on that in a moment)
+	\item Number of hidden units
+	\item Activation function $g(z)$
+}
+
+
+\column{.45\textwidth}
+\centering
+\textbf{Tuned by the model:}
+\InstructorList{
+  \item $\omega$
+	\item $\beta$
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+%==========
+\section{Multilayer Neural Networks}
+%==========
+
+
+
+\begin{frame}[t]{MNIST}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-3}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Goal: Build a model to classify images into their correct digit class
+	\item Each image has $p=28 \cdot 28 = 784$ pixels
+	\item Each pixel is grayscale value in [0,255]
+	\item Data converted into column order
+	\item Output represented by one-hot vector $Y = (Y_0,Y_1,\cdots,Y_9)$
+	\item 60K training images, 10K test images
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Neural network architecture for MNIST}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-4}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Eq10-10}
+\includegraphics[width = \textwidth, align = c]{Eq10-11}
+\InstructorList{
+  \item Two hidden layers. $L_1$ has 256 units; $L_2$ has 128
+	\item 10 output variables due to class labeling
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{More on that architecture}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-4}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Eq10-10}
+\includegraphics[width = \textwidth, align = c]{Eq10-11}
+\InstructorList{
+  \item Superscript denotes layer
+	\item $W_1$ denotes entire matrix of weight
+	\item In this setting, size is $785 \times 256 = 200,960$ values
+	\item 785 instead of 784 to involve intercept term (called bias in this literature)
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{The last column}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig10-4}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Eq10-12}
+\includegraphics[width = \textwidth, align = c]{Eq10-13}
+\InstructorList{
+  \item Doing linear combo of inputs to get 10 different outputs
+	\item Want this to act like a probability.
+	\item Answer is to use the softmax activation function $f_m(X)$
+	\item Values are non-negative and sum to 1
+	\item Return class with highest probability
+}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Results}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = .5\textwidth, align = c]{Fig10-3}
+\includegraphics[width = \textwidth, align = c]{Table10-1}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Bottom two are previously covered
+	\item Dramatic increase with neural nets
+	\item Dropout regularization covered later..... maybe we won't get there
+	\item Number of coefficients to train in $W_1$, $W_2$, and $B$ is 235,146; more than 33 times number needed for multinomial logistic regression
+	\item $p \approx 4 n$, so need to avoid overfitting
+	\item Regularization is important, but we won't get to that.
+
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+%==========
+\section{Convolutional Neural Network }
+%==========
+
+\begin{frame}[t]{CIFAR100 Data}
+
+	\centering
+\includegraphics[width = .6\textwidth, align = c]{Fig10-5}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item 60,000 images: 50K training, 10K  test
+	\item Labels with 20 super classes (e.g.~aquatic mammals)
+	\item 5 classes per super class (beaver, dolphin, otter, seal, whale)
+	\item Images are 32x32
+}
+
+\column{.45\textwidth}
+\centering
+\footnotesize
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Image channel data}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+	\item 3 eight bit numbers per pixel (red, green, blue)
+	\item Numbers are organized in a \textit{feature map} , which is 3 dimensional array
+	\item First two directions are spatial (32x32)
+	\item Third is the \textit{channel} axis representing teh three colors
+}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = .5\textwidth]{Fig10-8-onlychannels.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{CNNs}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Idea is to build a neural net that works on this data
+	\item Identify low level features on the input image such as small edges, patches of color, etc
+	\item Low level features combined into higher-level features (parts of ears, eyes, etc)
+	\item Does this using special types of hidden layers: \textit{convolution} layers and \textit{pooling layers}
+}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-6}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Convolution layer }
+	{Convolution Filter}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Original Image:
+\begin{equation*}
+	\begin{bmatrix}
+		a & b & c\\
+		d & e & f \\
+		g & h & i\\
+		j & k & l
+	\end{bmatrix}
+\end{equation*}
+
+Convolution filter:
+\begin{equation*}
+	\begin{bmatrix}
+		\alpha & \beta \\
+		\gamma & \delta
+	\end{bmatrix}
+\end{equation*}
+\column{.45\textwidth}
+\centering
+Convolved Image
+\includegraphics[width = \textwidth, align = c]{CNN-ConvolvedImage.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Convolution Filter Example}
+
+\begin{columns}
+\column{.25\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{CNN-examplematrix}
+% \includegraphics[width = .5\textwidth, align = c]{CNN-examplematrix-Mask}
+
+Filter:
+\begin{equation*}
+	\begin{bmatrix}
+		0 & 1 \\
+		0 & 1
+	\end{bmatrix}
+\end{equation*}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+\item $\begin{bmatrix}
+	1 & 3 \\
+	0 & 3
+\end{bmatrix}$
+\item Convolved image highlights regions that resemble the convolution filter.
+\item Note that the result is smaller than original
+}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Convolution filter: Bigger example}
+
+	\centering
+\begin{columns}
+\column{.6\textwidth}
+\centering
+	\includegraphics[width = \textwidth, align = c]{Fig10-7}
+
+\column{.35\textwidth}
+\centering
+\InstructorList{
+  \item 192x179 image of tiger
+	\item Convolution filters are 15x15 images with mostly zero (black) narrow strip of ones (white)
+	\item Highlights areas of the tiger that resemble the filter
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{More notes on convolution}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Filters idea from image processing
+	\item Novelty in DL is that the choice of filters are learned
+	\item Filter weights: one hidden unit per pixel in convolved image; but more constrained than that
+}
+
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Image is in color, so 3 channels
+	\item This means the convolution filter will have three channels, one per color, each of dimension 3x3
+	\item Results are summed to form a 2-dimensional output. Color is "forgotton" at this point
+	\item $K$ different filters here means $K$ 2-d output maps, which can then be treated as channels
+	\item Applying ReLU to convolved image. Sometimes viewed as separate layer in CNN, and then called a detector layer.
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Pooling layers}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Condense a large image into a smaller summary image
+	\item Lots of options, but max pooling is common:
+	\item For each 2x2 non-overlapping block of pixels, get a single new pixel with the maximum value from the block
+	\item Provides location invariance: so long as large value in one of the four pixels, the whole block registers as a large value
+}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Eq10-3-2.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Putting it together to make a CNN}
+
+\includegraphics[width = \textwidth, align = c]{Fig10-8}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\footnotesize
+\InstructorList{
+  \item Start with three channels
+	\item get a new channel at first hidden layer for each filter. Padding to keep the same size
+	\item Next is max pool layer,
+	\item convolve \& pool several more times
+	\item Since size of image decreased, we increase number of filters in the next convolve layer to compensate
+	% \item Can repeat several convolves before pool, this effectively increases the dimension fo the feature
+}
+
+\column{.45\textwidth}
+\centering
+\footnotesize
+\InstructorList{
+  \item After this, the maps are flattened (treated as separate units )
+	\item Fed into 1 or more fully-connected layers
+	\item Last is softmax activation for the 100 classes
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+%======================
+
+
+\begin{frame}[t]{TL;DR}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Feed Forward Neural Net}
+\includegraphics[width = .5\textwidth, align = c]{Fig10-4}
+\includegraphics[width = \textwidth, align = c]{Eq10-2}
+
+\begin{itemize}
+	\item Combines input data using learned weights
+	\item Linear combo of those to get output
+	\item Sometimes softmax to get probability of classification
+\end{itemize}
+
+\column{.45\textwidth}
+\centering
+\textbf{CNN}
+\includegraphics[width = \textwidth, align = c]{Fig10-8}
+
+\begin{itemize}
+	\item Specialized NN
+	\item Gets next layer via
+	\begin{itemize}
+		\item Convolution layer
+		\item Pooling Layer
+		\item Fully connected layerw
+	\end{itemize}
+\end{itemize}
+
+\end{columns}
+
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Next time}
+
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\textbf{Next time:}
+
+\begin{itemize}
+	\item More Neural nets:
+	\item Remainder of 10.3: CNNs
+	\item 10.4: Document classification
+	\item 10.5: Recurrent Neural Nets
+\end{itemize}
+
+\column{.45\textwidth}
+\centering
+
+\textbf{This week:}
+
+	\begin{itemize}
+	\item Mon 4/18: 10.1-3
+	\item Weds 4/20: 10.4-5
+	\item Fri 4/22: Lab: 10.9
+	\begin{itemize}
+		\item HW \#10 Due Friday
+	\end{itemize}
+	\item Week of 4/25: Ch 12 Clustering
+	\item Final: May 4, 5:45 - 7:45 PM, Erickson 226
+
+	\end{itemize}
+	\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

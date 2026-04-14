@@ -1,0 +1,650 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 8.1: Decision Trees}
+\subtitle{Lecture 24 - CMSE 381}
+\date{Fri, Oct 31, 2025}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+		\item Cubic Splines
+	\end{itemize}
+
+	\vspace{.2in}
+
+	\textbf{This lecture:}
+	\begin{itemize}
+	\item 8.1 Decision Trees
+\end{itemize}
+
+\textbf{Announcements:}
+	\begin{itemize}
+	\item HW \#6 due Sunday (11/2)
+	\item HW \#7 due 11/9
+
+	\end{itemize}
+
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Schedule-F25-3.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{What will you learn today?}
+\begin{itemize}
+	\item How does a decision tree make decisions?
+		\begin{itemize}
+			\item Given a tree and a data point with multiple predictors $(x_1, x_2,\cdots, x_p)$, you should be able to derive what the predicted outcome $\hat{y}$ should be.
+			\item You should be able to do this for both regression and classification decision trees.
+		\end{itemize}
+	\item What are different parts of a decision tree called? What do they represent?
+		\begin{itemize}
+			\item You should be able to point out what are: leaves (terminal nodes), internal nodes, branches/edges.
+			\item Given a simple example (e.g., two predictors), you should be able to point out which region in the predictor space map to which leave.
+		\end{itemize}
+	\item How do you fit a decision tree?
+		\begin{itemize}
+			\item What is the cost function for regression and classification tree respectively?
+			\item How does recursive binary splitting work?
+			\item How does it end?
+		\end{itemize}
+	\item What meta-parameter of decision trees determine their flexibility?
+	\item Why do you need to prune the tree?
+	\item What are the advantages and disadvantages of using decision trees vs. linear regression?
+\end{itemize}
+\end{frame}
+
+
+%==========
+\section{Decision Trees}
+%==========
+
+\begin{frame}[t]{Big idea}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item Previously, we've always had some form of function for prediction: $f(X_1,\cdots, X_p) = \hat Y$
+  \item Now, we make a sequence of decisions to make a prediction, either regression or classification version 
+  \item remind them regression means the outcome is quantitative, classification qualitative
+  \item (at some point could mention this is more similar to step function fitting)
+}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[align = c, width = \textwidth]{binarytree-faces-w800}
+
+\tiny 
+Image: \url{https://marekbennett.com/2014/02/14/decision-tree/}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Subset of Hitters data}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Hitters-TreeSlides.png}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Remove observations missing salary values
+	\item log transform salary for something closer to bell shape
+	\item Goal: predict log salary (can reverse by returning $\exp(x)$ if model returns $x$)
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{First decision tree example}
+
+\begin{columns}
+\column{.25\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Hitters-TreeSlides-OnlyLog.png}
+\column{.35\textwidth}
+\footnotesize
+\InstructorList{
+  \item Top split assigns observations with $Years<4.5$ (in major leagues) to left branch
+	\item Return mean response for players with that.
+	\item Predictions:
+	\InstructorList{
+	  \item  mean log salary is 5.107, so returns $\exp(5.107) = \$165.174 $ thousand dollars
+		\item $5.999 \Rightarrow \$402,834$
+		\item $6.740 \Rightarrow \$845,346$
+	}
+}
+
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-1}
+
+Test your understand: \href{https://PollEv.com/clickable_images/DxwhV9Py53bJKbgeJV2gZ/respond}{PollEv}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+
+
+\begin{frame}[c]{Interpretation of example}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig8-1}
+
+
+
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Years most important factor for determining salary
+	\item Players with less experience earn lower salaries than more experienced
+	\item For the less experienced players, number of hits plays little role in salary
+	\item For more experienced players, number of hits affects it
+	\item Likely an oversimplification of real relationship, but easier to interpret and has nice graphical representation
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding a regression decision tree}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Regions defined by the tree}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-1}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item Point out tree is "upside down"
+\item Leaves (terminal nodes) of the tree:
+\InstructorList{
+  \item $R_1 = \{X \mid Years<4.5\}$
+	\item $R_2 = \{X \mid Years >= 4.5, Hits <117.5\}$
+	\item $R_3 = \{X \mid Years >= 4.5, Hits >=117.5\}$
+}
+\item Other splits are called Internal Nodes
+\item Segments that connect nodes called Branches or Edges
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Viewing Regions Defined by Tree}
+
+	\begin{columns}
+	\column{.35\textwidth}
+	\centering
+	\includegraphics[width = \textwidth, align = c]{Fig8-1}
+	\column{.45\textwidth}
+	\centering
+	
+	\includegraphics[width = \textwidth, align = c]{Fig8-2}
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+\begin{frame}[c]{How do we actually get the tree? Two steps}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{enumerate}
+	\item We divide the predictor space -- that is, the set of possible values for $X_1 , X_2 , \cdots , X _p$ --- into $J$ distinct and non-overlapping regions, $R_1 , R_2 , \cdots, R_J $.
+	\item For every observation that falls into the region $R_j$, we make the same prediction $=$ the mean of the response values for the training observations in $R_j $.
+\end{enumerate}
+\InstructorNotes{Here's probably a good place to mention the parallel with step function.}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-3b}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}[c]{Step 1: How do we decide on $R_j$s?}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Goal:}
+
+Find boxes $R_1,\cdots,R_J$ that minimize
+
+\begin{equation*}
+	\sum_{j=1}^J \sum_{i \in R_j} (y_i-\hat y_{R_j})^2
+\end{equation*}
+$\hat y_{R_j} = $ mean response for training observations in $j$th box
+
+\column{.45\textwidth}
+\centering
+\InstructorList{
+	\item cost is just RSS
+  \item Can't actually check every possible partition
+	\item Instead, go for top-down greedy approach called \textit{Recursive binary splitting}
+	\item Begins at top of tree with all data points
+	\item Uses best split at every step
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Recursive Binary Splitting}
+
+\begin{columns}
+\column{.45\textwidth}
+One split:
+
+\centering
+\begin{itemize}
+	\item Pick $X_j$ and cutpoint $s$ 
+  \item so that splitting into $\{X \mid X_j < s\}$ and $\{X \mid X_j \geq s\}$ results in largest possible reduction in RSS
+\end{itemize}
+
+\InstructorNotes{Note here we look at all combos of Xj and s for each split of the tree.}
+\column{.45\textwidth}
+\centering
+\begin{align*}
+	R_1(j,s) = \{X \mid X_j < s\}\\
+	R_2(j,s) = \{X \mid X_j \geq s\}\\
+\end{align*}
+\begin{equation*}
+	\sum_{i \mid x_i \in R_1(j,s)}(y_i - \hat y _{R_1})^2
+	+
+	\sum_{i \mid x_i \in R_2(j,s)}(y_i - \hat y _{R_2})^2
+\end{equation*}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Rinse and repeat}
+
+\begin{columns}
+\column{.25\textwidth}
+\centering
+\InstructorList{
+  \item Do this repeatedly
+	\item Each time can split one of the previously identified regions
+	\item Keep going until some stopping criterion is reached. E.g. until each region has at most 5 observations
+}
+
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-3c}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-3b}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Pruning}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-4}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Big trees leave you open to potential overfitting
+	\item Could just stop building earlier, but that's short sighted
+	\item Instead, grow a big tree and prune it back
+	\item Find subtree with best test error rate
+	\item Too many subtrees to test them all
+}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+% \begin{frame}[c]{Weakest Link Pruning }
+% 	{Also called Cost complexity pruning}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+
+% For every $\alpha$, there is a subtree $T$ that minimizes:
+% \begin{equation*}
+% 	\sum_{m=1}^{|T|} \sum_{i \mid x_i \in R_m } (y_i - \hat y_{R_m})^2 + \alpha |T|
+% \end{equation*}
+
+% \begin{itemize}
+% 	\item $|T| = $ number of terminal nodes of $T$
+% 	\item $R_m$ is rectangle for $m$th terminal node
+% 	\item $\hat y_{R_m}$ is mean of training observations in $R_m$
+% \end{itemize}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item $\alpha=0$ gets entire tree
+% 	\item Increasing $\alpha$ penalizes size of tree
+% 	\item Branches pruned from tree in nested and predictable fashion
+% 	\item Easy to get trees for all vales of $\alpha$
+% 	\item Pick $\alpha $ via CV
+% }
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[c]{Algorithm version}
+
+% \begin{columns}
+% \column{.65\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Alg8-1}
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+
+\begin{frame}[c]{Result of pruning}%{Messing with $\alpha$}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-5}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = .49\textwidth, align = c]{Fig8-4}
+\includegraphics[width = .49\textwidth, align = c]{Fig8-1}
+\end{columns}
+
+\InstructorNotes{Result of pruning is the three leaf tree on the right. This example technically uses a more complex pruning method than the one described in the slides, but the general idea is the same.}
+\end{frame}
+%--- Next Frame ---%
+
+%==========
+\section{Classification Decision Tree}
+%==========
+
+\begin{frame}[c]{Basic idea}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-6c}
+
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item $\hat p_{mk} = $ proportion of training observations in $R_m$ from the $k$th class
+	\item $E = 1-\max_{k}(\hat p_{mk})$
+	\InstructorNotes{Fraction of training observations not in the most common class }
+\end{itemize}
+\InstructorList{
+\item Example from heart data
+\item Can't use RSS, need error rate
+  \item Could decide splits by classification error rate
+	\item Not necessarily the best, you can use other options but I'm going to skip that. 
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+% \begin{frame}[t]{Gini index}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \begin{equation*}
+% 	G = \sum_{k=1}^K \hat p_{mk} (1-\hat p_{mk})
+% \end{equation*}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item Measure of total variance across $K$ classes
+% 	\item small value if all $\hat p _{mk}$'s close to zero or 1
+% 	\item Small value means node contains mostly observations from one class
+% }
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Entropy }
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \begin{equation*}
+% 	D = - \sum_{k=1}^K \hat p_{mk} \log \hat p _{mk}
+% \end{equation*}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item Positive because $0 \leq \hat p_{mk} \leq 1$
+% 	\item Near zero if $\hat p_{mk}$ all near 0 or near 1
+% 	\item Small value if $m$th node has majority one class
+% }
+
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Example}
+
+\begin{columns}
+\column{.75\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-6a}
+
+\end{columns}
+
+\InstructorNotes{The terminal nodes here: Yes = person has heart disease, No = no heart disease}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Pruning the example }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-6b}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-6c}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{More coding!}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+\begin{frame}[c]{Linear models vs trees }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-7-top}
+\InstructorNotes{Obviously linear does better here}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-7-bottom}
+\InstructorNotes{Not going to beat this case though}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Pros/Cons}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\textbf{Pros:}
+
+\InstructorList{
+  \item Trees are very easy to explain to people. Often easier to explain than linear regression!
+% \item Some people believe that decision trees more closely mirror human decision-making than do the regression and classification approaches seen in previous chapters.
+\item Trees can be displayed graphically, and are easily interpreted even by a non-expert (especially if they are small).
+\item  Trees can easily handle qualitative predictors without the need to create dummy variables.
+}
+
+
+\column{.45\textwidth}
+\centering
+
+\textbf{Cons:}
+
+\InstructorList{
+  \item Not as accurate as other methods of classification and regression
+	\item Not robust: small change in data can cause large change in estimated tree
+	\item Fix..... aggregate many decision trees
+}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{TL;DR}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\begin{itemize}
+	\item Split into regions by greedily decreasing RSS
+	\item Prune tree by using cost complexity
+	\item Not robust - Next time, figure out how to aggregate trees
+\end{itemize}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-1}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-2}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Next time}
+
+\includegraphics[align = c, width = .5\textwidth]{Schedule-F25-3.png}
+
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

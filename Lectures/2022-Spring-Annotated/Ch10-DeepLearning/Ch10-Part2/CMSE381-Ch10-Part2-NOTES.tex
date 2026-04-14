@@ -1,0 +1,803 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 10.3 - 10.6: More Neural Nets}
+\subtitle{Lecture 26 - CMSE 381}
+\date{Wed, Apr 20, 2022}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Munch]{Prof.~Elizabeth Munch}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements }
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+	\item Feed Forward Neural Nets
+	\item CNNs
+	\end{itemize}
+
+	\vspace{.2in}
+
+	\textbf{This lecture:}
+	\begin{itemize}
+		\item More CNNs
+		\item What else?
+\end{itemize}
+
+
+\column{.55\textwidth}
+\centering
+
+\textbf{Announcements:}
+	\begin{itemize}
+	\item Mon 4/18: 10.1-3
+	\item Weds 4/20: 10.4-5
+	\item Fri 4/22: Lab: 10.9
+	\begin{itemize}
+		\item HW \#10 Due Friday
+	\end{itemize}
+	\item Week of 4/25: Ch 12 Clustering
+	\item Final: May 4, 5:45 - 7:45 PM, Erickson 226
+
+	\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+%==========
+\section{Last Time}
+%==========
+
+\begin{frame}[t]{Feed Forward Neural Network: The cartoon}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-1}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Input layer
+	\item Hidden Layer
+	\item Hidden Units
+
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}[t]{A very simple example}
+\centering
+\includegraphics[width = .4\textwidth, align = c]{Eq10-2}
+\qquad
+$\displaystyle{f(X) = \beta_0 + \sum_{k=1}^K \beta_k A_k}$
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex}
+\column{.25\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex-Input10}
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex-Input10-Soln}
+\column{.25\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex-Input01}
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex-Input01-Soln}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Multilayer Neural network architecture for MNIST}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-4}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Eq10-10}
+\includegraphics[width = \textwidth, align = c]{Eq10-11}
+\includegraphics[width = \textwidth, align = c]{Eq10-12}
+\includegraphics[width = \textwidth, align = c]{Eq10-13}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Choices for activation function }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Sigmoid:
+\begin{equation*}
+	g(z) = \frac{e^z}{1+e^z} = \frac{1}{1+e^{-z}}
+\end{equation*}
+\includegraphics[width = \textwidth]{DL-sigmoid}
+\InstructorList{
+  \item Converts linear function in probabilities in [0,1]
+}
+
+\column{.45\textwidth}
+\centering
+ReLU: Rectified linear unit
+\begin{equation*}
+	g(z) = (z)_+ =
+	\begin{cases}
+		0 & \text{if }z<0 \\
+		z & \text{else.}
+	\end{cases}
+\end{equation*}
+\includegraphics[width = \textwidth]{DL-ReLU}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Now what?}
+Choose parameters by minimizing RSS, $\sum_{i=1}^n(y_i - f(x_i))^2$
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Chosen in advance:}
+\InstructorList{
+  \item Number of layers (more on that in a moment)
+	\item Number of hidden units
+	\item Activation function $g(z)$
+}
+
+
+\column{.45\textwidth}
+\centering
+\textbf{Tuned by the model:}
+\InstructorList{
+  \item $\omega$
+	\item $\beta$
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=====
+\section{Convolutional Neural Network}
+%=====
+
+
+\begin{frame}[t]{CIFAR100 Data}
+
+	\centering
+\includegraphics[width = .6\textwidth, align = c]{Fig10-5}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+  \item 60,000 images: 50K training, 10K  test
+	\item Labels with 20 super classes (e.g.~aquatic mammals)
+	\item 5 classes per super class (beaver, dolphin, otter, seal, whale)
+	\item Images are 32x32
+\end{itemize}
+
+\column{.45\textwidth}
+\centering
+\footnotesize
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Image channel data}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\begin{itemize}
+	\item 3 eight bit numbers per pixel (red, green, blue)
+	\item Numbers are organized in a \textit{feature map} , which is 3 dimensional array
+	\item First two directions are spatial (32x32)
+	\item Third is the \textit{channel} axis representing the three colors
+\end{itemize}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = .5\textwidth]{Fig10-8-onlychannels.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{CNNs}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+  \item Idea is to build a neural net that works on this data
+	\item Identify low level features on the input image such as small edges, patches of color, etc
+	\item Low level features combined into higher-level features (parts of ears, eyes, etc)
+	\item Does this using special types of hidden layers: \textit{convolution} layers and \textit{pooling layers}
+\end{itemize}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-6}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Convolution layer }
+	{Convolution Filter}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Original Image:
+\begin{equation*}
+	\begin{bmatrix}
+		a & b & c\\
+		d & e & f \\
+		g & h & i\\
+		j & k & l
+	\end{bmatrix}
+\end{equation*}
+
+Convolution filter:
+\begin{equation*}
+	\begin{bmatrix}
+		\alpha & \beta \\
+		\gamma & \delta
+	\end{bmatrix}
+\end{equation*}
+\column{.45\textwidth}
+\centering
+Convolved Image
+\includegraphics[width = \textwidth, align = c]{CNN-ConvolvedImage.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Convolution Filter Example}
+
+\begin{columns}
+\column{.25\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{CNN-examplematrix}
+% \includegraphics[width = .5\textwidth, align = c]{CNN-examplematrix-Mask}
+
+Filter:
+\begin{equation*}
+	\begin{bmatrix}
+		0 & 1 \\
+		0 & 1
+	\end{bmatrix}
+\end{equation*}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+\item $\begin{bmatrix}
+	1 & 3 \\
+	0 & 3
+\end{bmatrix}$
+\item Convolved image highlights regions that resemble the convolution filter.
+\item Note that the result is smaller than original
+}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Convolution filter: Bigger example}
+
+	\centering
+\begin{columns}
+\column{.6\textwidth}
+\centering
+	\includegraphics[width = \textwidth, align = c]{Fig10-7}
+
+\column{.35\textwidth}
+\centering
+\InstructorList{
+  \item 192x179 image of tiger
+	\item Convolution filters are 15x15 images with mostly zero (black) narrow strip of ones (white)
+	\item Highlights areas of the tiger that resemble the filter
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{More notes on convolution}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Filters idea from image processing
+	\item Novelty in DL is that the choice of filters are learned
+	\item Filter weights: one hidden unit per pixel in convolved image; but more constrained than that
+}
+
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Image is in color, so 3 channels
+	\item This means the convolution filter will have three channels, one per color, each of dimension 3x3
+	\item Results are summed to form a 2-dimensional output. Color is "forgotton" at this point
+	\item $K$ different filters here means $K$ 2-d output maps, which can then be treated as channels
+	\item Applying ReLU to convolved image. Sometimes viewed as separate layer in CNN, and then called a detector layer.
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Pooling layers}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Condense a large image into a smaller summary image
+	\item Lots of options, but max pooling is common:
+	\item For each 2x2 non-overlapping block of pixels, get a single new pixel with the maximum value from the block
+	\item Provides location invariance: so long as large value in one of the four pixels, the whole block registers as a large value
+}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Eq10-3-2.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Putting it together to make a CNN}
+
+\includegraphics[width = \textwidth, align = c]{Fig10-8}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\footnotesize
+\InstructorList{
+  \item Start with three channels
+	\item get a new channel at first hidden layer for each filter. Padding to keep the same size
+	\item Next is max pool layer,
+	\item convolve \& pool several more times
+	\item Since size of image decreased, we increase number of filters in the next convolve layer to compensate
+	% \item Can repeat several convolves before pool, this effectively increases the dimension fo the feature
+}
+
+\column{.45\textwidth}
+\centering
+\footnotesize
+\InstructorList{
+  \item After this, the maps are flattened (treated as separate units )
+	\item Fed into 1 or more fully-connected layers
+	\item Last is softmax activation for the 100 classes
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Data Augmentation}
+
+	\includegraphics[width = \textwidth]{Fig10-9}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item Replicate training image many times
+	\item each time randomly distorted in a natural way that doesn't affect human recognition
+}
+
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Results on pretrained classifier: \texttt{resnet50}}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig10-10}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item Trained on \textit{imagenet} data set
+	\item Millions of images
+	\item At left, shows top three categories for the images
+	\item Note when hawk is zoomed out, labels as fountain
+	\item Cape weaver is classified as a different tropical bird, jacamar
+	\item One tool: use some pretrained layers, and then train the last on your particular data
+}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+%=====
+\section{Recurrent Neural Network}
+%=====
+\begin{frame}[t]{Sequential input data }
+
+\begin{columns}
+\column{.75\textwidth}
+\centering
+\begin{itemize}
+	\item Documents: Sequence and relative positions of words in a document
+	\item Time series: Temperature, rainfall, wind speed, air quality
+	\item Financial time series
+	\item Audio: Recorded speech, musical recordings
+
+\end{itemize}
+
+
+
+\end{columns}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig10-16}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig-DL-Review-10-4.png}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Recurrent Neural Network Architecture }
+
+	\centering
+\includegraphics[width = .6\textwidth]{Fig10-12}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item Input: sequence $X = (X_1,\cdots,X_L)$
+	\item Each $X_\ell$ is vector; e.g.~one-hot encoding for $\ell$th word based on language dictionary
+	\item Ex: words in IMDb Review
+}
+
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+	\item Output: Label such as good/bad review
+  \item At each step, take previous $A_i$ and new $X_{i+1}$ to update $A$
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{RNN - Notation}
+
+		\centering
+	\includegraphics[width = .6\textwidth]{Fig10-12}
+
+\begin{columns}
+\column{.3\textwidth}
+
+Notation:
+\begin{itemize}
+	\item
+$X_\ell = (X_{\ell 1}, \cdots, X_{\ell p})$
+\item $A_\ell = (A_{\ell 1}, \cdots, A_{\ell K})$
+\end{itemize}
+
+\column{.3\textwidth}
+Weights:
+\begin{itemize}
+	\item $\mathbf{W}$: $K \times (p+1)$ matrix
+	\InstructorNotes{ same for each elt in sequence}
+	\item $\mathbf{B}$: $K+1$ vector
+	\InstructorNotes{for output layer}
+\end{itemize}
+
+
+\column{.3\textwidth}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{RNN - Equations}
+
+		\centering
+	\includegraphics[width = .6\textwidth]{Fig10-12}
+
+\begin{columns}
+\column{.5\textwidth}
+
+
+\includegraphics[width = \textwidth]{Eq10-16}
+\column{.25\textwidth}
+\includegraphics[width = \textwidth]{Eq10-17}
+
+
+
+
+\end{columns}
+
+Final loss function: $(Y-O_L)^2$
+\InstructorNotes{Means $O_1,\cdots,O_{L-1}$ ignored}
+\end{frame}
+%--- Next Frame ---%
+
+
+
+%=====
+\section{When to use deep learning}
+%=====
+\begin{frame}[t]{Many successes}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item CNNs on image classification tasks
+	\begin{itemize}
+	\item Machine diagnosis of mammograms or digital X-ray images,
+	\item ophthalmology eye scans
+	\item annotations of MRI scans
+	\end{itemize}
+	\item RNNs
+	\begin{itemize}
+		\item
+speech and language translation,
+\item forecasting
+\item document modeling
+	\end{itemize}
+\end{itemize}
+\column{.45\textwidth}
+\centering
+\begin{block}
+	{Question:}
+	Should we discard all our older tools, and use deep learning on every 	problem with data?
+\end{block}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Occam's Razor}
+
+	\bvfill
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{block}{Occam's Razor}
+When faced with competing theories or explanations, the simpler one is to be preferred.
+\end{block}
+
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth]{William_of_Ockham_-_Logica_1341}
+William of Ockham, (circa 1287–1347)
+
+\end{columns}
+
+\bvfill
+\footnotesize
+Image: Wikipedia
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Example on \texttt{Hitters} data}
+\centering
+\textit{Predict salary of baseball player in 1987 from data in 1986}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+
+	\item Linear model with 20 parameters
+	\item Linear model with Lasso regularization. Selected model with 12 varaibles having non-zero coefficients.
+	\item NN, one hidden layer, 64 ReLU units. 1,409 parameters.
+	}
+
+\column{.45\textwidth}
+
+\InstructorList{
+  \item Notice that basically equivalent results on all three.
+	\item In this case, choose the least complicated model
+}
+
+\centering
+\end{columns}
+\includegraphics[width = .8\textwidth]{Table10-2}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Cases where deep learning is prefered}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item Lots of data
+	\item Interpretability is not a high priority
+	\item Simpler options don't work
+}
+
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+%======================
+
+
+\begin{frame}[t]{TL;DR}
+
+\begin{columns}
+\column{.55\textwidth}
+\centering
+\textbf{Feed Forward Neural Net}
+\includegraphics[width = .5\textwidth, align = c]{Fig10-4}
+
+\textbf{CNN}
+\includegraphics[width = \textwidth, align = c]{Fig10-8}
+
+\column{.35\textwidth}
+\centering
+
+\textbf{RNN}
+\includegraphics[width = \textwidth]{Fig10-12}
+
+\end{columns}
+
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Next time}
+
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\textbf{Next time:}
+
+\begin{itemize}
+	\item More Neural nets:
+	\item Remainder of 10.3: CNNs
+	\item 10.4: Document classification
+	\item 10.5: Recurrent Neural Nets
+\end{itemize}
+
+\column{.45\textwidth}
+\centering
+
+\textbf{This week:}
+
+	\begin{itemize}
+	\item Mon 4/18: 10.1-3
+	\item Weds 4/20: 10.4-5
+	\item Fri 4/22: Lab: 10.9
+	\begin{itemize}
+		\item HW \#10 Due Friday
+	\end{itemize}
+	\item Week of 4/25: Ch 12 Clustering
+	\item Final: May 4, 5:45 - 7:45 PM, Erickson 226
+
+	\end{itemize}
+	\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

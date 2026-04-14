@@ -1,0 +1,2 @@
+\beamer@sectionintoc {1}{Last time: Neural Nets}{3}{0}{1}
+\beamer@sectionintoc {2}{Convolutional Neural Network }{8}{0}{2}

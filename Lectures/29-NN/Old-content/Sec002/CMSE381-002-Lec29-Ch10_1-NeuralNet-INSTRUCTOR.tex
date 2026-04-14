@@ -1,0 +1,690 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 10.1: Neural Nets}
+\subtitle{Lecture 29 - CMSE 381}
+\date{Wed, Nov 12, 2025}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+	\item SVM 
+	\end{itemize}
+
+	\vspace{.2in}
+
+	\textbf{This lecture:}
+	\begin{itemize}
+		\item Feed Forward Neural Nets
+\end{itemize}
+
+\textbf{Announcements:}
+	\begin{itemize}
+	\item Homework \#9 due Sunday, 11/23 11:59pm
+	\item Review class next Friday - start thinking about questions!
+	% \item detailed project content \href{https://docs.google.com/spreadsheets/d/1FeZWwE5kAXY_cZkUio5WYHuqFxhnAlp7EBE8zQQs1-Y/edit?usp=sharing}{rubrics}
+	% \item No class wednesday 4/16. Virtual office hours.
+
+	\end{itemize}
+
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Schedule-F25-3.png}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{What will you learn today?}
+\begin{itemize}
+\item What is the architecture of simple feed-forward neural network?
+	\begin{itemize}
+	\item You should be able to describe what happens at each layer (e.g., input layer, hidden layer, output layer) conceptually and mathematically. 
+	\end{itemize}
+\item What is activation? What types of activation functions are there?
+	\begin{itemize}
+	\item You should be able to explain it mathematically. 
+	\item Given example inputs and weights from the previous matrix, you should be able to calculate the activation $A$ by hand (with the help of a calculator).
+	\end{itemize}
+\item How does a simple feed-forward neural network produce an output?
+	\begin{itemize}
+	\item Given a $\beta$ matrix and activation from the previous layer, you should be able to calculate the output by hand. 
+	\end{itemize}
+\item What do the fitted parameters minimize in a simple feed-forward neural network?
+\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+%==========
+\section{Neural Nets}
+%==========
+
+\begin{frame}[t]{The idea}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Draw input of vector $p$ variables $X = (X_1,\cdots,X_p)$
+	\item Draw black box nonlinear function $f(X)$
+	\item Spit out response prediction $Y$
+	\\
+	\item We've had nonlinear stuff before like trees, boosting, GANs
+	\item Difference here is the structure
+}
+
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Feed Forward Neural Network: The cartoon}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-1}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Input layer is starting data $X_i$
+  \item hidden layer receive inputs from input layer, converted into Activations $A_k$
+	\item Each arrow means taking combo of those values with weights to get next value
+	\item Here there is one hidden layer then the output
+	\item Get to pick how many hidden units $K$, here we have $K=5$
+}
+
+\end{columns}
+
+\end{frame}
+
+%--- Next Frame ---%
+\begin{frame}[t]{What is activation? Neuroscience 101.}
+\centering
+\includegraphics[width=0.55\textwidth]{Neuron_TransferFunction.png}
+
+Figure adapted from Fig 1 of Arsiero et al. 2007 (J of Neurosci.)
+\end{frame}
+
+%--- Next Frame ---%
+\begin{frame}[t]{A very simple example}
+	{Computing $A_k$ for $(1,0)$}
+
+
+\begin{columns}
+\column{.45\textwidth}
+\includegraphics[width = 0.9\textwidth, align = c]{Eq10-2}
+
+\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex}
+\column{.45\textwidth}
+\centering
+\InstructorNotes{
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input10}
+\includegraphics[width = .7\textwidth, align = c]{DL-simple-ex-Input10-Soln}
+}
+\InstructorList{
+  \item $A_k$ called activations
+	\item Pick an activation function $g(z)$
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{A very simple example}
+	{Computing $Y$ for $(1,0)$}
+
+
+
+\begin{columns}
+\column{.45\textwidth}
+$\displaystyle{f(X) = \beta_0 + \sum_{k=1}^K \beta_k A_k}$
+\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex}
+\column{.45\textwidth}
+\centering
+\InstructorNotes{
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input10}
+\includegraphics[width = .7\textwidth, align = c]{DL-simple-ex-Input10-Soln}
+}
+\end{columns}
+
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{A very simple example}
+	{Computing $Y$ for $(0,1)$}
+
+
+\includegraphics[width = .4\textwidth, align = c]{Eq10-2}
+\qquad
+$\displaystyle{f(X) = \beta_0 + \sum_{k=1}^K \beta_k A_k}$
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex}
+\column{.45\textwidth}
+\centering
+\InstructorNotes{
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input01}
+\includegraphics[width = .5\textwidth, align = c]{DL-simple-ex-Input01-Soln}
+}
+
+Test your understanding: \href{https://PollEv.com/multiple_choice_polls/rKLwQmbWWj3Cw7hiYaDcY/respond}{PollEv}!
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{A different example}
+\begin{columns}
+\column{.55\textwidth}
+\centering
+\begin{itemize}
+	\item Draw the diagram for a neural net with input data points with $p=3$ (i.e., $(X_1,X_2,X_3)$) and two  units in the hidden layer. 
+	\item Using the $\omega$ and $\beta$ matrices, what is the output predicted $Y$ for the point $(2,0, 1)$?
+	\begin{equation*}
+		\omega = 
+		\begin{pmatrix}
+			1 & 0 & -2  & 2\\
+			-3 & 1 & 0 & -1
+		\end{pmatrix}
+		\qquad 
+		\beta = 
+		\begin{pmatrix}
+			-1 \\
+			-2 \\
+			1
+		\end{pmatrix}
+	\end{equation*}
+	\item Use the activation function 
+\begin{equation*}
+	g(z) = (z)_+ =
+	\begin{cases}
+		0 & \text{if }z<0 \\
+		z & \text{else.}
+	\end{cases}
+\end{equation*}
+	
+\end{itemize}
+\column{.35\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Extra space}
+
+\InstructorNotes{
+	\includegraphics[align = c, width = 0.8\textwidth]{NeuralNetwork_example.jpg}	
+}
+
+\end{frame}
+}
+%--- Next Frame ---%
+\begin{frame}[t]{What if there's no activation function?}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[align = c, width = \textwidth]{NN-Example2-Architecture.jpeg}
+\begin{equation*}
+	\omega = 
+	\begin{pmatrix}
+		1 & 2 & 3  \\
+		4 & 5 & 6 
+	\end{pmatrix}
+	\qquad 
+	\beta = 
+	\begin{pmatrix}
+		-1 \\
+		-2 \\
+		1
+	\end{pmatrix}
+\end{equation*}
+\column{.45\textwidth}
+\centering
+\InstructorNotes{
+	Calculate with no activation function to show that the result is just some other linear function 
+% 
+	\includegraphics[align = c, width = \textwidth]{NN-Example2-Calc.jpeg}
+}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Choices for activation function }
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	Sigmoid:
+	\begin{equation*}
+		g(z) = \frac{e^z}{1+e^z} = \frac{1}{1+e^{-z}}
+	\end{equation*}
+	% \InstructorList{
+	%   \item Converts linear function in probabilities in [0,1]
+	% }
+
+	\includegraphics[align = c, width = \textwidth]{Sigmoid-pytorch}
+	
+	
+	\column{.45\textwidth}
+	\centering
+	ReLU: Rectified linear unit
+	\begin{equation*}
+		g(z) = (z)_+ =
+		\begin{cases}
+			0 & \text{if }z<0 \\
+			z & \text{else.}
+		\end{cases}
+	\end{equation*}
+	\includegraphics[align = c, width = \textwidth]{ReLU-pytorch}
+	\end{columns}
+	
+	\end{frame}
+
+\begin{frame}[t]{Matrix version: First layer}
+	\begin{columns}
+	\column{.25\textwidth}
+	\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex}
+	
+	\column{.65\textwidth}
+	\centering
+	\includegraphics[width = .6\textwidth, align = c]{Eq10-2}
+\begin{equation*}
+	A = g( \mathbf{W}\cdot \mathbf{X})
+	\qquad 
+	\mathbf{X}^T = (1 \; X_1\; X_2\; \cdots \; X_p)
+\end{equation*}
+	\begin{equation*}
+	\end{equation*}
+	\InstructorNotes{Caclulate out the matrix multiplication using the matrices at left to show that the equations are the same.}
+	\end{columns}
+	\end{frame}
+%-----------end frame------------
+
+\begin{frame}[t]{Matrix version: Output}
+	\begin{columns}
+	\column{.25\textwidth}
+	\centering
+\includegraphics[width = \textwidth, align = c]{DL-simple-ex}
+	
+	\column{.65\textwidth}
+	\centering
+$\displaystyle{f(X) = \beta_0 + \sum_{k=1}^K \beta_k A_k}$
+
+\begin{equation*}
+	Y = \beta \cdot \textbf{A}
+	\qquad 
+	\mathbf{A}^T = (1 \; A_1\; A_2\; \cdots \; A_K)
+\end{equation*}
+	\begin{equation*}
+	\end{equation*}
+	\end{columns}
+	\end{frame}
+%-----------end frame------------
+
+\begin{frame}[t]{Now what?}
+Choose parameters by minimizing RSS, $\sum_{i=1}^n(y_i - f(x_i))^2$
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Chosen in advance:}
+\InstructorList{
+  \item Number of layers (more on that next lecture)
+	\item Number of hidden units
+	\item Activation function $g(z)$
+}
+
+
+\column{.45\textwidth}
+\centering
+\textbf{Tuned by the model:}
+\InstructorList{
+  \item $\omega$
+	\item $\beta$
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+% %==========
+% \section{Multilayer Neural Networks}
+% %==========
+
+% \begin{frame}[t]{Multiple layers}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig10-4}
+
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item Include more layers 
+%   \item Can pick number of units per layer 
+%   \item Each layer is linear combinations of previous
+% }
+
+% \end{columns}
+% \end{frame}
+% %--- Next Frame ---%
+
+% \begin{frame}[t]{Hidden layers}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig10-4}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Eq10-10}
+% \includegraphics[width = \textwidth, align = c]{Eq10-11}
+% \InstructorList{
+%   \item Two hidden layers. $L_1$ has 256 units; $L_2$ has 128
+% 	\item 10 output variables due to class labeling
+% }
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+
+% \begin{frame}[t]{More on that architecture}
+
+% \begin{columns}
+% \column{.25\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig10-4}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Eq10-10}
+% \includegraphics[width = \textwidth, align = c]{Eq10-11}
+% \InstructorList{
+%   \item Superscript denotes layer
+% 	\item $W_1$ denotes entire matrix of weight
+% 	\item In this setting, size is $785 \times 256 = 200,960$ values
+% 	\item 785 instead of 784 to involve intercept term (called bias in this literature)
+% }
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Matrix version: First layer}
+% \begin{columns}
+% \column{.25\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig10-4}
+
+% \column{.65\textwidth}
+% \centering
+% \includegraphics[width = .6\textwidth, align = c]{Eq10-10}
+% \begin{equation*}
+% 	A^{(1)} = g( \mathbf{W}^{(1)}\cdot \mathbf{X})
+% 	\qquad 
+% 	\mathbf{X}^T = (1 \; X_1\; X_2\; \cdots \; X_p)
+% \end{equation*}
+% \begin{equation*}
+% \end{equation*}
+% \end{columns}
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Matrix version: Second layer}
+% \begin{columns}
+% \column{.25\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig10-4}
+
+% \column{.65\textwidth}
+% \centering
+% \includegraphics[width = .6\textwidth, align = c]{Eq10-11}
+% \begin{equation*}
+% 	A^{(2)} = g( \mathbf{W}^{(2)}\cdot \mathbf{A})
+% 	\qquad 
+% 	\mathbf{A}^T = (1 \; A^{(1)}_1\; A^{(1)}_2\; \cdots \; A^{(1)}_p)
+% \end{equation*}
+% \begin{equation*}
+% \end{equation*}
+% \end{columns}
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{The last column for classification}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+
+% \includegraphics[width = \textwidth, align = c]{Fig10-4}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Eq10-12}
+% \includegraphics[width = \textwidth, align = c]{Eq10-13}
+% \InstructorList{
+%   \item Doing linear combo of inputs to get 10 different outputs
+% 	\item Want this to act like a probability.
+% 	\item Answer is to use the softmax activation function $f_m(X)$
+% 	\item Values are non-negative and sum to 1
+% 	\item Return class with highest probability
+% }
+
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Matrix version: Last layer}
+% 	\begin{columns}
+% 	\column{.25\textwidth}
+% 	\centering
+% 	\includegraphics[width = \textwidth, align = c]{Fig10-4}
+	
+% 	\column{.65\textwidth}
+% 	\centering
+% 	\includegraphics[width = .6\textwidth, align = c]{Eq10-11}
+% 	\begin{equation*}
+% 		A^{(2)} = g( \mathbf{W}^{(2)}\cdot \mathbf{A})
+% 		\qquad 
+% 		\mathbf{A}^T = (1 \; A^{(1)}_1\; A^{(1)}_2\; \cdots \; A^{(1)}_p)
+% 	\end{equation*}
+% 	\begin{equation*}
+% 	\end{equation*}
+% 	\end{columns}
+% 	\end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{MNIST}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig10-3}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item Goal: Build a model to classify images into their correct digit class
+% 	\item Each image has $p=28 \cdot 28 = 784$ pixels
+% 	\item Each pixel is grayscale value in [0,255]
+% 	\item Data converted into column order
+% 	\item Output represented by one-hot vector $Y = (Y_0,Y_1,\cdots,Y_9)$
+% 	\item 60K training images, 10K test images
+% }
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Results}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = .5\textwidth, align = c]{Fig10-3}
+% \includegraphics[width = \textwidth, align = c]{Table10-1}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item Bottom two are previously covered
+% 	\item Dramatic increase with neural nets
+% 	\item Dropout regularization covered later..... maybe we won't get there
+% 	\item Number of coefficients to train in $W_1$, $W_2$, and $B$ is 235,146; more than 33 times number needed for multinomial logistic regression
+% 	\item $p \approx 4 n$, so need to avoid overfitting
+% 	\item Regularization is important, but we won't get to that.
+
+% }
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+
+
+
+%======================
+
+
+% \begin{frame}[t]{TL;DR}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \textbf{Feed Forward Neural Net}
+% % \includegraphics[width = .5\textwidth, align = c]{Fig10-4}
+% % \includegraphics[width = \textwidth, align = c]{Eq10-2}
+
+% \begin{itemize}
+% 	\item Combines input data using learned weights
+% 	\item Linear combo of those to get output
+% 	% \item Sometimes softmax to get probability of classification
+% \end{itemize}
+
+% \column{.45\textwidth}
+% \centering
+% % \textbf{CNN}
+% % \includegraphics[width = \textwidth, align = c]{Fig10-8}
+
+% % \begin{itemize}
+% % 	\item Specialized NN
+% % 	\item Gets next layer via
+% % 	\begin{itemize}
+% % 		\item Convolution layer
+% % 		\item Pooling Layer
+% % 		\item Fully connected layerw
+% % 	\end{itemize}
+% % \end{itemize}
+
+% \end{columns}
+
+
+% \end{frame}
+% %--- Next Frame ---%
+
+\begin{frame}[t]{Next time}
+
+	\includegraphics[align = c, width = .4\textwidth]{Schedule-F25-3.png}
+
+	\vspace{.2in}
+	
+	% Q of the Day: 
+
+	% What is the relationship between Neural Network and Logistic regression?
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

@@ -1,0 +1,374 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 8.2: Ensemble Tree Models}
+\subtitle{Lecture 22 - CMSE 381}
+\date{Wed, Mar 30, 2022}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Munch]{Prof.~Elizabeth Munch}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+	\item 8.1 Decision Trees
+	\end{itemize}
+
+	\vspace{.2in}
+
+	\textbf{This lecture:}
+	\begin{itemize}
+	\item
+\end{itemize}
+
+
+\column{.45\textwidth}
+\centering
+
+\textbf{Announcements:}
+	\begin{itemize}
+	\item Mon 3/28: 8.1
+	\item Weds 3/30: 8.2
+	\item Fri 4/1: Lab: 8.3
+	\begin{itemize}
+		\item HW \#8 Due Friday
+	\end{itemize}
+
+	\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+%=================
+\section{Last time}
+%=================
+
+
+
+
+\begin{frame}[c]{First decision tree example}
+
+\begin{columns}
+\column{.25\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Hitters-TreeSlides-OnlyLog.png}
+\column{.35\textwidth}
+\footnotesize
+\InstructorList{
+  \item Top split assigns observations with Years<4.5 to left branch
+	\item Return mean response for players with that.
+	\item Predictions:
+	\InstructorList{
+	  \item  mean log salary is 5.107, so returns $\exp(5.107) = \$165.174 $ thousand dollars
+		\item $5.999 \Rightarrow \$402,834$
+		\item $6.740 \Rightarrow \$845,346$
+	}
+}
+
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-1}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[c]{Viewing Regions Defined by Tree}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-1}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig8-2}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[c]{How do we actually get the tree? Two steps}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{enumerate}
+	\item We divide the predictor space -- that is, the set of possible values for $X_1 , X_2 , \cdots , X _p$ --- into $J$ distinct and non-overlapping regions, $R_1 , R_2 , \cdots, R_J $.
+	\item For every observation that falls into the region $R_j$, we make the same prediction $=$ the mean of the response values for the training observations in $R_j $.
+\end{enumerate}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-3b}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}[c]{Recursive binary splitting}
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\textbf{Goal:}
+
+Find boxes $R_1,\cdots,R_J$ that minimize
+
+\begin{equation*}
+	\sum_{j=1}^J \sum_{i \in R_j} (y_i-\hat y_{R_j})^2
+\end{equation*}
+$\hat y_{R_j} = $ mean response for training observations in $j$th box
+
+\column{.45\textwidth}
+
+Pick $s$ so that splitting into $\{X \mid X_j < s\}$ and $\{X \mid X_j \geq s\}$ results in largest possible reduction in RSS:
+\begin{align*}
+	R_1(j,s) = \{X \mid X_j < s\}\\
+	R_2(j,s) = \{X \mid X_j \geq s\}\\
+\end{align*}
+\begin{equation*}
+	\sum_{i \mid x_i \in R_1(j,s)}(y_i - \hat y _{R_1})^2
+	+
+	\sum_{i \mid x_i \in R_2(j,s)}(y_i - \hat y _{R_2})^2
+\end{equation*}
+
+\column{.2\textwidth}
+\includegraphics[width = \textwidth, align = c]{Fig8-3c}
+\includegraphics[width = \textwidth, align = c]{Fig8-3b}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[c]{Pruning}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig8-4}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Big trees leave you open to potential overfitting
+	\item Could just stop building earlier, but that's short sighted
+	\item Instead, grow a big tree and prune it back
+	\item Find subtree with best test error rate
+	\item Too many subtrees to test them all
+}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Weakest Link Pruning }
+	{Also called Cost complexity pruning}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+For every $\alpha$, there is a subtree $T$ that minimizes:
+\begin{equation*}
+	\sum_{m=1}^{|T|} \sum_{i \mid x_i \in R_m } (y_i - \hat y_{R_m})^2 + \alpha |T|
+\end{equation*}
+
+\begin{itemize}
+	\item $|T| = $ number of terminal nodes of $T$
+	\item $R_m$ is rectangle for $m$th terminal node
+	\item $\hat y_{R_m}$ is mean of training observations in $R_m$
+\end{itemize}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+  \item $\alpha=0$ gets entire tree
+	\item Increasing $\alpha$ penalizes size of tree
+	\item Branches pruned from tree in nested and predictable fashion
+	\item Easy to get trees for all vales of $\alpha$
+	\item Pick $\alpha $ via CV
+\end{itemize}
+
+\includegraphics[width = .49\textwidth, align = c]{Fig8-4}
+\includegraphics[width = .49\textwidth, align = c]{Fig8-1}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Algorithm version}
+
+\begin{columns}
+\column{.65\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Alg8-1}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Classification version}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig8-6a}
+
+\includegraphics[width = .49\textwidth, align = c]{Fig8-6b}
+\includegraphics[width = .49\textwidth, align = c]{Fig8-6c}
+\column{.45\textwidth}
+\centering
+Evaluating the splits:
+\begin{itemize}
+	\item $\hat p_{mk} = $ proportion of training observations in $R_m$ from the $k$th class
+	\item Error: $E = 1-\max_{k}(\hat p_{mk})$
+	\item Gini index:
+	\begin{equation*}
+		G = \sum_{k=1}^K \hat p_{mk} (1-\hat p_{mk})
+	\end{equation*}
+	\item Entropy:
+	\begin{equation*}
+		D = - \sum_{k=1}^K \hat p_{mk} \log \hat p _{mk}
+	\end{equation*}
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+%=====
+\section{Ensemble Tree Methods}
+%=====
+
+
+
+
+
+
+
+\begin{frame}[c]{TL:DR}
+
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+
+\begin{frame}[t]{Next time}
+
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\textbf{Next time:}
+
+\begin{itemize}
+	\item Lab: Trees
+\end{itemize}
+
+\column{.45\textwidth}
+\centering
+
+\textbf{This week:}
+\begin{itemize}
+
+	\item Mon 3/28: 8.1
+	\item Weds 3/30: 8.2
+	\item Fri 4/1: Lab: 8.3
+	\begin{itemize}
+		\item HW \#8 Due Friday
+	\end{itemize}
+\end{itemize}
+	\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

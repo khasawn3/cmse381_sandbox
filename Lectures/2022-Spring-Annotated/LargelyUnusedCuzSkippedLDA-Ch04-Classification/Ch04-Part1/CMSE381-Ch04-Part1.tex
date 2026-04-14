@@ -1,0 +1,604 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+\renewcommand{\InstructorNotes}[1]{} \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 4.1-4.3: Classification}
+\subtitle{Lecture 7 - CMSE 381}
+\date{Mon, Jan 31, 2022}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Munch]{Prof.~Elizabeth Munch}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	Last time:
+	\begin{itemize}
+		\item Lab on Linear Regression
+	\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\textbf{Announcements:}
+	\begin{itemize}
+		\item Third homework due Friday! Covers:
+		\begin{itemize}
+			\item Fri 1/28 Lab
+			\item Mon 1/31 Lecture
+			\item Weds 2/2 lecture
+		\end{itemize}
+		\item Office hours - ONLINE
+		\begin{itemize}
+			\item This week only: No OH Thursday
+		\end{itemize}
+	\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Classification basics
+	\item Logistic regression
+	\item Confounding variables
+\end{itemize}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{Classification Overview}
+%=================
+
+\begin{frame}[t]{What is classification }
+
+\begin{columns}
+\column{.45\textwidth}
+% \centering
+Classification: When the response variable is qualitative
+
+\InstructorList{
+\item qualitative: Unordered set
+\item Examples
+\InstructorList{
+\item Eye color $\in \{ brown, blue, green\}$
+\item $email \in \{ spam, not spam\}$
+}
+}
+\column{.45\textwidth}
+% \centering
+\begin{itemize}
+	\item
+Given feature vector $X$ and qualitative response $Y$ in the set $S$, the goal is to find a function (classifier) $C(X)$ taking $X$ as input and predicting its value for $Y$.
+
+	\item
+We are more interested in estimating the probabilities that X belongs to each category
+\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Some examples }
+
+\InstructorNotes{Discuss what set $Y$ comes from in each case }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Predict whether a COVID19 vaccine will work on a patient given patient's age
+	\item An online banking service wants to determine whether a transaction being performed is fraudulent on the basis of the user's IP address, past transactions, etc.
+	% \item
+
+\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Simulated \texttt{Default} data set}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig4-1a}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = .8\textwidth, align = c]{Fig4-1b}
+\tiny
+\InstructorList{
+\item 10,000 data points
+\item Individuals who defaulted shown in orange (reality is deafault rate is actualy 3\% so only a fraction of those who didn't default are plotted)
+\item Goal: function $C(balance, income) = default/not$.
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Let's just use regression!}
+	{JK that's a bad idea}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Bad idea:}
+\begin{itemize}
+	\item Set $Y$ to be a dummy variable taking values in $\{0,1,2,\cdots\}$
+	\item Run regression, and choose $k$ based on what integer value $\hat y$ is closest to
+\end{itemize}
+\column{.45\textwidth}
+% \centering
+
+Ex.
+\begin{equation*}
+	Y =
+	\begin{cases}
+		1 & \text{if stroke }\\
+		2 & \text{if drug overdose }\\
+		3 & \text{if epileptic seizure}
+	\end{cases}
+\end{equation*}
+vs.
+\begin{equation*}
+	Y =
+	\begin{cases}
+		1 & \text{if mild }\\
+		2 & \text{if moderate }\\
+		3 & \text{if severe}
+	\end{cases}
+\end{equation*}
+\end{columns}
+\InstructorNotes{Ordering implies something about closeness. Draw a number line to emphasize this distinction. }
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Bad idea is still not a great idea for two levels}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\begin{equation*}
+	Y =
+	\begin{cases}
+		0 & \text{if stroke}\\
+		1 & \text{if overdose}\\
+	\end{cases}
+\end{equation*}
+\begin{itemize}
+	\item Fit linear regression
+	\item Predict overdose if $\hat y > 0.5$; stroke otherwise
+\end{itemize}
+
+\InstructorList{
+\item Could spit out values outside of [0,1]
+\item Can't interpret this as probability
+}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item Regression methods can't accomdate qualitative response with more than two classes
+\item Doesn't provide meaningful estimates of $\Pr(Y \mid X)$ even with two classes
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=============
+\section{Logistic Regression}
+%=============
+
+\begin{frame}[c]{}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig4-1a}
+
+\column{.45\textwidth}
+Goal: Model the probability that $Y$ belongs to a particular category
+
+Ex. \\
+$\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance}) $
+\InstructorList{
+\item Use notation $p(\texttt{balance})$
+\item Choice of threshold depends on comfort with risk
+\item Note that highly contrived fake data means that largely decideable by balance, so we'll just look at that
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Approximating the probability }
+
+	\centering
+$\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance}) $
+\includegraphics[width = .8\textwidth, align = c]{Fig4-2}
+
+\InstructorList{
+\item Trying to approximate the probability with a function
+\item Issues with linear, density on the bottom over-compenasates
+\item issues going outside of the [0,1] bound
+\item Better job if we get this sharply increasing function to differentiate the boundary
+}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Logistic Regression }
+
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Let $p(X) = \Pr(Y =1 \mid X)$.
+	\item Turn this into something with range $\R$
+	\begin{equation*}
+		\ln \left( \frac{p(X)}{1-p(X)} \right)  = \beta_0 + \beta_1X
+	\end{equation*}
+	\item Called \textit{log odds}, or \textit{logit}
+	\item Solving for $p(X)$ gets
+\begin{equation*}
+	p(X) =
+	\frac{e^{\beta_0 + \beta_1X}}{1 +e^{\beta_0 + \beta_1X} }
+\end{equation*}
+\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Logistic function}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{LogisticFunction}
+\column{.45\textwidth}
+\centering
+
+\begin{equation*}
+	p(X) =
+	\frac{e^{\beta_0 + \beta_1X}}{1 +e^{\beta_0 + \beta_1X} }
+\end{equation*}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Logistic Regression }
+
+$$
+\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance})
+=
+	\frac{e^{\beta_0 + \beta_1 \texttt{balance}}}{1 +e^{\beta_0 + \beta_1\texttt{balance}} }
+$$
+
+\centering
+\includegraphics[width = .9\textwidth, align = c]{Fig4-2}
+
+Linear Regression \hspace{1.2 in} Logistic Regression
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Estimating Coefficients: Maximum Likelihood Estimation}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item
+\textbf{Likelihood:} Probability that data is generated from a model
+\begin{equation*}
+	\ell(model) = \P[data \mid model]
+\end{equation*}
+\item Find the most likely model
+\begin{equation*}
+	\max_{model} l(model)
+\end{equation*}
+\item Hard to maximize likelihood, instead maximize log
+\begin{equation*}
+	\max_{model} \log (\ell(model))
+\end{equation*}
+\item Strictly increasing log function doesn't change maximum
+\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Maximum Likelihood for Logistic Regression}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\begin{align*}
+	\Pr(Y=1 \mid X) &= p(X)\\
+	&  =
+	\frac{e^{\beta_0 + \beta_1X}}{1 +e^{\beta_0 + \beta_1X} }
+\end{align*}
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	\ell(\beta_0,\beta_1) =
+	\prod_{i \mid y_i = 1} p(x_i)
+	\prod_{i'\mid y_{i'} = 0} (1-p(x_{i'}))
+\end{equation*}
+\end{columns}
+
+\InstructorNotes{
+Choose $\hat \beta_0$ and $\hat \beta_1$ to maximize this function. Math outside the scope of class, computer magic finds it for us
+}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Default data set example}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig4-1a}
+\includegraphics[width = \textwidth, align = c]{Table4-1}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item Positive $\beta_1$ means increase in balance increases the probability of default
+\item $z$-stat is for the hypothesis test, null hypothesis is that no relationship so $H_0: \beta_1 = 0$, so
+$p(X) = \frac{e^{\beta_0}}{1+e^{\beta_0}}$.
+\item Intercept not really interesting. Purpose is to adjust avg fitted probabilities to proportion of ones in the data
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Using coefficients to make predictions }
+
+\begin{columns}
+\column{.08\textwidth}
+	\includegraphics[height = \textwidth, align = c, angle = 90]{Table4-1}
+
+
+\column{.6\textwidth}
+
+% \centering
+Estimated probability of default for someone with a balance of \$1,000:
+\includegraphics[width = \textwidth, align = c]{LogReg-ExampleA.png}
+
+\vspace{.5in}
+
+Estimated probability of default for someone with a balance of \$2,000:
+\includegraphics[width = \textwidth, align = c]{LogReg-ExampleB.png}
+
+% \column{.45\textwidth}
+% \centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Multiple Logistic Regression}
+
+\begin{columns}
+\column{.65\textwidth}
+\centering
+\textbf{Multiple features:}
+\begin{equation*}
+	p(X) = \frac{e^{\beta_0 + \beta_1X_1 + \cdots + \beta_pX_p}}{1+e^{\beta_0 + \beta_1X_1 + \cdots + \beta_pX_p}}
+\end{equation*}
+
+\textbf{Equivalent to:}
+\begin{equation*}
+	\log\left( \frac{p(X)}{1-p(X)} \right)
+	= \beta_0 + \beta_1X_1 + \cdots + \beta_pX_p
+\end{equation*}
+\includegraphics[width = \textwidth, align = c]{Table4-3}
+\column{.25\textwidth}
+\centering
+\InstructorList{
+\item Note that p-value is small for balance and student status
+\item Next slide, take a closer look at student
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Student status}
+
+\begin{columns}
+\column{.6\textwidth}
+\centering
+
+$\texttt{default} = \beta_0 + \beta_1 \cdot \texttt{student}$
+\includegraphics[width = \textwidth, align = c]{Table4-2}
+
+\qquad
+
+-vs-
+
+\qquad
+
+$\texttt{default} = \beta_0 + \beta_1 \cdot \texttt{balance} + \beta_2 \cdot \texttt{income} \cdot \beta_3 \cdot \texttt{student}$
+\includegraphics[width = \textwidth, align = c]{Table4-3}
+
+
+\column{.3\textwidth} \centering
+
+\InstructorList{
+\item Student coeff positive in one and negative in the other
+\item
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Status vs Balance}
+\textbf{Confounding variables}: affect other variables in a way that produces spurious or distorted associations between two variables.
+\begin{columns}
+\column{.28\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig4-3a}
+\column{.28\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig4-3b}
+\column{.4\textwidth}
+\centering
+
+\InstructorList{
+\item For a \textbf{fixed} value of balance and income, a student is less likely to default than a non-student (orange line below blue line)
+\item However, averaged over the whole, the blue avg is \textbf{below} the orange
+\item This causes the positive coefficient for student in single variable
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Multinomial Logistic Regression}
+
+What if we have a categorical variable with more than two levels (let's say $K$)?
+\begin{columns}
+\column{.4\textwidth}
+
+\textbf{Plan A}
+
+Play the dummy variable game:
+
+Make $K$ the baseline:
+\includegraphics[width = \textwidth]{Eq4-10}
+\includegraphics[width = \textwidth]{Eq4-11}
+
+Works like before, but need to just be careful about choice of baseline and interpretation of coefficients
+
+\column{.5\textwidth}
+\textbf{Plan B: Softmax coding}
+
+Treat all levels symmetrically
+\includegraphics[width = .8\textwidth]{Eq4-13}
+\includegraphics[width = \textwidth]{Eq4-14}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+% %----------------
+\begin{frame}[t]{Next time}
+
+	\begin{itemize}
+		\item Weds:
+		\begin{itemize}
+			\item 4.4: Generative models for classification
+		\end{itemize}
+		\item Thurs:
+		\begin{itemize}
+			\item No office hours due to conflict, send message with issue or go to other available times!
+		\end{itemize}
+
+		\item Fri:
+		\begin{itemize}
+			\item Data ethics lab
+			\item HW \#3 due. Covers:
+			\begin{itemize}
+				\item 1/28: Linear Regression Lab
+				\item 1/31: 4.1-4.3 Logstic Regression
+				\item 2/2: 4.4 Generative models
+			\end{itemize}
+		\end{itemize}
+
+
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

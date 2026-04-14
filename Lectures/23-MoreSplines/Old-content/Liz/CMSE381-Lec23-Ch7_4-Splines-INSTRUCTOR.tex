@@ -1,0 +1,523 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 7.4: Cubic splines}
+\subtitle{Lecture 23 - CMSE 381}
+\date{Fri, Nov 1, 2024}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Munch]{Prof.~Elizabeth Munch}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+		\item 7.2 Step functions 
+		\item 7.3 Basis functions
+	\end{itemize}
+
+	\vspace{.2in}
+
+	\textbf{This lecture:}
+	\begin{itemize}
+	\item 7.4 Cubic splines
+\end{itemize}
+\InstructorList{
+  \item For next time, fix this to deal with the fact that the book basis functions for cubic splines is not the same as the basis used by \texttt{scikitlearn}
+}
+
+
+\textbf{Announcements:}
+	\begin{itemize}
+		\item Homework \# 6 is  due Sunday 
+		\item Projects
+
+	\end{itemize}
+
+
+\column{.4\textwidth}
+\centering
+
+\includegraphics[width=\textwidth]{Day01-Schedule-Test3.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+%=================
+\section{Last time}
+%=================
+
+
+
+\begin{frame}[c]{Polynomial regression}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	y_i = \beta_0 + \beta_1x_1 + \beta_2x_i^2 + \cdots + \beta_dx_i^d + \e_i
+\end{equation*}
+
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig7-1a}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Step function regression }
+\begin{columns}
+\column{.5\textwidth}
+\centering
+\includegraphics[width = .8\textwidth, align = c]{Eq7-4}
+\begin{equation*}
+	y_i = \beta_0 + \beta_1C_1(x_i) + \beta_2 C_2(x_i) + \cdots + \beta_K C_K(x_i) + \e_i
+\end{equation*}
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig7-2a}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Classification version}
+
+\begin{equation*}
+	\Pr(y_i>250 \mid x_i) =
+	% \frac{\exp(\beta_0 + \beta_1x_i + \cdots + \beta_dx_i^d)}
+	    %  {1+\exp(\beta_0 + \beta_1x_i + \cdots + \beta_dx_i^d)}
+\end{equation*}
+
+\vspace{-.2in}
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\footnotesize
+\begin{equation*}
+	% \Pr(y_i>250 \mid x_i) =
+	\frac{\exp(\beta_0 + \beta_1x_i + \cdots + \beta_dx_i^d)}
+	     {1+\exp(\beta_0 + \beta_1x_i + \cdots + \beta_dx_i^d)}
+\end{equation*}
+\includegraphics[width = .8\textwidth, align = c]{Fig7-1b}
+\column{.5\textwidth}
+\centering
+
+\footnotesize
+\begin{equation*}
+	% \Pr(y_i>250 \mid x_i) =
+	\frac{\exp(\beta_0 + \beta_1C_1(x_i) + \beta_2 C_2(x_i) + \cdots + \beta_K C_K(x_i))}
+	     {1+\exp(\beta_0 + \beta_1C_1(x_i) + \beta_2 C_2(x_i) + \cdots + \beta_K C_K(x_i))}
+\end{equation*}
+\includegraphics[width = .55\textwidth, align = c]{Fig7-2b}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Basis Functions Setup}
+Polynomial and piecewise-constant regression models are special cases of a \textit{basis function} approach.
+
+\begin{equation*}
+	y_i = \beta_0 + \beta_1b_1(x_i) + \beta_2 b_2(x_i) + \cdots + \beta_K b_K(x_i) + \e_i
+\end{equation*}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Pick a collection of basis functions $b_1(X),\cdots,b_K(X)$
+	\item Use least squares to figure out the constants
+
+}
+
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+	\item Lots of possible options for these
+	\InstructorList{
+	  \item Some examples are wavelets or Fourier series
+		\item Next section is we'll talk about regression splines
+	}
+}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%==========
+\section{Regression Splines}
+%==========
+
+
+\begin{frame}[c]{Piecewise polynomials}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Fit a polynomial regression
+\begin{equation*}
+	y_i = \beta_0 + \beta_1x_1 + \beta_2x_i^2 + \cdots + \beta_dx_i^d + \e_i
+\end{equation*}
+\item Let the $\beta_i$'s be different at different locations of the range.
+\end{itemize}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Points where the coefficients change are called "knots"
+	\item A piecewise cubic with no knots is just standard cubic polynomial
+	\item More knots gives more flexible polynomial
+	\item Piecewise constant of previous section is degree 0 version of this
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Building up to cubic splines}
+	\begin{columns}
+	\column{.3\textwidth}
+	\centering
+	
+\includegraphics[width = \textwidth, align = c]{Fig7-3a}
+\InstructorNotes{Piecewise cubic but discontinuous}
+	
+	\column{.3\textwidth}
+	\centering
+\includegraphics[width = \textwidth, align = c]{Fig7-3b}
+\InstructorNotes{Continuous but pointy join}
+
+	\column{.3\textwidth}
+	\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig7-3c}
+\InstructorNotes{Smooth join. Same value plus same first and second derivatives.}
+	\end{columns}
+\bvfill 
+
+	\centering
+\includegraphics[width = .5\textwidth, align = c]{Eq7-8b.png}
+\end{frame}
+%--- Next Frame ---%
+
+%--- Next Frame ---%
+\begin{frame}[t]{Cubic splines: degrees of freedom}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	f(x) = 
+	\begin{cases}
+		\beta_0^1 + \beta_1^1 x + \beta_2^1 x^2 + \beta_3^1 x^3 & x<c \\
+		\beta_0^2 + \beta_1^2 x + \beta_2^2 x^2 + \beta_3^2 x^3 & x>c
+	\end{cases}
+\end{equation*}
+
+% \begin{itemize}
+% 	\item Fit piecewise polynomial
+% 	\item Require continuity at knots
+% 	\item Require the first and second derivatives to be continuous at knots
+% \end{itemize}
+\InstructorList{
+	\item 8 original degrees of freedom, plus three constraints (continuous, 1st deriv continuous, 2nd deriv continuous) leaves 5 degrees of freedom
+	\item cubic spline with $K$ knots uses $4+K$ degrees of freedom
+}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig7-3c}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+% \begin{frame}[c]{Generalized splines}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item Can do this for any degree $d$ polynomial
+% 	\item Require continuity up to degree $d-1$ at each knot
+% 	\item Linear then is just requiring continuity
+% }
+
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig7-3d}
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+
+\begin{frame}[c]{Spline basis representation}
+
+\begin{columns}
+\column{.65\textwidth}
+\centering
+Want to pick $b_i$ so that we represent a cubic spline with $K$ knots as
+\begin{equation*}
+	y_i = \beta_0 + \beta_1b_1(x_i) + \beta_2 b_2(x_i) + \cdots + \beta_{K+3} b_{K+3}(x_i) + \e_i
+\end{equation*}
+\end{columns}
+
+\InstructorNotes{Warning: There is no unique way to do this. The book has a different way. We're going to use scikit learn's way.}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Version 1: Truncated power basis function}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\begin{equation*}
+h(x,z) = (x-z)^3_+ =
+\begin{cases}
+	(x-z)^3 & \text{if } x>z \\
+	0 & else
+\end{cases}
+\end{equation*}
+Desmos link:
+\url{https://www.desmos.com/calculator/esucuulbgj}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Book uses $z=\xi$ notation, but i refuse
+	\item Draw $h(x,2)$
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{The (book) basis for cubic splines }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Given knots at $z_1,\cdots,z_K$
+\begin{itemize}
+	\item $X$
+	\item $X^2$
+	\item $X^3$
+	\item $h(X,z_1)$
+	\item $h(X,z_2)$
+	\item $\vdots$
+	\item $h(X,z_K)$
+\end{itemize}
+\column{.45\textwidth}
+\centering
+
+
+\InstructorList{
+  \item Adding $h(X,z_i)$ leads to discontinuity at most at the third derivative at $z_i$
+	\item So use the $3+K$ functions listed here, result is $K+4$ coefficients once you get the intercept.
+	\item Matches with our $K+4$ degrees of freedom from earlier
+}
+
+\end{columns}
+
+\bvfill
+
+\begin{equation*}
+	f(X) = 	
+	\beta_0 + 
+	\beta_1 X + 
+	\beta_2 X^2 + 
+	\beta_3 X^3 + 
+	\beta_4 h(X,z_1) + 
+	\beta_5 h(X,z_2) + 
+	\cdots + 
+	\beta_{k+3}  h(X,z_K)
+\end{equation*}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Version 2: B-spline basis function}
+	\subtitle{sklearn's basis}
+
+	\centering
+	\includegraphics[width = .8\textwidth]{B-Spline_Basis_sklearn.png}
+
+	\InstructorNotes{Similar idea. Take some functions that are all continuous and differentiable everywhere and add them up so you end up with a function that is continuous and differentiable everywhere.}
+\end{frame}
+%--- Next Frame ---%
+
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding example}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Notes on cubic splines }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item Human eyes can't detect the discontinuities so often cubic splines are a good way to go
+	\item Still have problem of high variance at the outer range of predictors (big or small $X$)
+	\item \textit{Natural spline:} regression spline plus boundary constraints where function is required to be linear at the boundary
+}
+
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{Fig7-4}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Where to put the knots?}
+
+\begin{columns}
+
+\column{.65\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{Fig7-5}
+\column{.25\textwidth}
+\centering
+
+\InstructorList{
+  \item Plan A: Uniform placement
+	\item Plan B: Data driven. Example here puts it at quantiles of the data
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{How many knots to use?}
+{When in doubt, Cross-Validate.}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item Do CV ($k$-fold probably) on data for each number of knots
+	\item Figure at right is the MSE resulting from 10-fold CV
+	\item Note that clearly linear is not enough, after that 3-4 degrees of freedom for the cubic spline are enough
+}
+
+\column{.45\textwidth}
+\includegraphics[width = \textwidth]{Fig7-6b}
+\centering
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Cubic splines vs Polynomial Regression}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig7-7}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item Left: natural cubic spline with 15 degrees of freedom vs degree 15 polynomial
+	\item Polynomial flexibility means ugly boundary behavior
+	\item Splines let you add flexibility as more knots rather than more degrees, so allows for flexibility where the function is changing more rapidly
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Next time}
+
+\includegraphics[align = c, width = .35\textwidth]{Day01-Schedule-Test3}
+
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

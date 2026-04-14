@@ -1,0 +1,676 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{} 
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 3.3: The Last of the Linear Regression}
+\subtitle{Lecture 8 - CMSE 381}
+\date{Fri, Sep 12, 2025}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+		\item Started 3.3 Questions of linear regression
+	\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\textbf{Announcements:}
+	\begin{itemize}
+		\item HW \#2 Due Sunday 9/14
+		% \item HW \#3 Due Sunday 2/9
+	\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Extending the linear model with interaction terms
+	\item Hierarchy principle
+	\item Polynomial regression
+\end{itemize}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{Review from last time }
+%=================
+
+\begin{frame}[c]{Linear Regression with Multiple Variables}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = .5\textwidth]{Fig3-4}
+\begin{itemize}
+	\item Predict $Y$ on a multiple variables $X$
+\begin{equation*}
+	Y = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p x_p + \e
+\end{equation*}
+	\item Find good guesses for $\hat \beta_0$, $\hat \beta_1,\cdots $.
+\item $	\hat y_i = \hat \beta_0 + \hat \beta_1 x_i + \cdots + \hat \beta_px_p$
+\end{itemize}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+\item $e_i = y_i - \hat y_i$ is the $i$th residual
+\item RSS $= \sum_i e_i^2$
+	\item RSS is minimized at \textit{least squares coefficient estimates}
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{Categorical Input Variables}
+%=================
+\begin{frame}[t]{Reminder: Qualitative vs Quantitative predictors}
+\InstructorNotes{Copied from day 7 b/c out of time. can comment out!}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Quantitative:}
+\InstructorList{
+  \item Anything with values in either integers or real numbers 
+  \item Temperature 
+  \item Year (even though integers)
+  \item Weight 
+  \item Number of cylinders in a car 
+}
+\column{.45\textwidth}
+
+\centering
+\textbf{Qualitative/Categorical:}
+\InstructorList{
+  \item Anything from an unordered set 
+  \item Country of origin 
+  \item Brand names 
+  \item Anything yes/no (married, has a cat)
+}
+
+\end{columns}
+\end{frame}
+
+%--- Next Frame ---%
+\begin{frame}[t]{Credit card balance}
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+
+	\includegraphics[width = \textwidth, align = c]{Figure3-6}
+
+	\column{.45\textwidth}
+	\centering
+
+	\begin{itemize}
+		\item \texttt{own}: house ownership 
+		\InstructorNotes{This is referenced in the text, but isn't in any of the online versions of the data set that I can find}
+		\item \texttt{student}: student status
+		\item \texttt{status}: marital status
+		\item \texttt{region}:	East, West, or South
+		\InstructorNotes{Also referenced in the book, but not in the online data sets}
+	\end{itemize}
+
+	\end{columns}
+
+\end{frame}
+
+	%--- Next Frame ---%
+	\begin{frame}[c]{What if....}
+	\InstructorNotes{Copied from day 7 b/c out of time. can comment out!}
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	... your variables aren't quantitative?
+	
+	\begin{itemize}
+		\item Home ownership
+		\item Student status
+		\item Major
+		\item Gender
+		\item Ethnicity
+		\item Country of origin
+	\end{itemize}
+	\column{.45\textwidth}
+	\centering
+	\begin{block}{Example}
+	Investigate differences in credit card balance between people who own a house and those who don't, ignoring the other variables.
+	\end{block}
+	
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	\begin{frame}[t]{One-hot encoding of categorical input variable }
+	\bvfill
+	\begin{columns}
+	\column{.6\textwidth}
+	% \centering
+	Create a new variable
+	\begin{equation*}
+			x_i =
+		\begin{cases}
+			1 & \text{if $i$th person is a student}\\
+			0 & \text{if $i$th person is not a student}
+		\end{cases}
+	\end{equation*}
+	% \column{.45\textwidth}
+	Model:
+	\begin{align*}
+	y_i &= \beta_0 + \beta_1x_i+\e_i\\
+	&= 
+		\begin{cases}
+			\beta_0 + \beta_1+\e_i	 & \text{if $i$th person is student}\\
+			\beta_0 +\e_i & \text{if $i$th person isn't}
+		\end{cases}
+	\end{align*}
+	\column{.35\textwidth}
+	\tiny
+	\InstructorList{
+	\item this is often called a dummy variable
+	\item $\beta_0$ is avg credit card balance among those who are not a student 
+	\item $\beta_0 + \beta_1$ is the avg for those are
+	\item $\beta_1$ is avg diff in balance
+	}
+	\end{columns}
+	\bvfill
+	\end{frame}
+	%--- Next Frame ---%
+	\begin{frame}[t]{Interpretation }
+	\InstructorNotes{Copied from day 7 b/c out of time. can comment out!}
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\includegraphics[width = \textwidth, align = c]{Table3-7_ReplaceWithStudent.png}
+	
+	\column{.45\textwidth}
+	\centering
+	Model:
+	
+	\begin{equation*}
+		y = 480.36 + 396.46 \cdot x_{student}
+	\end{equation*}
+	Test your understanding: \href{https://PollEv.com/multiple_choice_polls/6sD3UGt2HYfOlQsN13MVp/respond}{PollEv}
+	\end{columns}
+	
+	\InstructorList{
+	\item Avg CC balance for non-students \$480.36,
+	\item Students have \$396.46 additional debt, so \$876.83
+	}
+	\end{frame}
+	%--- Next Frame ---%
+	\begin{frame}[t]{Who cares about 0/1?}
+	
+	\begin{columns}
+		\column{.45\textwidth}
+		\textbf{Old version: 0/1}
+	\begin{equation*}
+			x_i =
+		\begin{cases}
+			1 & \text{if $i$th person is a student}\\
+			0 & \text{if $i$th person is not a student}
+		\end{cases}
+	\end{equation*}
+	% \column{.45\textwidth}
+	Model:
+	\begin{align*}
+	y_i &= \beta_0 + \beta_1x_i+\e_i\\
+	&= 
+		\begin{cases}
+			\beta_0 + \beta_1+\e_i	 & \text{if $i$th person is student}\\
+			\beta_0 +\e_i & \text{if $i$th person isn't}
+		\end{cases}
+	\end{align*}
+	
+	\column{.45\textwidth}
+	% \centering
+	\textbf{Alternative version: $\pm 1$}
+	\begin{equation*}
+			x_i =
+		\begin{cases}
+			1 & \text{if $i$th person is a student}\\
+			-1 & \text{if $i$th person is not a student}
+		\end{cases}
+	\end{equation*}
+	% \column{.45\textwidth}
+	Model:
+	\begin{align*}
+	y_i &= \beta_0 + \beta_1x_i+\e_i\\
+	&= 
+		\begin{cases}
+			\beta_0 + \beta_1+\e_i	 & \text{if $i$th person is student}\\
+			\beta_0 - \beta_1+\e_i & \text{if $i$th person isn't}
+		\end{cases}
+	\end{align*}
+	
+	\end{columns}
+	
+	% \begin{equation*}
+	% 	y = \$519.665 + \$49.865\cdot x_i + \e_i
+	% \end{equation*}
+	\bvfill
+	\InstructorNotes{Note that the predictions will be the same}
+	\end{frame}
+	%--- Next Frame ---%
+	
+	\begin{frame}[c]{Qualitiative Predictor with More than Two Levels}
+	
+	\begin{columns}
+	\column{.3\textwidth}
+	\centering
+	\texttt{Region}:
+	
+	\qquad
+	
+	\begin{tabular}{r|cc}
+		 & $x_{i1}$ & $x_{i2}$ \\ \hline
+		 & \\
+		South & \InstructorNotes{1 } & \InstructorNotes{0} \\
+		\\
+		West & \InstructorNotes{0 } & \InstructorNotes{1}\\
+		\\
+		East& \InstructorNotes{0 } & \InstructorNotes{0}\\
+		&
+	\end{tabular}
+	
+	
+	\column{.45\textwidth}
+	\centering
+	Create spare dummy variables:
+	
+	\begin{align*}
+			x_{i1} &=
+		\begin{cases}
+			1 & \text{if $i$th person from South}\\
+			0 & \text{if $i$th person not from South}
+		\end{cases}\\
+	%
+			x_{i2} &=
+		\begin{cases}
+			1 & \text{if $i$th person from West}\\
+			0 & \text{if $i$th person not from West}
+		\end{cases}
+	\end{align*}
+	
+	\end{columns}
+	
+	
+	\begin{align*}
+	y_i &= \beta_0 + \beta_1x_{i1}+ \beta_2x_{i2}+\e_i\\
+	&=
+		\begin{cases}
+			\beta_0 + \beta_1+\e_i & \text{if $i$th person from South}\\
+			\beta_0 +  \beta_2+\e_i& \text{if $i$th person from West}\\
+			\beta_0 + \e_i & \text{if $i$th person from East}
+		\end{cases}
+	\end{align*}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	\begin{frame}[t]{More on multiple levels}
+	
+	\begin{columns}
+	\column{.35\textwidth}
+	\centering
+	\InstructorList{
+	\item Always one less variable than levels
+	\item Level with no dummy variable is called the baseline
+	
+	}
+	\column{.6\textwidth}
+	\centering
+	\includegraphics[width = \textwidth, align = c]{Table3-8}
+	\InstructorList{
+	\item Balance for the baseline (EAST) is \$531
+	\item South has \$18.69 less than east
+	\item West has \$12.50 less than east
+	\item p-values for dummy variables are large, so can't reject null hypothesis
+	\item No statistical evidence that there's a diff in CC balance in different regions
+	}
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	{
+		\setbeamercolor{background canvas}{bg=Apricot!25}
+	\begin{frame}[t]{}
+		Do code section on "Dummy Variables for Multi-level Categorical Inputs"
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\column{.45\textwidth}
+	\centering
+	\end{columns}
+	\end{frame}
+	}
+	%--- Next Frame ---%
+	%=================
+\section{Extending the linear model}
+%=================
+
+\begin{frame}[c]{Assumptions so far }{Back to our Advertising data set }
+
+
+\begin{equation*}
+	\hat Y_{sales}
+	= \beta_0
+	+ \beta_1 \cdot X_{{TV}}
+	+ \beta_2 \cdot X_{{radio}}
+	+ \beta_3 \cdot X_{{newspaper}}
+\end{equation*}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Assumed (implicitly) that the effect on sales by increasing one medium is independent of the others.
+\column{.45\textwidth}
+\centering
+What if spending money on radio advertising increases the effectiveness of TV advertising? How do we model it?
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Interaction Term}
+\begin{columns}
+\column{.5\textwidth}
+\centering
+\begin{equation*}
+	Y = \beta_0 + \beta_1X_1 + \beta_2 X_2 + \beta_3 X_1X_2 + \e
+\end{equation*}
+
+\vspace{.2in}
+
+\begin{align*}
+	Y_{sales} &= \beta_0 + \beta_1 X_{TV} + \beta_2 X_{radio}+ \beta_3 X_{radio}X_{TV} + \e\\
+	&= \beta_0 + (\beta_1 + \beta_3 X_{radio}) X_{TV} + \beta_2 X_{radio} + \e \\
+	&= \beta_0 + \tilde{\beta_1} X_{TV} + \beta_2 X_{radio} + \e
+\end{align*}
+
+\column{.35\textwidth}
+\centering
+\InstructorList{
+  \item $\beta_3 X_{radio} X_{TV}$ is the interaction term
+  \item $\tilde{\beta_1} = \beta_1 + \beta_3 X_{radio}$, function of $X_2$ association no longer constant between $X_1$ and $Y$}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Interaction term}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	Y = \beta_0 + \beta_1X_1 + \beta_2 X_2 + \beta_3 X_1X_2 + \e
+\end{equation*}
+
+\vspace{.2in}
+
+\begin{align*}
+	Y_{sales} &= \beta_0 + \beta_1 X_{TV} + \beta_2 X_{radio}+ \beta_3 X_{radio}X_{TV} + \e\\
+	&= \beta_0 + (\beta_1 + \beta_3 X_{radio}) X_{TV} + \beta_2 X_{radio} + \e
+\end{align*}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Table3-9}
+\InstructorList{
+\item P-value for interaction term is low, strong evidance for $H_a: \beta_3 \neq 0$.
+\item $R^2$ is 96.8\% for this, vs 89.7\% for model without interaction
+\item $\beta_3$ the increase in the effectiveness of TV advertising
+associated with a one-unit increase in radio advertising 
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Interpretation}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Table3-9}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item  Increase in \$1K of TV is associated to increased sales of
+\begin{equation*}
+	(\beta_1 + \beta_3 X_{radio}) \cdot 1000 = 19 + 1.1 \cdot X_{radio}
+\end{equation*}
+units
+\item Increase in radio advertising of \$1K will be associated with an increase sales of
+
+\begin{equation*}
+	(\beta_2 + \beta_3 X_{TV}) \cdot 1000 = 29 + 1.1 \cdot X_{TV}
+\end{equation*}
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Hierarchy principle}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Sometimes $p$-value for interaction term is very small, but associated main effects are not.
+\column{.45\textwidth}
+\centering
+The hierarchy principle:
+\InstructorList{
+\item If we include the interaction term, we should include the main effects no matter what.
+\item
+}
+\end{columns}
+
+
+\end{frame}
+%--- Next Frame ---%
+% \begin{frame}[t]{Interaction term for qualitative variables }
+% 	{Without interaction term }
+
+% For credit data set:
+
+% Predict balance using income (quantitative) and student (qualitative)
+% \begin{columns}
+% \column{.6\textwidth}
+% \begin{align*}
+% 	\texttt{balance}_i &\approx \beta_0 + \beta_1 \cdot \texttt{income}_i
+% 		+  \begin{cases}
+% 		\beta_2 & \text{if student}\\
+% 		0 & \text{if not}
+% 	\end{cases}\\
+% & \approx \beta_1 \cdot  \texttt{income}_i  +
+% 		\begin{cases}
+% 		\beta_0 + \beta_2 & \text{if student}\\
+% 		\beta_0  & \text{if not}
+% 	\end{cases}\\
+% \end{align*}
+
+% \column{.35\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig3-7a}
+
+
+% \end{columns}
+% \InstructorNotes{Fitting two parallel lines to the different subsets of data this means the average efect on balance of a one-unit increase
+% in income does not depend on whether or not the individual is a student}
+
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Interaction term for qualitative variables }
+% 	{With interaction term }
+
+% For credit data set:
+
+% Predict balance using income (quantitative) and student (qualitative)
+% \begin{columns}
+% \column{.6\textwidth}
+% \begin{align*}
+% 	\texttt{balance}_i &\approx \beta_0 + \beta_1 \cdot \texttt{income}_i
+% 		+  \begin{cases}
+% 		\beta_2 + \beta_3 \cdot \texttt{income}_i & \text{if student}\\
+% 		0 & \text{if not}
+% 	\end{cases}\\
+% & \approx
+% 		\begin{cases}
+% 		(\beta_0 + \beta_2) + (\beta_1 + \beta_3) \cdot \texttt{income}_i & \text{if student}\\
+% 		\beta_0  + \beta_1 \cdot \texttt{income}_i & \text{if not}
+% 	\end{cases}\\
+% \end{align*}
+
+% \column{.35\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig3-7b}
+
+
+% \end{columns}
+% \InstructorNotes{Fitting two different lines to the different subsets of data,  increases in
+% income are associated with smaller increases in credit card balance among
+% students as compared to non-students.}
+
+% \end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Nonlinear relationships }
+
+\begin{equation*}
+	\texttt{mpg} = \beta_0 + \beta_1 \cdot \texttt{horsepower} + \beta_2 \cdot \texttt{horsepower}^2 + \e
+\end{equation*}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item Quadratic shape of data suggests above model
+\item Still linear because we're doing multi-linear regression with $X_1 = horsepower$ and $X_2 = horsepower^2$
+\item Could add more terms, but risk of overfitting
+\item Polynomial regression, more in ch 7
+}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig3-8}
+
+\includegraphics[width = \textwidth, align = c]{Table3-10}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+{
+	\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{}
+	Do the section on ``Interaction Terms''
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+%--- Next Frame ---%
+% %=================
+% \section{Potential Problems}
+% %=================
+% %=================
+% \section{Linear Regression vs.~KNN}
+% %=================
+% %----------------
+\begin{frame}[t]{Next time}
+
+
+	\includegraphics[align = c, width = .4\textwidth]{Schedule-F25-1.png}
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

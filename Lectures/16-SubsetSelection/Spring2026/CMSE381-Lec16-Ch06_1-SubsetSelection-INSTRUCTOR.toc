@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Previously on linear regression ...}{4}{0}{1}
+\beamer@sectionintoc {2}{Best Subset Selection}{7}{0}{2}
+\beamer@sectionintoc {3}{Forward Selection}{13}{0}{3}
+\beamer@sectionintoc {4}{Backward Selection}{20}{0}{4}

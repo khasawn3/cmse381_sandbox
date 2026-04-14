@@ -1,0 +1,564 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+\newcommand{\OnlyStudent}[1]{}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+%\renewcommand{\InstructorList}[1]{}
+% \renewcommand{\OnlyStudent}[1]{#1}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 9.2: Support Vector Classifier}
+\subtitle{Lecture 27 - CMSE 381}
+\date{Wed, Apr 1, 2026}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+%\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+	\item 9.1 Maximal Margin Classifier
+	\end{itemize}
+
+	\vspace{.2in}
+
+	\textbf{This lecture:}
+	\begin{itemize}
+	\item 9.2 Support Vector Classifier
+\end{itemize}
+
+\textbf{Announcements:}
+	%\begin{itemize}
+	%\item HW \#7 due Sunday 11:59pm
+
+	%\end{itemize}
+
+\column{.4\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{Schedule-S26-3.png}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+%=================
+\section{Last time}
+%=================
+
+\begin{frame}[t]{Separating Hyperplane}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig9-2a}
+\column{.45\textwidth}
+\centering
+Require that for every data point:
+\begin{align*}
+	\beta_0 + \beta_1x_{i1} + \beta_2 x_{i2} + \cdots + \beta_px_{ip} >0 \text{ if } y_i & = 1\\
+	\beta_0 + \beta_1x_{i1} + \beta_2 x_{i2} + \cdots + \beta_px_{ip} <0 \text{ if } y_i & = -1
+\end{align*}
+
+\vspace{.2in} 
+
+\textit{Equivalently} 
+
+\vspace{.2in} 
+
+Require that for every data point 
+\begin{equation*}
+	y_i(\beta_0 + \beta_1x_{i1} + \beta_2 x_{i2} + \cdots + \beta_px_{ip}) > 0
+\end{equation*}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Separating hyperplane becomes a classifier }
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	If you have a separating hyperplane:
+	\begin{itemize}
+		\item Check
+		\begin{equation*}
+			f(x^*) = \beta_0 + \beta_1x_{1}^* + \beta_2 x_{2}^* + \cdots + \beta_px_{p}^*
+		\end{equation*}
+		\item If positive, assign $\hat y = 1$
+		\item If negative, assign $\hat y = -1$
+	\end{itemize}
+	\column{.45\textwidth}
+	\centering
+	\includegraphics[width = \textwidth, align = c]{Fig9-2b}
+	\end{columns}
+	
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Maximal margin classifier}
+
+	\begin{columns}
+	\column{.4\textwidth}
+	\centering
+	\includegraphics[width = \textwidth, align = c]{Fig9-3}
+	\column{.5\textwidth}
+	\centering
+
+	\begin{itemize}
+	\item For a hyperplane, the \textit{margin} is the smallest distance from any data point to the hyperplane.
+	\item Observations that are closest are called \textit{support vectors}.
+	\item The \textit{maximal margin hyperplane} is the hyperplane with the largest margin
+	\item The classifier built from this hyperplane is the \textit{maximal margin classifier}.
+	\end{itemize}
+	
+	Test your understanding: \href{https://www.polleverywhere.com/activities}{PollEv}
+	\end{columns}
+	
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Mathematical Formulation}
+
+	\begin{columns}
+	\column{.65\textwidth}
+	\centering
+	\includegraphics[width = \textwidth, align = c]{Eq9-9}
+	\column{.35\textwidth}
+	\centering
+	\InstructorList{
+		\item Unit normal requirement, we can always write a given hyperplane this way.
+	  \item Last eq forces points to be on the correct side of the hyperplane in order for $M>0$
+	  \item The product is the distance from the point to the hyperplane 
+	\item Making $M$ as big as possible is the maximal margin hyperplane
+	}
+	
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+
+\begin{frame}[t]{Problems}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Might be no separating hyperplane}
+\includegraphics[width = .49\textwidth, align = c]{Fig9-4}
+\column{.45\textwidth}
+\centering
+\textbf{Sensitivity to new points}
+
+\includegraphics[width = .49\textwidth, align = c]{Fig9-5a}
+\includegraphics[width = .49\textwidth, align = c]{Fig9-5b}
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{What will you learn today?}
+
+\begin{itemize}
+	\item What is the difference between Support Vector Classifier and Maximal Margin Classifier?
+		\begin{itemize}
+			\item What short-comings of Maximal Margin Classifier does Support Vector Classifier overcome?
+			\item How?
+			\item You should be able to describe the difference verbally, graphically, and mathematically.
+		\end{itemize}
+	\item How to interpret each element of the mathematical formulation of Support Vector Machine graphically?
+		\begin{itemize}
+			\item Given a graph of Support Vector Classifier and some data points, you should be able to derive the values of different parameters in the mathematical formulation (e.g. $M$, $\epsilon_i$).
+		\end{itemize}
+	\item What parameters controls the flexibility (hence bias-variance trade-off) of Support Vector Classifier?
+	\item What are the support vectors of Support Vector Machine?
+\end{itemize}
+
+
+\end{frame}
+
+
+%==========
+\section{Support Vector Classifier}
+%==========
+\begin{frame}[t]{Basic idea}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Be ok with having a classifier that isn't quite perfect
+	\item Aim for greater robustness to individual observations
+	\item Better classification of most of the training observations
+	\item Result is a support vector classifier
+	\item Soft margin classifier
+}
+
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Soft margin}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig9-6a}
+\InstructorNotes{Some points on wrong side of margin}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig9-6b}
+\InstructorNotes{Some points on wrong side of hyperplane (Misclassified)}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Mathematical Formulation of SVC }
+
+\begin{columns}
+\column{.65\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Eq9-12}
+\column{.35\textwidth}
+\centering
+\InstructorList{
+  \item $C$ is nonnegative tuning parameter
+	\item $M$ is the width of the margin
+	\item $\e_1, \cdots, \e_n$ are slack variables allowing observations to go to the other side
+}
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Find positive $\e$'s that will satisfy this}
+
+	\vspace{-.3in}
+	\begin{equation*}
+		\text{Fix } M = \sqrt 2 \qquad y_i(\beta_0 + \beta_1x_{i1} + \beta_2 x_{i2} + \cdots + \beta_px_{ip}) \geq M(1-\e_i)
+	\end{equation*}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{SVC-DesmosExample-A_and_C}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+	\item Point out $M$ is distance from center hyperplane to noted margin.
+\item $A$ is on the correct side of the hyperplane. 
+\InstructorList{
+\item Left side is already bigger than $M$, so set $\e_i = 0$. 
+}
+  \item $C$ is on the wrong side of the hyperplane for its label. 
+\InstructorList{
+  \item Left side of the equation is negative. What $\e$ satisfies this? 
+  \item $-\frac{\sqrt{2}}{2} = \sqrt{2}(1-\e)$
+  \item $\e = 3/2$
+}
+}
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+%--- Next Frame ---%
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{What is $\e$?}
+	\vspace{-.3in}
+	\begin{equation*}
+		\text{Fix } M = \sqrt 2 \qquad y_i(\beta_0 + \beta_1x_{i1} + \beta_2 x_{i2} + \cdots + \beta_px_{ip}) \geq M(1-\e_i)
+	\end{equation*}
+\begin{columns}
+\column{.35\textwidth}
+\centering
+Fill in the table so that the inequality is satisfied. 
+\includegraphics[align = c, width = \textwidth]{SVC-DesmosExample.png}
+
+\column{.45\textwidth}
+\centering
+
+% Student version---------
+\OnlyStudent{
+\begin{tabular}{c||c|c|c}
+	Point & Left Side &  $\e_i$  & $M(1-\e_i)$\\ \hline 
+    A & $2\sqrt{2}$ & 0& $\sqrt{2}$ \\
+	& &\phantom{xxxxxxxxx} & \\
+    B & $\frac{\sqrt{2}}{2}$ & \\
+	&&\\
+    C &$-\frac{\sqrt{2}}{2}$ & $1.5$ & $-\frac{\sqrt{2}}{2}$\\
+	&&\\
+    X & $\frac{3\sqrt{2}}{2}$& \\
+	&&\\
+    Y & $\sqrt{2}$ & \\
+	&&\\
+    Z & $-\sqrt{2}$& \\
+	&&\\
+\end{tabular}
+}
+%------------
+
+% Instructor version---------
+\InstructorNotes{
+\begin{tabular}{c||c|c|c}
+	Point & Left Side &  $\e_i$  & $M(1-\e_i)$\\ \hline 
+    A & $2\sqrt{2}$ & 0& $\sqrt{2}$ \\
+    B & $\frac{\sqrt{2}}{2}$ & $\frac{1}{2}$ & $\sqrt{2}(1-1/2) = \frac{\sqrt{2}}{2}$ \\
+    C &$-\frac{\sqrt{2}}{2}$ & $1.5$ & $-\frac{\sqrt{2}}{2}$\\
+    X & $\frac{3\sqrt{2}}{2}$& 0 & $\sqrt{2}$\\
+    Y & $\sqrt{2}$ & 0 & $\sqrt{2}$\\
+    Z & $-\sqrt{2}$& 2 & $\sqrt{2}(1-2) = -\sqrt{2}$ \\
+\end{tabular}
+To use for later slide: Total $\e$ is 4
+}
+%------------
+
+
+
+
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+\begin{frame}[t]{What is $\e$?}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+% \includegraphics[width = \textwidth, align = c]{Eq9-12}
+\footnotesize
+\InstructorList{
+  \item If $\e_i = 0$, then on correct side of margin
+	\item If $\e_i>0$ then on the wrong side of margin  (Violated margin)
+	\item If $\e_i >1$ then on the wrong side of hyperplane
+}
+\column{.45\textwidth}
+\centering
+% \includegraphics[width = \textwidth, align = c]{Fig9-6a}
+\includegraphics[width = \textwidth, align = c]{Fig9-6b}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{What is $C$?}
+
+\begin{columns}
+\column{.55\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Eq9-12}
+\footnotesize
+\InstructorList{
+\item Bounds sum of $\e_i$, so controls number \& severity of violating margin (budget)
+\item $C=0$ means no violations allowed
+\item $C>0$ means at most $C$ observations can be on wrong side of hyperplane
+\item In previous example, our total of $\e$ was 4, so would be a valid hyperplane for $C$ at most 4. 
+}
+\column{.35\textwidth}
+\centering
+% \includegraphics[width = \textwidth, align = c]{Fig9-6a}
+\includegraphics[width = \textwidth, align = c]{Fig9-6b}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Examples messing with $C$}
+
+\centering
+
+\includegraphics[width = .24\textwidth, align = c]{Fig9-7d}
+\includegraphics[width = .24\textwidth, align = c]{Fig9-7c}
+\includegraphics[width = .24\textwidth, align = c]{Fig9-7b}
+\includegraphics[width = .24\textwidth, align = c]{Fig9-7a}
+
+Increasing $C$ $\rightarrow$
+
+\InstructorList{
+  \item For increasing $C$, we have a wider margin, so more points allowed violate margin/hyperplane 
+  \item C controls bias-variance trade-off
+  \item small C: highly fit to the data, low bias, high variance
+  \item large C: fitting less hard, high bias, low variance
+}
+
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{What affects the hyperplane?}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig9-7d}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Only observations on the margin or violating the margin affect the hyperplane
+	\item These observations are called support vectors
+	\item Changing other points positions doesn't affect hyperplane found
+	\item
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+% \begin{frame}[t]{Bias-variance tradeoff}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item Large $C$ $\Rightarrow$ wide margin $\Rightarrow$ many support vectors
+% 	\item This results in low variance but high bias
+% }
+
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item Small $C$ $\Rightarrow$ small margin $\Rightarrow$ few support vectors
+% 	\item This results in high variance but low bias
+% }
+
+% \end{columns}
+
+% \bvfill
+% \centering
+% \includegraphics[width = .24\textwidth, align = c]{Fig9-7a}
+% \includegraphics[width = .24\textwidth, align = c]{Fig9-7b}
+% \includegraphics[width = .24\textwidth, align = c]{Fig9-7c}
+% \includegraphics[width = .24\textwidth, align = c]{Fig9-7d}
+
+% Decreasing $C$ $\rightarrow$
+% \end{frame}
+% %--- Next Frame ---%
+%=================
+
+\begin{frame}[t]{TL;DR}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Maximal Margin Classifier}
+\includegraphics[width = \textwidth, align = c]{Eq9-9}
+\includegraphics[width = .5\textwidth, align = c]{Fig9-3}
+\column{.45\textwidth}
+\centering
+\textbf{Support Vector Classifier}
+\includegraphics[width = \textwidth, align = c]{Eq9-12}
+\includegraphics[width = .5\textwidth, align = c]{Fig9-7d}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Next time}
+
+
+\includegraphics[align = c, width= .4 \textwidth]{Schedule-S26-3.png}
+
+\vspace{.2in}
+
+% Q of the Day: what is $\epsilon$ in $\dots > M(1-\epsilon_i)$ called? 
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

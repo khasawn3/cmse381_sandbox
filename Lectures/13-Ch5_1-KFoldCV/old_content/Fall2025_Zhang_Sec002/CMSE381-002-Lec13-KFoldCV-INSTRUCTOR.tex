@@ -1,0 +1,588 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 5.1.3-4: $k$-Fold Cross-Validation}
+\subtitle{Lecture 13 - CMSE 381}
+\date{Mon, Sep 29, 2025}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+		\item Validation Set 
+		\item LOOCV
+	\end{itemize}
+
+% \textbf{Announcements:}
+% 	\begin{itemize}
+% 		\item Exam 1 grades
+% 		\item HW \#4 Posted. 
+% 		\begin{itemize}
+% 			\item Changed Deadline! Due Wednesday Oct 9. 
+% 		\end{itemize}
+% 	\end{itemize}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Schedule-F25-2.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item$k$-fold CV
+\end{itemize}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{Last time}
+%=================
+
+%--- Next Frame ---%
+\begin{frame}[t]{Validation set approach}
+
+\includegraphics[width = \textwidth]{CV-subset0}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Divide randomly into two parts:
+	\begin{itemize}
+		\item Training set
+		\item Validation/Hold-out/Testing set
+	\end{itemize}
+	\item Fit model on training set
+	\item Use fitted model to predict response for observations in the test set
+	\item Evaluate quality (e.g.~MSE)
+\end{itemize}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item This example has 30 data points
+\item Keep out $30\% = 9 $ for testing in yellow
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Problems}
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig5-2b}
+Ex.~Predict \texttt{mpg} using \texttt{horsepower}
+\column{.3\textwidth}
+
+\includegraphics[width = \textwidth]{CV-subset0}
+\includegraphics[width = \textwidth]{CV-subset1}
+\includegraphics[width = \textwidth]{CV-subset2}
+\includegraphics[width = \textwidth]{CV-subset3}
+\includegraphics[width = \textwidth]{CV-subset4}
+
+\centering
+
+\column{.3\textwidth}
+
+\begin{itemize}
+\item Highly variable results, no consensus about the error
+\item Tends to overestimate test error rate
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Leave One Out CV (LOOCV)}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Remove $(x_1,y_1)$ for testing.
+	\item Train the model on $n-1$ points: $\{(x_2,y_2), \cdots, (x_n,y_n)\}$
+	\item Calculate $\mathrm{MSE}_1 = (y_1-\hat y_1)^2$
+	\item[]
+	\item Remove $(x_2,y_2)$ for testing.
+	\item Train the model on $n-1$ points: $\{(x_1,y_1),(x_3,y_3), \cdots, (x_n,y_n)\}$
+	\item Calculate $\mathrm{MSE}_2 = (y_2-\hat y_2)^2$
+	\item []
+	\item Rinse and repeat
+\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{LOOCV-subset0.png}
+\includegraphics[width = \textwidth]{LOOCV-subset1.png}
+\includegraphics[width = \textwidth]{LOOCV-subset2.png}
+\includegraphics[width = \textwidth]{LOOCV-subset3.png}
+\includegraphics[width = \textwidth]{LOOCV-subset4.png}
+$\vdots$
+\includegraphics[width = \textwidth]{LOOCV-subset29.png}
+Return the score:
+\begin{equation*}
+	CV_{(n)} = \frac{1}{n}\sum_{i=1}^n \mathrm{MSE}_i
+\end{equation*}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Pros and Cons}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+% \includegraphics[width = \textwidth]{Fig5-2b}
+\includegraphics[width = \textwidth]{Fig5-4a}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item No variance
+	\item Higher computation cost
+\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+% \begin{frame}[t]{Speeding up LOOCV}
+
+% 	{\color{red}Warning:} This only works for least squares linear or polynomial regression.
+
+
+% 	\begin{columns}
+% 	\column{.45\textwidth}
+% 	\centering
+
+% \begin{equation*}
+% 	h_i = \frac{1}{n} + \frac{(x_i - \overline x)^2}{\sum_{j=1}^n (x_j - \overline x)^2}
+% \end{equation*}
+
+% \InstructorNotes{Leverage}
+% 	\column{.45\textwidth}
+% 	\centering
+
+% 	\begin{equation*}
+% 		\frac{1}{n}\sum_{i=1}^n \mathrm{MSE}_i = CV_{(n)} = \frac{1}{n}\sum_{i=1}^n \left( \frac{y_i - \hat y_i}{1-h_i} \right)^2
+% 	\end{equation*}
+% 	\InstructorList{
+% 	\item This was part of their friday homework
+% 	\item Problem is this only works in a VERY limited setting
+% 	}
+% 	\end{columns}
+
+
+
+% \end{frame}
+%--- Next Frame ---%
+%==========
+\section{$k$-Fold CV}
+%==========
+\begin{frame}[c]{The idea}
+
+\begin{columns}
+% \column{.45\textwidth}
+% \centering
+
+\column{.75\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{CV-Kfold-subset0}
+\includegraphics[width = \textwidth]{CV-Kfold-subset1}
+\includegraphics[width = \textwidth]{CV-Kfold-subset2}
+\includegraphics[width = \textwidth]{CV-Kfold-subset3}
+\includegraphics[width = \textwidth]{CV-Kfold-subset4}
+\end{columns}
+
+\InstructorList{
+\item $K=5$ in this example
+\item Randomly sort, split up into $K$ subsets
+\item If $K=n$, then we get LOOCV
+}
+
+
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Mathy version}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Randomly split data into $k$-groups (folds)
+	\item Approximately equal sized. For the sake of notation, say each set has $\ell$ points
+	\item []
+	\item Remove $i$th fold $U_i$ and reserve for testing.
+	\item Train the model on remaining points
+	\item Calculate $\mathrm{MSE}_i = \frac{1}{\ell} \sum_{(x_j,y_j) \in U_i}(y_j-\hat y_j)^2$
+	\item[]
+	\item Rinse and repeat
+\end{itemize}
+\column{.45\textwidth}
+\centering
+Return
+\begin{equation*}
+	CV_{(k)} = \frac{1}{k} \sum_{i=1}^k \mathrm{MSE}_i
+\end{equation*}
+Test your understanding: \href{https://PollEv.com/multiple_choice_polls/upjTEpf6lvhWuTU3a3rep/respond}{PollEv}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{By hand first!}
+There are 10 students in the class, and we have data points for each. They have already been randomly permuted below. 
+Write down the training/testing sets for a $3$-fold CV
+\begin{columns}
+\column{.24\textwidth}
+\centering
+
+\begin{itemize}
+	\item Damien 
+	\item Alice
+	\item Greta 
+	\item Jasmin
+	\item Benji 
+	\item Inigo
+	\item Frank 
+	\item Carina 
+	\item Enrique 
+	\item Hubert 
+\end{itemize}
+
+\column{.24\textwidth}
+\centering
+\textbf{Fold 1}
+
+\InstructorList{
+  \item Test: DAGJ
+  \item Train: BIFCEH
+}
+
+\vspace{2in}
+\column{.24\textwidth}
+\centering
+\textbf{Fold 2}
+\InstructorList{
+  \item Test:BIF 
+  \item Train: DAGJCEH
+}
+\vspace{2in}
+\column{.24\textwidth}
+\centering
+\textbf{Fold 3}
+\InstructorList{
+  \item Test: CEH
+  \item Train: DAGJBIF
+}
+\vspace{2in}
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding - Building $k$-fold CV}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+\begin{frame}[t]{Pros and Cons}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Pros:}
+\InstructorList{
+\item Cheaper computation with $k = 5$ or $10$ instead of $n$
+}
+\column{.45\textwidth}
+\centering
+\textbf{Cons:}
+\InstructorList{
+\item Unlike LOOCV, there is randomness, but it has lower variability  than validation
+
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Comparison}
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+% \includegraphics[width = \textwidth, align = c]{Fig5-2a}
+% \includegraphics[width = \textwidth, align = c]{Fig5-2b}
+% \column{.3\textwidth}
+% \centering
+
+\includegraphics[width = \textwidth, align = c]{Fig5-4a}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig5-4b}
+\column{.3\textwidth}
+\centering 
+\textbf{\tiny Validation set}\\
+\includegraphics[width = \textwidth]{Fig5-2b}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+% \begin{frame}[t]{Comparison with simulated data: Ex 3}
+
+% \begin{columns}
+% \column{.35\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c, trim = 0 0 700 0, clip]{Fig2-11}
+% \column{.3\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig5-6c}
+% \column{.3\textwidth}
+% \InstructorNotes{}
+% \InstructorList{
+%   \item Blue: true test MSE is shown in   blue
+%   \item Black dashed:  the LOOCV estimate 
+%   \item Orange: 10-fold CV 
+%   \item The crosses indicate the minimum of each of the   MSE curves.
+%   \item Nearly the same
+% }
+
+
+% \end{columns}
+% \InstructorNotes{}
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Comparison with simulated data: Ex 1}
+
+% \begin{columns}
+% \column{.35\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c, trim = 0 0 590 0, clip]{Fig2-9}
+% \column{.32\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig5-6a}
+
+% \column{.3\textwidth}
+% \InstructorList{
+%   \item Blue: true test MSE is shown in   blue
+%   \item Black dashed:  the LOOCV estimate 
+%   \item Orange: 10-fold CV 
+%   \item The crosses indicate the minimum of each of the   MSE curves.
+%   \item \textbf{Underestmates the true test MSE}
+% }
+% \end{columns}
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Comparison with simulated data: Ex 2}
+
+% \begin{columns}
+% \column{.35\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c, trim = 0 0 600 0, clip]{Fig2-10}
+% \column{.29\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig5-6b}
+% \column{.29\textwidth}
+% \InstructorNotes{Close for lower flexibility, then overestimates at higher ranges}
+
+% \end{columns}
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[c]{Takeaways from the examples}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+% \item In all plots, LOOCV and 10-fold CV are similar
+% \item Sometimes really only care about the minimum point in the test MSE because want to get the right degree of freedom for a model. All examples have approximately same x-coord for that
+
+% }
+% \column{.45\textwidth}
+% \centering
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Bias-Variance Tradeoff: Bias}
+% 	\begin{equation*}
+% 		E(y_0 - \hat f (x_0))^2 = \Var(\hat f (x_0))
+% 			+ \left[\mathrm{Bias}(\hat f(x_0)) \right] ^2
+% 			+ \Var(\e)
+% 	\end{equation*}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% % \textbf{Bias}
+% \InstructorList{
+% \item 1.... Validation set overestimates test error b/c used small subset of data
+% \item 3.... $k$-fold gives medium level of bias b/c training set has approximately $(k-1)n/k$ observations
+% \item 2....LOOCV gives approximately unbiased estimate since uses almost all data every time
+% }
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+% \item sooooooooo LOOCV better than $k$-fold just for bias
+% }
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Bias-Variance Tradeoff: Variance}
+% 	\begin{equation*}
+% 		E(y_0 - \hat f (x_0))^2 = \Var(\hat f (x_0))
+% 			+ \left[\mathrm{Bias}(\hat f(x_0)) \right] ^2
+% 			+ \Var(\e)
+% 	\end{equation*}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+
+% % \textbf{Variance}
+% \InstructorList{
+% \item LOOCV higher variance:
+% \InstructorList{
+% 	\item avg the outputs of n fitted models, but all on almost identical observations
+% 	\item high correlation with each other
+% }
+% \item $k$-fold
+% \InstructorList{
+% \item $k$ fitte models somewhat less correlated with each other
+% \item mean of many highly correlated quantities has higher variance than those not corrleated
+% }
+% }
+
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+% \item Empirically, $k=5$ or 10 has been shown to be a happy medium
+% }
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% {
+% \setbeamercolor{background canvas}{bg=Apricot!25}
+% \begin{frame}[t]{Do the remainder of the coding}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \column{.45\textwidth}
+% \centering
+% \end{columns}
+% \end{frame}
+% }
+% %--- Next Frame ---%
+% %----------------
+\begin{frame}[t]{Next time}
+
+
+	\includegraphics[align = c, width = .6\textwidth]{Schedule-F25-2.png}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+
+\column{.45\textwidth}
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

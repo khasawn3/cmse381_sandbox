@@ -1,0 +1,746 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% % Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 6.3: PCR}
+\subtitle{Lecture 20 - CMSE 381}
+\date{Wed, Oct 15, 2025}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+		\item PCA
+	\end{itemize}
+	\textbf{This lecture:}
+	\begin{itemize}
+	\item PCR
+\end{itemize}
+
+
+\textbf{Announcements:}
+	\begin{itemize}
+		\item \href{https://forms.office.com/r/c5LNyeffiK}{Submit your questions} by Thursday (10/16) 5 pm! 
+		\item Exam \#2 on next week!
+		\begin{itemize}
+			\item Bring 8.5x11 sheet of paper 
+			\item Handwritten both sides 
+			\item Anything you want on it, but must be your work 
+			\item You will turn it in
+			\item Non-internet calculator
+			\item questions about project
+		\end{itemize} 
+
+	\end{itemize}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Schedule-F25-2.png}
+% \includegraphics[width = 0.5\textwidth]{QRCode_exam2_survey_S25.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+%=================
+\section{Previously\dots}
+%=================
+
+
+%--- Next Frame ---%
+\begin{frame}[t]{Shrinkage}
+	Find $\beta$ to minimize
+	\begin{equation*}
+		RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+	\end{equation*}
+	subject to:
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\textbf{Least Squares:}\\
+\footnotesize
+No constraints
+
+\column{.3\textwidth}
+\centering
+\textbf{Ridge:}
+\footnotesize
+\begin{equation*}
+	 \sum_{j=1}^p \beta_j^2 \leq s
+\end{equation*}
+
+\column{.3\textwidth}
+\centering
+
+\textbf{The Lasso:}
+\footnotesize
+\begin{equation*}
+	 \sum_{j=1}^p |\beta_j| \leq s
+\end{equation*}
+
+\end{columns}
+
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig6-4}
+\column{.4\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{Fig6-6}
+\end{columns}
+
+
+\InstructorNotes{Also, find best choice of $\lambda$ or $s$ using CV}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Linear transformation of predictors }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Original Predictors:}
+\begin{equation*}
+	X_1,\cdots,X_p
+\end{equation*}
+\textbf{New Predictors:}
+\begin{equation*}
+	Z_1,\cdots,Z_M
+\end{equation*}
+\begin{equation*}
+	Z_m = \sum_{j=1}^p \phi_{jm}X_j
+\end{equation*}
+\column{.45\textwidth}
+\centering
+\textbf{The goal:}
+\begin{itemize}
+\item Find good $\phi$'s (PCA)
+\item Fit regression model on $Z_i$'s using least squares (PLS)
+\begin{equation*}
+	y_i = \theta_0 + \sum_{m=1}^M \theta_m z_{im} + \e_i
+\end{equation*}
+\item Hope that lower dimensions means less overfitting
+% \item Remember that interpretation not the same as shrinkage/subset selection of variables
+\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+% \begin{frame}[c]{PCA - First PC}
+
+% \begin{columns}
+% \column{.4\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{PCA-ex-A}
+% Projection has high variance
+% \column{.4\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{PCA-ex-B}
+% Projection has low(er) variance
+
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{PCA - First PC}
+	\begin{columns}
+	\column{.24\textwidth}
+	\includegraphics[align = c, width = \textwidth]{DimReduction_Projection_Example2_78.png} 
+	\includegraphics[align = c, width = \textwidth]{DimReduction_Projection_Example2_hist78.png} 
+	\column{.24\textwidth}
+	\includegraphics[align = c, width = \textwidth]{DimReduction_Projection_Example2_157.png} 
+	\includegraphics[align = c, width = \textwidth]{DimReduction_Projection_Example2_hist157.png} 
+	
+	\column{.24\textwidth}
+	\includegraphics[align = c, width = \textwidth]{DimReduction_Projection_Example2_0.png} 
+	\includegraphics[align = c, width = \textwidth]{DimReduction_Projection_Example2_hist0.png} 
+
+	\column{.24\textwidth}
+	\includegraphics[align = c, width = \textwidth]{DimReduction_Projection_Example2_235.png} 
+	\includegraphics[align = c, width = \textwidth]{DimReduction_Projection_Example2_hist235.png} 
+
+
+	\end{columns}
+
+	\InstructorNotes{higher variance of projection on the further right pic}
+	\end{frame}
+	%--- Next Frame ---%
+
+\begin{frame}[c]{Projection onto first PC}
+
+	\centering
+	\includegraphics[width =.6 \textwidth, align = c]{Fig6-15a}
+
+	\begin{equation*}
+		Z_1 = 0.839 \cdot (\texttt{pop} - \overline{\texttt{pop}}) + 0.544 \cdot (\texttt{ad} - \overline{\texttt{ad}})
+	\end{equation*}
+	\InstructorNotes{$\phi_{11} = 0.839$ and $\phi_{21} = 0.544$ are the principal component loadings. Blue dot is $(\overline{pop},\overline{ad})$ }
+
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+
+\begin{frame}[t]{Drawing points in PC space}
+
+\centering
+\includegraphics[width = .8\textwidth, align = c]{Fig6-15}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{What will you learn from this lecture?}
+\begin{itemize}
+	\item Why do you want to use the PCs in regression models?
+	\begin{itemize}
+		\item What assumptions do you have to make for it to be a good idea to use \textbf{principal component regression (PCR)}?
+		\item Or conversely, what is a typical bad scenario to use PCR?
+	\end{itemize}
+	\item How do you implement PCR in Python?
+	\item How do you interpret the model coefficients when using PCR?
+	\item How do you choose the number of PC to use in PCR?
+	\begin{itemize}
+		\item Given a figure of, e.g., cross-validation score as a function of the number of PCs, you should be able to choose appropriately and provide rationales in terms of bias-variance tradeoff.
+		\item You should be able to generate such figures in Python.
+	\end{itemize}
+	\item What is the relationship/differences between PCR and feature selection and regularization methods that you learned in this part of the course?
+\end{itemize}
+\end{frame}
+
+%==========
+\section{Principal Components Regression }
+%==========
+
+\begin{frame}[t]{So you've found your PCA coefficients}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Now what?
+
+\InstructorList{
+\item Do linear regression on $Z_1,\cdots,Z_M$
+\item Book calls this "principal components regression "
+\item Linear model is $y = \theta_0 + \theta_1 Z_1 + \cdots + \theta_M Z_M$
+}
+\column{.45\textwidth}
+\centering
+What are we assuming?
+
+\InstructorList{
+\item The directions in which $X_1,\cdots, X_p$ have the most variation are the directions that are associated with $Y$
+\item If assumption holds, then fitting on $Z_i$ better than fitting on $X_i$ since fewer variables lessens chance of overfitting
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Interpretation of PCR coefficients }
+	\begin{columns}
+	\column{.35\textwidth}
+	\centering
+	\textbf{Original Predictors:}
+	\begin{equation*}
+		X_1,\cdots,X_p
+	\end{equation*}
+	\textbf{New Predictors:}
+	\begin{equation*}
+		Z_1,\cdots,Z_M
+	\end{equation*}
+	\begin{equation*}
+		Z_m = \sum_{j=1}^p \phi_{jm}X_j
+	\end{equation*}
+	\textbf{Learned model:}
+	\begin{equation*}
+		y = \theta_0 + \theta_1 Z_1 + \cdots + \theta_M Z_M
+	\end{equation*}
+	
+	
+	
+	\column{.55\textwidth}
+	\centering
+	\footnotesize
+	\InstructorList{
+		\item Do example showing that coefficients of $Z_i$ can't be used to say anything about $X_i$'s 
+		\item $p=3, M=2$
+		\item 
+		$\phi = \begin{pmatrix}
+		1 & -1  \\
+		3 & 1/2 \\
+		0 & 1/2
+		\end{pmatrix}$
+		\item  Learned model $ y = 2 Z_1 - Z_2$
+		\item $y = 2(X_1+3X_2 + 0X_3) - (-X_1 + \tfrac{1}{2} X_2 +  \tfrac{1}{2} X_3  )$
+		\item $= 3X_1 + 2.5 X_2 - 0.5 X_3 $
+		\item Conclusion: can't directly use coefficients learned to interpret original inputs! 
+	  \item Each PC is a linear combination of the originals, so can go backwards to figure out whaat the coefficients would have been, see left figure 
+	}
+	\end{columns}
+	\end{frame}
+%--- Next Frame ---%
+%--- Next Frame ---%
+\begin{frame}[c]{Picking $M$}
+
+	\begin{columns}
+	\column{.75\textwidth}
+	\centering
+	\includegraphics[width = \textwidth]{Fig6-20}
+	% \column{.45\textwidth}
+	% \centering
+	
+	\end{columns}
+	\InstructorList{
+	\item Credit data set
+	\item Major drop in MSE at 10 compoentns, so barely a savings with the original 11 variables
+	}
+	
+	\end{frame}
+	%--- Next Frame ---%	
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Do PCR with hitters data}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Bias-Variance Trade-off}
+Example with simulated data: $n=50$ observations of $p=45$ predictors\\
+\begin{columns}
+\column{.45\textwidth}
+\centering
+$Y$ is a function of \textbf{all predictors}
+\includegraphics[width = 0.8\textwidth, align = c]{Fig6-18a}
+\InstructorList{
+\item Typical U shape for Test MSE
+\item Improve over least square (right most value x=45)
+}
+\column{.45\textwidth}
+\centering
+$Y$ is a function of \textbf{2 predictors}
+\includegraphics[width = 0.8\textwidth, align = c]{Fig6-18b}
+\InstructorList{
+\item Typical U shape for Test MSE
+\item (slight) improve over least square (right most value x=45)
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+% \begin{frame}[c]{Doing better}
+% Example with simulated data: $n=50$ observations of $p=45$ predictors\\
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% $Y$ is a function of \textbf{all predictors}
+% \includegraphics[width = \textwidth, align = c]{Fig6-18a}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+% \item Even better improvement using PCR than previous
+% \item note the chnage in $y$-axis values
+% }
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Comparison to results on shrinkage}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+$Y$ is a function of all predictors
+\includegraphics[width = .5\textwidth, align = c]{Fig6-18a}
+\includegraphics[width = \textwidth, align = c]{Fig6-8}
+\column{.45\textwidth}
+\centering
+$Y$ is a function of 2 predictors
+\includegraphics[width = .5\textwidth, align = c]{Fig6-18b}
+\includegraphics[width = \textwidth, align = c]{Fig6-9}
+
+\end{columns}
+\InstructorNotes{Shrinkage does better}
+\end{frame}
+
+
+%--- Next Frame ---%
+\begin{frame}[c]{Properties of PCR}
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\InstructorList{
+	\item Note better in previous example because lots of PCs needed
+	\item It does better when info contained in the first few PCs
+	\item Number of PCs to use can be picked with CV
+	\item Standardization needed to make sure big data values don't skew the results
+	}
+	\column{.45\textwidth}
+	\centering
+	\InstructorList{
+	\item Not a feature selection method because we don't get a subset of features, we get a collection of linear combos of features
+	}
+	\end{columns}
+	
+	\vfill
+	Test your understanding: \href{https://PollEv.com/multiple_choice_polls/2VGAXRSk8kmwbgBeDBAxX/respond}{PollEv}
+	\end{frame}
+	%--- Next Frame ---%
+% \begin{frame}[c]{Principal Components Regression (PCR)}
+
+% \begin{columns}
+% \column{.4\textwidth}
+% \centering
+% \begin{itemize}
+% 	\item Take new features $Z_i$
+% 	\item Run regression
+% 	\item Maybe do CV for a bunch of choices of $M$ (where $M = $ number of $Z_i$ features used) to pick a best $M$
+% \end{itemize}
+% \column{.5\textwidth}
+% \centering
+% \InstructorList{
+%   \item Note that you can't directly use coefficients learned to interpret original inputs 
+%   \item Each PC is a linear combination of the originals, so can go backwards to figure out whaat the coefficients would have been, see left figure 
+% }
+
+% \end{columns}
+
+% \end{frame}
+
+% %--- Next Frame ---%
+% \begin{frame}[c]{Bias variance trade-off}
+% Example with simulated data: $n=50$ observations of $p=45$ predictors\\
+% $Y$ is a function of \textbf{all predictors}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig6-18a}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+% \item Right side is usual least squares estimate
+% \item Even better improvement using PCR than previous
+% \item note the chnage in $y$-axis values
+% }
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[c]{Bias variance trade-off}
+% Example with simulated data: $n=50$ observations of $p=45$ predictors\\
+% $Y$ is a function of \textbf{2 predictors}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+% \item Right side is usual least squares estimate
+% \item Typical U shape for Test MSE
+% \item PCR with good choice of number of components improvement over plain least squares
+% }
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig6-18b}
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+
+% \begin{frame}[c]{Comparison to results on shrinkage}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% $Y$ is a function of all predictors
+% \includegraphics[width = .5\textwidth, align = c]{Fig6-18a}
+% \includegraphics[width = \textwidth, align = c]{Fig6-8}
+% \column{.45\textwidth}
+% \centering
+% $Y$ is a function of 2 predictors
+% \includegraphics[width = .5\textwidth, align = c]{Fig6-18b}
+% \includegraphics[width = \textwidth, align = c]{Fig6-9}
+
+% \end{columns}
+% \InstructorNotes{Shrinkage does better}
+% \end{frame}
+%--- Next Frame ---%
+% \begin{frame}[c]{Picking $M$}
+
+% \begin{columns}
+% \column{.75\textwidth}
+% \centering
+% \includegraphics[width = \textwidth]{Fig6-20}
+% % \column{.45\textwidth}
+% % \centering
+
+% \end{columns}
+% \InstructorList{
+% \item Credit data set
+% \item Major drop in MSE at 10 compoentns, so barely a savings with the original 11 variables
+% }
+
+% \end{frame}
+
+
+
+
+
+%--- Next Frame ---%
+	
+
+% {
+% \setbeamercolor{background canvas}{bg=Apricot!25}
+% \begin{frame}[t]{Figuring out the original model from the PC model }
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \begin{itemize}
+% 	\item 
+% We have three input variables $X_1, X_2, X_3$
+% \item 
+% We have two PCs, 
+% \begin{align*}
+% 	Z_1 &= 0.266 \cdot X_1 -0.077 \cdot X_2 + 0.961 \cdot X_3\\ 
+% 	Z_2 &= 0.968 \cdot X_1 +0.136 \cdot X_2 + -0.254 \cdot X_3 
+% \end{align*}
+% \item Using linear regression, we learn the model 
+% \begin{equation*}
+% 	Y = -3 + 2Z_1 -4 Z_2.
+% \end{equation*}
+% \item What are the coefficients for the model in terms of the $X_i$'s? 
+% \end{itemize}
+% \column{.45\textwidth}
+% \centering
+% \InstructorNotes{
+% 	\tiny
+%   \begin{align*}
+% 	Y &= -3 + 2Z_1 -4 Z_2\\
+% 	&= -3 + 2(0.266 \cdot X_1 -0.077 \cdot X_2 + 0.961 \cdot X_3)\\
+% 	& \qquad -4(0.968 \cdot X_1 +0.136 \cdot X_2 + -0.254 \cdot X_3 )\\
+% 	&= -3 - 3.34 X_1 - 0.698 X_2 + 2.938 X_3
+%   \end{align*}
+% }
+
+% \end{columns}
+% \end{frame}
+% }
+% %--- Next Frame ---%
+% \begin{frame}[t]{Example on Credit dataset}
+% \begin{columns}
+% \column{.6\textwidth}
+% \includegraphics[width = \textwidth, align = c]{Fig6-20}
+% \centering
+% % \column{.45\textwidth}
+% \centering
+% \end{columns}
+
+% \InstructorList{
+%   \item Not a subset selection method because all $X_i$'s still seen 
+%   \item Book says you can view ridge regression as a continuous version of PCR
+%   \item In this example, would likely pick $M=10$ components.  Since had 11 originally, not much reduction
+% }
+
+% \end{frame}
+%--- Next Frame ---%
+
+
+
+
+% \begin{frame}[t]{First direction $Z_1$ for Partial Least Squares (PLS)}
+
+% 	\begin{columns}
+% 	\column{.45\textwidth}
+% 	\centering
+% 	\begin{itemize}
+% 		\item Set $\phi_{j1}$ equal to the coefficient from simple linear regression of $Y$ onto $X_j$
+% 		\InstructorNotes{ \footnotesize
+% 	 This means we do $p$ linear regressions, not that we take the multivariable linear regression coefficients
+% 		}
+% 		\item The first direction is
+% 		\begin{equation*}
+% 			Z_1 = \sum_{j=1}^p \phi_{j1}X_j
+% 		\end{equation*}
+% 	\end{itemize}
+	
+% 	\footnotesize
+% 	\InstructorList{
+% 	\item
+% 	PLS places highest weight on variables most strongly related to the response
+% 	\item In example, PLS chooses direction less change in ad direction than pop relative to PCA
+% 	\item Implies pop more highly correlated with response than ad
+% 	}
+	
+% 	\column{.45\textwidth}
+% 	\centering
+% 	\includegraphics[width = \textwidth]{Fig6-21}
+% 	Ex.~Prediction of $Y=$Sales (not shown) on $X_1=$Population and $X_2=$Ad Spending
+% 	\begin{itemize}
+% 		\item Solid green: First PLS direction
+% 		\item Dashed: First PC direction
+% 	\end{itemize}
+% 	\end{columns}
+	
+% 	\end{frame}
+% 	%--- Next Frame ---%
+	
+% 	\begin{frame}[c]{Second (and more) PLS directions}
+	
+% 	\begin{columns}
+% 	\column{.45\textwidth}
+% 	\centering
+% 	\begin{itemize}
+% 		\item Regress each variable on $Z_1$ and take residuals
+% 		\InstructorNotes{This is the remaining info not explained by first PLS direction}
+% 		\item Compute $Z_2$ using \textit{orthogonalized data} same as for $Z_1$
+% 	\end{itemize}
+% 	\InstructorList{
+% 	\item Number $M$ can be picked using CV after standardizing predictors
+% 	\item Mixed bag in terms of results..... in practice often performs no better than ridge or PCR
+% 	}
+% 	\column{.45\textwidth}
+% 	\centering
+	
+% 	\end{columns}
+	
+% 	\end{frame}
+% 	%--- Next Frame ---%
+	
+	
+	
+	\begin{frame}[c]{TL;DR}
+	
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\textbf{PCR}
+	\begin{itemize}
+		\item Unsupervised dimensionality reduction $+$ linear regression
+		\item Choose component $Z_1$ in the direction of most variance using only $X_i$'s information
+		\item Choose $Z_2$ and beyond by the same method after ``getting rid'' of info in the directions already explained
+	\end{itemize}
+	\includegraphics[width = .5\textwidth, align = c]{Fig6-15a}
+	
+	\column{.45\textwidth}
+	\centering
+	% \textbf{PLS}
+	% \begin{itemize}
+	% 	\item Supervised dimensionality reduction
+	% 	\item Choose component $Z_1$ by using simple regression coefficients of each $X_i$ onto $Y$
+	% 	\item Choose $Z_2$ and beyond by the same method after ``getting rid'' of info in the directions already explained
+	% 	\item Not a particular benefit, so usually default to PCA unless you have a good reason for this
+	% \end{itemize}
+	% \includegraphics[width = .5\textwidth]{Fig6-21}
+	
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	
+
+\begin{frame}[t]{Next time}
+
+
+
+\includegraphics[align = c, width = .5\textwidth]{Schedule-F25-2.png}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\end{document}

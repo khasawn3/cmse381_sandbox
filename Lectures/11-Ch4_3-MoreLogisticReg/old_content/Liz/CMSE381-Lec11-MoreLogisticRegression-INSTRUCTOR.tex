@@ -1,0 +1,687 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 4.3.3 and 4.3.4 - Multiple and Multinomial Logistic Regression}
+\subtitle{Lecture 11 - CMSE 381}
+\date{Mon, Sep 23, 2024}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Munch]{Prof.~Elizabeth Munch}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+	% Saving some slides from section 2.2.3
+	% Makes more sense later with the classification stuff
+
+	\begin{columns}
+	\column{.4\textwidth}
+	\includegraphics[align = c, width = \textwidth, clip, trim = 0 0 0 0  ]{Day01-Schedule-Test1}
+	\centering
+	
+	\column{.5\textwidth}
+	\centering
+	\textbf{Announcements:}
+	\begin{itemize}
+		\item Wednesday - Project day 
+		\begin{itemize}
+			\item Send me a message or email if you're planning on doing an honors version of the project.
+		\end{itemize}
+		\item Wednesday - Review day
+		\begin{itemize}
+			\item Nothing prepped 
+			\item Bring your questions 
+		\end{itemize}
+		\item Friday - Exam \#1 
+		\begin{itemize}
+			\item Bring 8.5x11 sheet of paper 
+			\item Handwritten both sides 
+			\item Anything you want on it, but must be your work 
+			\item You will turn it in
+			\item Non-internet calculator if you want it
+		\end{itemize}
+	\end{itemize}
+	\end{columns}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+	\textbf{Last Time:}
+
+	\begin{itemize}
+		\item  Logistic Regression
+	\end{itemize}
+\column{.4\textwidth}
+\centering
+\textbf{This time:}
+\begin{itemize}
+	
+	\item Multiple Logistic Regression
+	\item Multinomial Logistic Regression
+	% \item What else?????
+\end{itemize}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{Review of Logistic Regression from last time}
+%=================
+
+
+\begin{frame}[t]{Logistic regression}
+
+	\begin{columns}
+	\column{.4\textwidth}
+	\centering
+	\begin{itemize}
+		\item 
+	Assume single input $\texttt{X}$
+	\item Output takes values 
+	$\texttt{Y} \in \{\texttt{Yes}, \texttt{No}\}$
+	\end{itemize}
+	
+	\column{.4\textwidth}
+	\centering
+	$$
+	p(\texttt{X})=\Pr(\texttt{Y} = \texttt{yes} \mid \texttt{balance})
+	$$
+	\end{columns}
+\begin{center}
+\end{center}
+
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\includegraphics[width = \textwidth, align = c, clip, trim = 700 0 0 0  ]{Fig4-2}
+	\column{.45\textwidth}
+	\centering
+	$$
+p(\texttt{x}) = \frac{e^{\beta_0 + \beta_1 \texttt{x}}}{1 +e^{\beta_0 + \beta_1\texttt{x}} }
+$$
+\InstructorList{
+  \item Next few slides..... how do we get this
+}
+
+	\end{columns}
+
+	\end{frame}
+	%--- Next Frame ---%
+
+%--- Next Frame ---%
+
+
+
+\begin{frame}[c]{How to get logistic function}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+Assume the (natural) log odds (logits) follow a linear model
+
+\begin{equation*}
+	\log \left( \frac{p(x)}{1-p(x)} \right) = \beta_0 + \beta_1x
+\end{equation*}
+
+
+\column{.4\textwidth}
+\centering
+Solve for $p(x)$:
+\begin{equation*}
+	p(x) = \frac{e^{\beta_0 + \beta_1x}}{1+e^{\beta_0 + \beta_1x}}
+\end{equation*}
+\end{columns}
+\InstructorList{
+	% \item The fraction $p/(1-p)$ is called the odds. 
+	% \item Can take any value from 0 (high chance of default) to $\infty$ (low chance of default).
+	% \item Note that this means the log odds are linear
+	\item Note that we can't use the linear interpretation from before since one unit increase in $\beta_1$ doesn't correspond to one unit of odds if that made sense 
+	\item But can say that positive $\beta_1$ corresponds to increasing $p(X)$ and vice versa
+}
+\bvfill
+
+Playing with the logistic function: \href{https://www.desmos.com/calculator/cw1pyzzqci}{desmos.com/calculator/cw1pyzzqci}
+\end{frame}
+%--- Next Frame ---%
+
+% \begin{frame}[t]{Confusion Matrix: Predicting $\texttt{default}$ from $\texttt{balance}$}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+
+
+% \includegraphics[width = \textwidth]{Table4-4}
+
+% \InstructorList{
+% \item Overall error $(c+d)/N = 2.75\%$
+% % \item Worry about overfitting, but $p=2$ and $n=10,000$ so not a concern here
+% % \item Only 3.33\% of people in set defaulted, the \textit{null} classifier (predict no one defaults) is only slightly higher than this
+% % \item Of those who defaulted, 252/333 = 75.7\% were missed by LDA.
+% \item This table is from the LDA section, but we can use this for understanding confusion matrix
+% }
+% \column{.45\textwidth}
+% \centering
+% % \includegraphics[width = \textwidth, align = c]{Fig4-6b}
+% \includegraphics[width = \textwidth]{ConfusionMatrixEx.png}
+
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+
+%=================
+\section{Multiple Logistic Regression}
+%=================
+
+\begin{frame}[c]{New assumption}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+	$p\geq 1$ input variables 
+
+	$$ 
+	X_1,X_2,\cdots, X_p
+	$$
+
+\column{.45\textwidth}
+\centering
+$Y$ output variable has only two levels 
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Multiple Logistic Regression}
+
+\begin{columns}
+\column{.65\textwidth}
+\centering
+\textbf{Multiple features:}
+\begin{equation*}
+	p(X) = \frac{e^{\beta_0 + \beta_1X_1 + \cdots + \beta_pX_p}}{1+e^{\beta_0 + \beta_1X_1 + \cdots + \beta_pX_p}}
+\end{equation*}
+
+\textbf{Equivalent to:}
+\begin{equation*}
+	\log\left( \frac{p(X)}{1-p(X)} \right)
+	= \beta_0 + \beta_1X_1 + \cdots + \beta_pX_p
+\end{equation*}
+% \includegraphics[width = \textwidth, align = c]{Table4-3}
+% \column{.25\textwidth}
+% \centering
+
+\end{columns}
+\InstructorNotes{Point out the awful notation duplicating $p$}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Example}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{DefaultDataSet-Head.png}
+Default data set 
+
+
+\column{.45\textwidth}
+\centering
+Predict $\texttt{default}$ from\\ 
+ $\texttt{balance}$, $\texttt{student}$, and $\texttt{income}$
+\vspace{1in}
+
+\InstructorNotes{Space for equation. Note that student needs a dummy variable. They'll do this in the jupyter notebook, but we'll talk about both versions first}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+% \begin{frame}[t]{Example from \texttt{Smarket} data}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+
+% \includegraphics[align = c, width = \textwidth]{SmarketVolume.png}
+
+% \column{.3\textwidth}
+% \centering
+% \includegraphics[align = c, width = \textwidth]{Smarket-head}
+
+% \end{columns}
+% \InstructorNotes{Goal in lab was predicting direction from three input variables }
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Our Results }
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[align = c, width = \textwidth]{Smarket-Code1}
+% \includegraphics[align = c, width = \textwidth]{Smarket-Code2}
+
+% \column{.45\textwidth}
+% \centering
+% $$
+% p(X) = \frac{\exp(\beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p)}{1+\exp(\beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p)}
+% $$
+
+% \end{columns}
+% $$
+% p(X) = \frac{\exp(-0.115 -0.073 \cdot \texttt{Lag1} -0.043 \cdot  \texttt{Lag2}  + 0.129  \cdot \texttt{Volume})}{1+\exp(-0.115 -0.073 \cdot \texttt{Lag1} -0.043 \cdot  \texttt{Lag2}  + 0.129  \cdot \texttt{Volume})}
+% $$
+% \end{frame}
+%--- Next Frame ---%
+% \begin{frame}[c]{Multiple Logistic Regression}
+
+% 	\begin{columns}
+% 	\column{.65\textwidth}
+% 	\centering
+% 	\textbf{Multiple features:}
+% 	\begin{equation*}
+% 		p(X) = \frac{e^{\beta_0 + \beta_1X_1 + \cdots + \beta_pX_p}}{1+e^{\beta_0 + \beta_1X_1 + \cdots + \beta_pX_p}}
+% 	\end{equation*}
+	
+% 	\textbf{Equivalent to:}
+% 	\begin{equation*}
+% 		\log\left( \frac{p(X)}{1-p(X)} \right)
+% 		= \beta_0 + \beta_1X_1 + \cdots + \beta_pX_p
+% 	\end{equation*}
+% 	\includegraphics[width = \textwidth, align = c]{Table4-3}
+% 	\column{.25\textwidth}
+% 	\centering
+% 	\InstructorList{
+% 	\item Note that p-value is small for balance and student status
+% 	\item Next slide, take a closer look at student
+% 	}
+% 	\end{columns}
+	
+% 	\end{frame}
+	%--- Next Frame ---%
+	% \begin{frame}[c]{Student status}
+	
+	% \begin{columns}
+	% \column{.6\textwidth}
+	% \centering
+	
+	% $\texttt{default} = \beta_0 + \beta_1 \cdot \texttt{student}$
+	% \includegraphics[width = \textwidth, align = c]{Table4-2}
+	
+	% \qquad
+	
+	% -vs-
+	
+	% \qquad
+	
+	% $\texttt{default} = \beta_0 + \beta_1 \cdot \texttt{balance} + \beta_2 \cdot \texttt{income} \cdot \beta_3 \cdot \texttt{student}$
+	% \includegraphics[width = \textwidth, align = c]{Table4-3}
+	
+	
+	% \column{.3\textwidth} \centering
+	
+	% \InstructorList{
+	% \item Student coeff positive in one and negative in the other
+	% \item
+	% }
+	
+	% \end{columns}
+	
+	% \end{frame}
+	% %--- Next Frame ---%
+	% \begin{frame}[t]{Status vs Balance}
+	% \textbf{Confounding variables}: affect other variables in a way that produces spurious or distorted associations between two variables.
+	% \begin{columns}
+	% \column{.28\textwidth}
+	% \centering
+	% \includegraphics[width = \textwidth, align = c]{Fig4-3a}
+	% \column{.28\textwidth}
+	% \centering
+	% \includegraphics[width = \textwidth, align = c]{Fig4-3b}
+	% \column{.4\textwidth}
+	% \centering
+	
+	% \InstructorList{
+	% \item For a \textbf{fixed} value of balance and income, a student is less likely to default than a non-student (orange line below blue line)
+	% \item However, averaged over the whole, the blue avg is \textbf{below} the orange
+	% \item This causes the positive coefficient for student in single variable
+	% }
+	% \end{columns}
+	
+	% \end{frame}
+	% %--- Next Frame ---%
+	
+	
+
+%=================
+\section{Multinomial Logistic Regression}
+%=================
+\begin{frame}[c]{New assumption}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+	$p\geq 1$ input variables 
+
+	$$ 
+	X_1,X_2,\cdots, X_p
+	$$
+
+\column{.45\textwidth}
+\centering
+$Y$ output variable has $K$ levels 
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}[c]{Remember dummy variables?}
+\framesubtitle{Slide from linear regression days}
+
+	\begin{columns}
+	\column{.3\textwidth}
+	\centering
+	\texttt{Region}:
+	
+	\qquad
+	
+	\begin{tabular}{r|cc}
+		 & $x_{i1}$ & $x_{i2}$ \\ \hline
+		 & \\
+		South & {1 } & {0} \\
+		\\
+		West & {0 } & {1}\\
+		\\
+		East& {0 } & {0}\\
+		&
+	\end{tabular}
+	
+	
+	\column{.45\textwidth}
+	\centering
+	Create spare dummy variables:
+	
+	\begin{align*}
+			x_{i1} &=
+		\begin{cases}
+			1 & \text{if $i$th person from South}\\
+			0 & \text{if $i$th person not from South}
+		\end{cases}\\
+	%
+			x_{i2} &=
+		\begin{cases}
+			1 & \text{if $i$th person from West}\\
+			0 & \text{if $i$th person not from West}
+		\end{cases}
+	\end{align*}
+	\InstructorNotes{Baseline is the level we're not using}
+	
+	\end{columns}
+	
+	
+	\begin{align*}
+	y_i &= \beta_0 + \beta_1x_{i1}+ \beta_2x_{i2}+\e_i
+	% =
+	% 	\begin{cases}
+	% 		\beta_0 + \beta_1x_{i1}+\e_i & \text{if $i$th person from South}\\
+	% 		\beta_0 +  \beta_2x_{i2}+\e_i& \text{if $i$th person from West}\\
+	% 		\beta_0 + \e_i & \text{if $i$th person from East}
+	% 	\end{cases}
+	\end{align*}
+	
+	\InstructorNotes{Emhpasize that we're NOT doing this. At that point we were using dummy variables in place of an input variable. Next slide we're going to be using a similar idea with output variables}
+	\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Example}
+
+Predict $ Y \in \{\texttt{stroke, overdose, seizure}\}$
+for hospital visits based on some input(s) $X$
+\begin{columns}
+\column{.45\textwidth}
+% \centering
+\begin{align*}
+	\Pr(Y = \texttt{stroke} \mid X = x) &=% \frac{\exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x)}{1 + \exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x) + \exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x) }\\
+	\\
+	\\
+	\Pr(Y = \texttt{overdose} \mid X = x) &= %\frac{\exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x)}{1 + \exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x) + \exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x) }\\
+	\\
+	\\
+	\Pr(Y = \texttt{seizure} \mid X = x) &= %\frac{1}{1 + \exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x) + \exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x) }
+\end{align*}
+\column{.45\textwidth}
+\centering
+
+
+\end{columns}
+
+
+\InstructorList{
+	\item We're going to figure out three numbers for any given input $x$, then pick the one with the highest probability
+	\item Note that if we know two we can figure out the third
+}
+
+\end{frame}
+	%--- Next Frame ---%
+
+\begin{frame}[t]{Multinomial Logistic Regression}
+	\framesubtitle{Plan A}
+
+\begin{columns}
+\column{.3\textwidth}
+	\begin{itemize}
+		\item 
+	Assume \texttt{Y} has $K$ levels
+	\item Make $K$ (the last one) the baseline
+	\end{itemize}
+
+\column{.55\textwidth}
+
+
+\includegraphics[width = \textwidth]{Eq4-10}
+\includegraphics[width = \textwidth]{Eq4-11}
+
+% Works like before, but need to just be careful about choice of baseline and interpretation of coefficients
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Example}
+
+	Predict $ Y \in \{\texttt{stroke, overdose, seizure}\}$
+	for hospital visits based on $Xp$
+	
+	
+	\begin{align*}
+		\Pr(Y = \texttt{stroke} \mid X = x) &= \frac{\exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x)}{1 + \exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x) + \exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x) }\\
+		\Pr(Y = \texttt{overdose} \mid X = x) &= \frac{\exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x)}{1 + \exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x) + \exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x) }\\
+		\Pr(Y = \texttt{seizure} \mid X = x) &= \frac{1}{1 + \exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x) + \exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x) }
+	\end{align*}
+
+	\InstructorNotes{Note that using seizure is the baseline}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	
+\begin{frame}[t]{Log odds }
+\centering 
+Calculated so that log odds between \textit{any pair of} classes is linear.
+
+Specifically, for $Y=k$ vs $Y=K$, we have
+
+\begin{equation*}
+	\log\left(
+\frac{\Pr(Y = k \mid X = x)}{\Pr(Y = K \mid X = x)}
+	\right)
+	= \beta_{k0} + \beta_{k1}x_1 + \cdots + \beta_{kp}{x_p}
+\end{equation*}
+
+\bvfill 
+\InstructorNotes{Point out that this linear equation is the one that shows up in the top}
+\includegraphics[width = .55\textwidth]{Eq4-10}
+\includegraphics[width = .55\textwidth]{Eq4-11}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Plan B: Softmax coding}
+
+\begin{columns}
+\column{.8\textwidth}
+% \centering
+
+Treat all levels symmetrically
+\includegraphics[width = .8\textwidth]{Eq4-13}
+
+Calculated so that log odds between two classes is linear
+\includegraphics[width = \textwidth]{Eq4-14}
+
+
+\end{columns}
+\InstructorNotes{Softmax coding is equivalent to the coding just described: fitted values, logodds between any pair of calsses, and other outputs are the same regardless of coding. Softmax is used exclusively in some corners of ML so good to be aware of it}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Softmax example}
+
+\begin{align*}
+	\Pr(&Y = \texttt{stroke} \mid X = x)\\
+	&= \frac{\exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x)}
+		{\exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x) + \exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x) + \exp(\beta_{\texttt{seiz},0} + \beta_{\texttt{seiz},1}x) }\\
+		\\
+	\Pr(&Y = \texttt{overdose} \mid X = x)\\
+	&= \frac{\exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x)}{ \exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x) + \exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x) + \exp(\beta_{\texttt{seiz},0} + \beta_{\texttt{seiz},1}x) }\\
+	\\
+	\Pr(&Y = \texttt{seizure} \mid X = x)\\
+	&= \frac{\exp(\beta_{\texttt{seiz},0} + \beta_{\texttt{seiz},1}x) }{ \exp(\beta_{\texttt{str},0} + \beta_{\texttt{str},1}x) + \exp(\beta_{\texttt{OD},0} + \beta_{\texttt{OD},1}x) + \exp(\beta_{\texttt{seiz},0} + \beta_{\texttt{seiz},1}x) }
+\end{align*}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Jupyter Notebook}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+% %=================
+% \section{Project day}
+% %=================
+
+% \begin{frame}[t]{Discussion and getting started}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \begin{itemize}
+% 	\item Project description posted on github 
+% 	\item Today's goals: 
+% 	\begin{itemize}
+% 		\item Find one (or both) data sets
+% 		\item Mark which one you are using on the spreadsheet 
+% 		\item Maybe get some data cleanup and exploration started 
+% 	\end{itemize}
+% \end{itemize}
+% \column{.45\textwidth}
+% \centering
+% \end{columns}
+% \end{frame}
+% %--- Next Frame ---%
+
+
+
+% %----------------
+\begin{frame}[t]{Next time}
+
+
+	\includegraphics[align = c, width = .4\textwidth, clip, trim = 0 0 0 0  ]{Day01-Schedule-Test1}
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

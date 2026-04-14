@@ -1,0 +1,346 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 3.1: Linear Regression}
+\subtitle{Lecture 4 - CMSE 381}
+\date{Wed Jan 21, 2026}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	Last time:
+	\begin{itemize}
+		\item 2.2 Assessing Model Accuracy
+		% \item Test your understand: \href{https://PollEv.com/multiple_choice_polls/RTTmYbCDU0XODc5Zyk5Qa/respond}{PollEv}
+	\end{itemize}
+\column{.45\textwidth}
+\centering
+
+	% Announcements:
+	% \begin{itemize}
+	% 	\item Office Hours
+	% \end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Least squares coefficient estimates for linear regression
+	\item Residual sum of squares (RSS)
+	% \item Confidence interval, hypothesis test, and p-value for coefficient estimates
+	% \item Residual standard error (RSE)
+	% \item R squared
+\end{itemize}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\section{Simple Linear Regression}
+
+\begin{frame}[c]{Setup}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item<+-> Predict $Y$ on a single predictor variable $X$
+	\begin{equation*}
+		Y \approx \beta_0 + \beta_1 X
+	\end{equation*}
+	\item<+-> "$\approx$'' .... ``is approximately modeled as''
+\end{itemize}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Example }
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth]{AdvertisingDataSet-Screenshot}
+\column{.4\textwidth}
+\centering
+
+\InstructorList{
+\item
+\begin{equation*}
+	\textrm{sales} \approx \beta_0 + \beta_1 \textrm{TV}
+\end{equation*}
+\item $\beta_0$ intercept; $\beta_1$ slope
+\item Coefficients or parameters : $\{\beta_0, \beta_1\}$
+\item Once we have good guesses for $\hat \beta_i$, model is
+\begin{equation*}
+	\hat y = \hat \beta_0 + \hat \beta_1 x
+\end{equation*}
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Least squares criterion: Setup}
+	\framesubtitle{How do we estimate the coefficients?}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+\item Given $(x_1,y_1),\cdots,(x_n,y_n)$
+\item Let $	\hat y_i = \hat \beta_0 + \hat \beta_1 x_i$ be prediction for $Y$ on $i$th value of $X$.
+\item $e_i = y_i - \hat y_i$ is the $i$th residual
+\item
+
+}
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig3-1}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Least squares criterion: RSS}
+
+\begin{columns}
+\column{.6\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig3-2}
+\begin{equation*}
+	\textrm{sales} \approx \beta_0 + \beta_1 \textrm{TV}
+\end{equation*}
+\column{.34\textwidth}
+\centering
+Residual sum of squares RSS is
+\begin{align*}
+	RSS &= e_1^2 + \cdots + e_n^2\\
+	 	  &= \sum_i (y_i - \hat \beta_0 - \hat \beta_1 x_i)^2
+\end{align*}
+\end{columns}
+
+\begin{columns}
+\column{.5\textwidth}
+\centering
+
+\begin{block}{Least squares criterion}
+Find $\beta_0$ and $\beta_1$ that minimize the RSS. 
+\end{block}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Least squares coefficient estimates}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+
+\InstructorNotes{Minimizing RSS:}
+\begin{equation*}
+	\min_{\beta_0,\beta_1} \sum_i (y_i - \hat \beta_0 - \hat \beta_1 x_i)^2 
+\end{equation*}
+\InstructorNotes{There's a typo on old versions textbook?}
+
+\begin{align*}
+\frac{\partial RSS}{\partial \hat \beta_0} & = -2 \sum_i (y_i - \hat{\beta}_0 - \hat{\beta}_1x_i) = 0 \\
+\frac{\partial RSS}{\partial \hat \beta_1} & = -2 \sum_i x_i(y_i - \hat \beta_0 - \hat \beta_1x_i) = 0
+\end{align*}
+
+
+
+\column{.4\textwidth}
+\centering
+
+\begin{align*}
+	\hat \beta_1 &=
+		\frac{\sum_{i=1}^n(x_i-\overline x) (y_i - \overline y)}
+			{\sum_{i=1}^n (x_i - \overline x)^2}\\
+			\hat \beta_0 & = \overline y - \hat \beta_1 \overline x
+\end{align*}
+
+\InstructorList{
+\item Closed form!
+\item Though iterative methods (e.g. gradient descent) is often used for larger problems
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+{
+	\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding group work}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+
+% \begin{frame}[c]{Confidence Interval}
+
+% \begin{columns}
+% \column{.4\textwidth}
+% % \centering
+% The 95\% confidence interval for $\beta_1$ approximately takes the form
+% \begin{equation*}
+% 	\hat \beta_1 \pm 2 \cdot \SE(\hat \beta_1)
+% \end{equation*}
+% \column{.4\textwidth}
+% % \centering
+% \textbf{Interpretation: }
+
+% There is approximately a 95\% chance that the interval
+% \begin{equation*}
+% 	\left[ 	\hat \beta_1 - 2 \cdot \SE(\hat \beta_1),
+% 	\hat \beta_1 + 2 \cdot \SE(\hat \beta_1)
+% \right ]
+% \end{equation*}
+% will contain $\beta_1$ where we repeatedly approximate $\hat \beta_1$ using repeated samples.
+% \end{columns}
+
+% \InstructorNotes{Same form works for $\beta_0$}
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[c]{CI in Advertising data}
+
+% \begin{columns}
+% \column{.55\textwidth}
+% \centering
+% \includegraphics[width = \textwidth]{Fig3-1}
+% \column{.4\textwidth}
+% \centering
+% For the advertising data set, the 95\% CIs are:
+% \begin{itemize}
+% 	\item $\beta_1$ :: $[0.042,0.053]$
+% 		\InstructorList{
+% 		\item First line through [0,8] and [300,20.6]
+% 		\item Second line through [0,7] and [300,21.9]
+% 		}
+% 	\item $\beta_0$ :: $[6.130, 7.935]$
+% \end{itemize}
+% \end{columns}
+
+
+% \end{frame}
+% %--- Next Frame ---%
+
+% %----------------
+\begin{frame}[t]{Next time}
+
+	\begin{columns}
+	\column{.4\textwidth}
+	Next time:
+	\begin{itemize}
+		\item More on simple linear regression!
+		\item Evaluation of model etc.
+	\end{itemize}
+	\centering
+	% \includegraphics[align = c, trim = 0 0 300 0, clip, width = \textwidth]{Day01-Schedule1}
+	\includegraphics[width=\textwidth]{Schedule-S26-Lecs1_to_10}
+	
+	\column{.4\textwidth}
+	\centering
+	\textbf{Announcements} 
+	\begin{itemize}
+		% \item We had a quiz last time!
+		\item Homework 1
+		\begin{itemize}
+			\item Due Sun, Jan 25
+		\end{itemize}
+	\end{itemize}
+	\end{columns}
+	
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

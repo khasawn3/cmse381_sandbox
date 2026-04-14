@@ -1,0 +1,823 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 6.2: Shrinkage - The Lasso}
+\subtitle{Lecture 18 - CMSE 381}
+\date{Mon, Oct 15, 2024}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Munch]{Prof.~Elizabeth Munch}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+		\item Ridge Regression
+	\end{itemize}
+	\textbf{This time:}
+	\begin{itemize}
+		\item The Lasso
+	\end{itemize}
+\textbf{Announcements:}
+	\begin{itemize}
+		\item  HW \# 5 due Friday
+		\item Exam next week!
+	\end{itemize}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Day01-Schedule-Test2.png}
+
+\end{columns}
+\InstructorNotes{For next year, add some slides about why we would use lasso vs ridge regression. Ridge has closed form solution while lasso requires gradient descent (confirm this) could be an option. }
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{Last time}
+%=================
+
+\begin{frame}[c]{Goal}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Fit model using all $p$ predictors
+	\item Aim to constrain (regularize) coefficient estimates
+	\item Shrink the coefficient estimates towards 0
+\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\begin{equation*}
+	Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4
+\end{equation*}
+\InstructorList{
+\item Ridge regression
+\item Lasso
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Ridge regression}
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\textbf{Before:}
+\footnotesize
+\begin{equation*}
+	RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+\end{equation*}
+
+\column{.55\textwidth}
+\centering
+\textbf{After:}
+\begin{equation*}
+	\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2 + \lambda \sum_{j=1}^p \beta_j^2 = RSS + \lambda \sum_{j=1}^p \beta_j^2
+\end{equation*}
+
+\end{columns}
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig6-4a}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig6-4b}
+\end{columns}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \footnotesize
+% \InstructorList{
+% \item $\lambda \geq 0$ is a tuning paramter to figure out separately.
+% \item Second term is called ``shrinkage penalty''
+% \item $\lambda = 0$ means least squares estimate
+% }
+% \column{.45\textwidth}
+% \centering
+
+% \footnotesize
+% \InstructorList{
+% \item As $\lambda \to \infty$ impact of shrinkage penalty grows, ridge regression coeff will go towards 0
+% % \item note different set of estimates every time
+% \item Not applied to the intercept
+% \item call coefficients found by ridge regression $\hat \beta_\lambda^R = (\beta_{1,\lambda}^R, \cdots,\beta_{p,\lambda}^R \cdots )$
+% }
+% \end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Scale equivariance (or lack thereof)}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Scale equivariant:} Multiplying a variable by $c$ ($cX_i$) just returns a coefficient multiplied by $1/c$ ($1/c \beta_i$)
+
+\vspace{1in}
+\begin{itemize}
+	\item Least squares is scale equivariant 
+	\item Ridge regression is not
+\end{itemize}
+
+\column{.45\textwidth}
+\textbf{Solution: standardize predictors}
+\begin{equation*}
+	\widetilde x_{ij} = \frac{x_{ij}}{
+	\sqrt{ \tfrac{1}{n} \sum_{i=1}^n (x_{ij}-\overline x_j)^2}
+	}
+\end{equation*}
+\centering
+\InstructorList{
+\item Ex: \texttt{income variable}. If you put in income by \$1,000's of dollars, the answer you would get is quite different. Might emphasize a different coefficient. 
+\item Least squares is scale equivariant
+\item Ridge regression very much is not
+\item $X_j\hat \beta_{j,\lambda}^R$ depends not only on $\lambda$ but also on values of other predictors
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+% \begin{frame}[t]{Solution: Standardize predictors}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+% \item Denominator is estimated standard deviation of the jth predictor
+% \item Standardized predictors will all have a standard deviation of one
+% \item Previous figures showe standardized ridge regression coeffs on the $y$-axis
+% }
+% \column{.45\textwidth}
+% \centering
+
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+% \begin{frame}[c]{Bias-Variance tradeoff}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \footnotesize
+% \includegraphics[width = \textwidth, align = c]{Fig6-5a}
+% Squared bias (black), variance (green), and test mean squared
+% error (purple) for simulated data.
+
+% \InstructorNotes{Horizontal dashed line is minimum possible test MSE}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+% \item Bias-variance tradeoff
+% \item Minimum MSE achieved around $\lambda = 30 $
+% \item High variance means MSE for $\lambda = 0$ (least squares) and $\lambda = \infty$ (null model) are basically the same
+% }
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[c]{More Bias-Variance Tradeoff}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \footnotesize
+% \includegraphics[width = \textwidth, align = c]{Fig6-5b}
+% Squared bias (black), variance (green), and test mean squared
+% error (purple) for simulated data.
+% \column{.45\textwidth}
+% \centering
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Advantages of Ridge }
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \textbf{Ridge vs. Least Squares: }
+% \InstructorList{
+% \item Previous slide and ability to lower variance
+% \item Ridge regression works best in situations where the least squares estimates have high variance
+% \item Can trade off small increase in bias for a large decrease in variance
+% }
+% \column{.45\textwidth}
+% \centering
+% \textbf{Ridge vs. Subset Selection: }
+% \InstructorList{
+% \item So much better computationally!
+% \item Only fits a single model rather than $2^p$
+% \item Tricks available to solve all for all values of $\lambda$ simultaneous
+% }
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+
+%=====
+\section{The Lasso}
+%=====
+
+\begin{frame}[t]{Same goal as before }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Fit model using all $p$ predictors
+	\item Aim to constrain (regularize) coefficient estimates
+	\item Shrink the coefficient estimates towards 0 \InstructorNotes{Ridge shrunk but DID NOT GET RID OF which is what we actually want}
+\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\begin{equation*}
+	Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4
+\end{equation*}
+\InstructorList{
+\item Ridge regression
+\item Lasso: Least Absolute Shrinkage and Selection Operator
+}
+\end{columns}
+
+\end{frame}
+% %----------------
+
+
+
+\begin{frame}[t]{The lasso}
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\textbf{Least Squares:}
+\footnotesize
+\begin{equation*}
+	RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+\end{equation*}
+
+\column{.55\textwidth}
+\centering
+\footnotesize
+\textbf{Ridge:}
+\begin{equation*}
+	\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2 + \lambda \sum_{j=1}^p \beta_j^2 = RSS + \lambda \sum_{j=1}^p \beta_j^2
+\end{equation*}
+
+\end{columns}
+\centering
+\qquad
+
+\textbf{The Lasso:}
+\begin{equation*}
+	\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+		+ \lambda \sum_{j=1}^p |\beta_j|
+	= RSS + \lambda \sum_{j=1}^p |\beta_j|
+\end{equation*}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\footnotesize
+\InstructorList{
+\item $\ell_1$ penalty instead of $\ell_2$ penalty
+\item $\ell_1$ norm: $\|\beta \|_1 = \sum |\beta_j|$
+\item $\ell_2$ norm: $\|\beta \|_2 = \sum \beta_j^2$
+}
+\column{.45\textwidth}
+\centering
+
+\footnotesize
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Subsets with lasso}
+	\begin{equation*}
+		\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+			+ \lambda \sum_{j=1}^p |\beta_j|
+		= RSS + \lambda \sum_{j=1}^p |\beta_j|
+	\end{equation*}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item Result of $\ell_1$ penalty is that it forces some coefficients to be exactly 0
+\item Can be interpreted as something more like subset selection, but here called \textit{variable selection}
+\item Yield are \textit{sparse} models, that is those using only a subset of variables
+\item Selecing good $\lambda$ is critical
+}
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{An example on \texttt{Credit} data set}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+Lasso
+\includegraphics[width = \textwidth]{Fig6-6a}
+\column{.4\textwidth}
+\centering
+Ridge
+\includegraphics[width = \textwidth]{Fig6-4a}
+\end{columns}
+\InstructorList{
+\item $\lambda = 0$: Both are least squares
+\item $\lambda = \infty$: Everything is 0
+\item
+}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{More example on \texttt{Credit} data set}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+Lasso
+\includegraphics[width = \textwidth]{Fig6-6b}
+\column{.4\textwidth}
+\centering
+
+Ridge
+\includegraphics[width = \textwidth]{Fig6-4b}
+
+
+\end{columns}
+
+\InstructorList{
+\item Note that ridge always includes all variables, even if small coefficient
+\item Lasso produces different sized subsets depending
+}
+
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[c]{Scale equivavariance (or lack thereof)}
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\textbf{Scale equivariant:} Multiplying a variable by $c$  just returns a coefficient multiplied by $1/c$
+	
+	\vspace{.2in}
+	
+	Least squares \textbf{is} scale equivariant.
+	Ridge/Lasso \textbf{are very much not}.
+	
+	\vspace{.2in}
+	\textbf{Solution: standardize predictors}
+	\begin{equation*}
+		\widetilde x_{ij} = \frac{x_{ij}}{
+		\sqrt{ \tfrac{1}{n} \sum_{i=1}^n (x_{ij}-\overline x_j)^2}
+		}
+	\end{equation*}
+	\column{.45\textwidth}
+	\centering
+	\InstructorList{
+	\item Ex: \texttt{income variable}.
+	\item Least squares is scale equivariant
+	\item Ridge regression very much is not
+	\item $X_j\hat \beta_{j,\lambda}^R$ depends not only on $\lambda$ but also on values of other predictors
+	}
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	
+	\begin{frame}[c]{Bias-Variance tradeoff}
+	
+	\begin{columns}
+	\column{.65\textwidth}
+	\centering
+	\footnotesize
+	\includegraphics[width = \textwidth, align = c]{Fig6-5}
+	Squared bias (black), variance (green), and test mean squared
+	error (purple) for simulated data.
+	
+	\InstructorNotes{Horizontal dashed line is minimum possible test MSE}
+	
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	
+
+	
+	
+	\begin{frame}[c]{Using Cross-Validation to find $\lambda$}
+	
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\begin{itemize}
+		\item Choose a grid of $\lambda$ values
+		\item Compute the ($k$-fold) cross-validation error for each value of $\lambda$
+		\item Select the tuning parameter value $\lambda$ for which the CV error
+	is smallest.
+	  \item The model is re-fit using all of the available observations and the selected value of the tuning parameter.
+	\end{itemize}
+	\column{.45\textwidth}
+	\centering
+	
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	
+	
+	\begin{frame}[t]{10-fold CV choice of $\lambda$ for lasso and simulated data}
+	
+		\begin{columns}
+		\column{.75\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{Fig6-13}
+	
+	
+		\end{columns}
+		\footnotesize
+	\InstructorList{
+	\item Data generated with $p=45$ variables, $n=50$ data points, only 2 variables actually involved
+	\item The vertical dashed line: choice of $\lambda$
+	\item Right: Two colored lines are predictors related to the response (signal), grey are unrelated (noise)
+	\item Correctly gives much larger coefficient estimates to the two signal predictors, but also the min CV error corresponds to a set of coefficient estimates for which only
+	the signal variables are non-zero.
+	\item Note that least squares solution doesn't even emphasize one of the variables (green one)
+	
+	}
+	\end{frame}
+	%--- Next Frame ---%
+
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding example}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Ridge vs Lasso}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Ridge Regression:}
+\InstructorList{
+  \item Coefficients are shrunk towards 0, but not forced to be exactly 0
+  \item Tends to be better than lasso when many predictors have significant effect on output 
+  \item More robust to outliers
+}
+
+\column{.45\textwidth}
+\centering
+\textbf{Lasso:}
+\InstructorList{
+  \item Coefficients are shrunk towards 0, and some are forced to be exactly 0
+  \item Tends to be more interpretable since we can see which variables are non-zero (rather than having to decide how small is small enough)
+  \item More sensitive to outliers
+}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+	
+	% %=====
+	% \section{Optimization Formulation}
+	% %=====
+	
+	% \begin{frame}[c]{Another formulation for Ridge Regression }
+	
+	% \begin{columns}
+	% \column{.45\textwidth}
+	% \centering
+	% Find $\beta$ to minimize:
+	% \begin{equation*}
+	%  RSS + \lambda \sum_{j=1}^p \beta_j^2
+	% \end{equation*}
+	
+	% \column{.45\textwidth}
+	% \centering
+	% Find $\beta$ to minimize
+	% \begin{equation*}
+	% 	RSS
+	% \end{equation*}
+	% subject to
+	% \begin{equation*}
+	% 	\sum_{j=1}^p \beta_j^2 \leq s
+	% \end{equation*}
+	% \end{columns}
+	% \InstructorList{
+	%   \item For every $\lambda$, there is an $s$ to make the right side solution the same as the one on the left.
+	%   \item Think of $s$ as a budget for how large $\|\beta_j\|_2$ can be. 
+	%   \item Large enough $s$ and least squares answer is available, so would just return least squares.
+	%   \item Smaller $s$ means we might not get quite the optimal RSS, but do well enough. See next slide.
+	% }
+	
+	% \end{frame}
+	% %--- Next Frame ---%
+	% \begin{frame}[c]{Visualization using disks}
+	
+	% \begin{columns}
+	% \column{.4\textwidth}
+	% \centering
+	% \includegraphics[width = .8\textwidth]{Fig6-7b}
+	% \InstructorList{
+	% 	\item Red lines are the RSS levelsets %, $\hat \beta$ is the optimum least squares solution 
+	% 	\item Blue ball has radius $s^2$. 
+	% 	}
+	% \column{.5\textwidth}
+	% \centering
+	% Find $\beta$ to minimize
+	% \begin{equation*}
+	% 	RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+	% \end{equation*}
+	% subject to
+	% \begin{equation*}
+	% 	\sum_{j=1}^p \beta_j^2 \leq s
+	% \end{equation*}
+	
+	% \InstructorList{
+
+	% \item If $s$ is big enough, encloses the minimum of RSS function
+	% \item Smaller $s$ means have to be in the blue ball
+	% }
+	% \end{columns}
+	
+	% \end{frame}
+	% %--- Next Frame ---%
+	% \begin{frame}[t]{What about $\ell_1$?}
+	
+	% \begin{columns}
+	% \column{.45\textwidth}
+	% \centering
+	% $\|\beta\|_1 = \sum |\beta_i|$
+	
+	% \vspace{.2in}
+	% What does the set of points $(\beta_1,\beta_2)$ for which $\|(\beta_1,\beta_2)\|_1 \leq s$ look like?
+	% \column{.45\textwidth}
+	% \centering
+	% \InstructorList{
+	% \item Draw picture with a diamond-shaped "disk".
+	% }
+	% \end{columns}
+	
+	% \end{frame}
+	% %--- Next Frame ---%
+	
+	% \begin{frame}[c]{Same game for Lasso}
+	
+	% 	\begin{columns}
+	% 	\column{.4\textwidth}
+	% 	\centering
+	% 	\includegraphics[width = .8\textwidth]{Fig6-7a}
+	% 	\InstructorList{
+	% 		\item Diamond sides at $(0,\pm s)$, $(\pm s, 0)$
+	% 	}
+	% 	\column{.45\textwidth}
+	% 	\centering
+	% 	Find $\beta$ to minimize
+	% 	\begin{equation*}
+	% 		RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+	% 	\end{equation*}
+	% 	subject to
+	% 	\begin{equation*}
+	% 		\sum_{j=1}^p |\beta_j| \leq s
+	% 	\end{equation*}
+	
+	% 	\tiny
+	% 	\InstructorList{
+	% 	\item If $s$ is big enough, encloses the minimum of RSS function
+	% 	\item Smaller $s$ means have to be in the blue ball
+	% 	\item Min likely to happen at corner, on axis, where something is 0
+	% 	}
+	% 	\end{columns}
+	
+	% \end{frame}
+	% %--- Next Frame ---%
+	
+	% \begin{frame}[c]{Same game for subset selection }
+	
+	% \begin{columns}
+	% \column{.45\textwidth}
+	% \centering
+	% Find $\beta$ to minimize
+	% \begin{equation*}
+	% 	RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+	% \end{equation*}
+	% subject to
+	% \begin{equation*}
+	% 	\sum_{j=1}^p \mathrm{I}(\beta_j \neq 0) \leq s
+	% \end{equation*}
+	
+	% \column{.45\textwidth}
+	% \centering
+	% \InstructorList{
+	% \item Similar format but computationally infeasible since still requires checking all subsets containing $s$ predictors
+	% \item Interpretation: ridge regression and lasso are computationally feasible versions of subset selection
+	% }
+	% \end{columns}
+	
+	% \end{frame}
+	% %--- Next Frame ---%
+	
+	% \begin{frame}[c]{Using this visual to understand why lasso gets us zero values}
+	
+	% \begin{columns}
+	% \column{.35\textwidth}
+	% \centering
+	% \includegraphics[width = \textwidth]{Fig6-7a}
+	% \column{.35\textwidth}
+	% \centering
+	% \includegraphics[width = \textwidth]{Fig6-7b}
+	
+	% \end{columns}
+	% \InstructorNotes{Because ridge regression has circular constraint with no sharp points, intersection doesn't happen on axis line. But because of the diamond shape of $\ell_1$, much better chance of that.}
+	
+	% \end{frame}
+	% %--- Next Frame ---%
+	
+		
+
+\begin{frame}[c]{TL;DR - Original forumlation}
+
+	\begin{columns}
+	\column{.3\textwidth}
+	\centering
+	\textbf{Least Squares:}
+	\footnotesize
+	\begin{equation*}
+		RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+	\end{equation*}
+	
+	\column{.55\textwidth}
+	\centering
+	\textbf{Ridge:}
+	\footnotesize
+	\begin{equation*}
+		\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2 + \lambda \sum_{j=1}^p \beta_j^2 = RSS + \lambda \sum_{j=1}^p \beta_j^2
+	\end{equation*}
+	
+	\end{columns}
+	\centering
+	
+	\vspace{.2in}
+	
+	\textbf{The Lasso:}
+	\footnotesize
+	\begin{equation*}
+		\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+			+ \lambda \sum_{j=1}^p |\beta_j|
+		= RSS + \lambda \sum_{j=1}^p |\beta_j|
+	\end{equation*}
+	
+	
+	\end{frame}
+	%-------end frame------------
+	
+	% %--- Next Frame ---%
+	% \begin{frame}[t]{TL;DR}
+	% 	Find $\beta$ to minimize
+	% 	\begin{equation*}
+	% 		RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+	% 	\end{equation*}
+	% 	subject to:
+	
+	% \begin{columns}
+	% \column{.3\textwidth}
+	% \centering
+	% \textbf{Least Squares:}\\
+	% \footnotesize
+	% No constraints
+	
+	% \column{.3\textwidth}
+	% \centering
+	% \textbf{Ridge:}
+	% \footnotesize
+	% \begin{equation*}
+	% 	 \sum_{j=1}^p \beta_j^2 \leq s
+	% \end{equation*}
+	
+	% \column{.3\textwidth}
+	% \centering
+	
+	% \textbf{The Lasso:}
+	% \footnotesize
+	% \begin{equation*}
+	% 	 \sum_{j=1}^p |\beta_j| \leq s
+	% \end{equation*}
+	
+	% \end{columns}
+	
+	% \InstructorNotes{Also, find best choice of $\lambda$ or $s$ using CV}
+	
+	% \end{frame}
+	% %--- Next Frame ---%
+	
+
+\begin{frame}[t]{Next time}
+
+
+\includegraphics[align = c, width = .5\textwidth]{Day01-Schedule-Test2}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

@@ -1,0 +1,4359 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=latex 2026.3.24)  24 MAR 2026 09:24
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**\makeatletter\def\HCode{\futurelet\HCode\HChar}\def\HChar{\ifx\HCode\def\HCod
+e##1{\Link##1}\expandafter\HCode\else\expandafter\Link\fi}\def\Link#1.a.b.c.{\l
+et\HCode\documentstyle\def\documentstyle{\let\documentstyle\HCode\expandafter\d
+ef\csname tex4ht\endcsname{#1,html}\def\HCode####1{\documentstyle[tex4ht,}\@ifn
+extchar[{\HCode}{\documentstyle[tex4ht]}}\RequirePackage[#1,html]{tex4ht}}\make
+atother\HCode xhtml,mathml,mathjax,Gin-percent,charset=utf-8,html5.a.b.c.\input
+ \detokenize{CMSE381-002-Lec01-FirstDay.tex} > nul 2>&1
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\tex4ht.sty
+version 2023-10-04-13:17
+Package: tex4ht 
+--------------------------------------
+--- Note --- for _ at preamble, use the command line option `early_'
+--------------------------------------
+--------------------------------------
+--- Note --- for ^ at preamble, use the command line option `early^'
+--------------------------------------
+\tmp:toks=\toks17
+) (CMSE381-002-Lec01-FirstDay.tex
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\usepackage.4ht
+version 2023-07-25-12:42
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamer.cls
+Document Class: beamer 2026/01/22 v3.77 A class for typesetting presentations
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasemodes.
+sty (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.s
+ty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count275
+)
+\beamer@tempbox=\box53
+\beamer@tempcount=\count276
+\c@beamerpauses=\count277
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasedecode
+.sty
+\beamer@slideinframe=\count278
+\beamer@minimum=\count279
+\beamer@decode@box=\box54
+)
+\beamer@commentbox=\box55
+\beamer@modecount=\count280
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+)
+\headdp=\dimen148
+\footheight=\dimen149
+\sidebarheight=\dimen150
+\beamer@tempdim=\dimen151
+\beamer@finalheight=\dimen152
+\beamer@animht=\dimen153
+\beamer@animdp=\dimen154
+\beamer@animwd=\dimen155
+\beamer@leftmargin=\dimen156
+\beamer@rightmargin=\dimen157
+\beamer@leftsidebar=\dimen158
+\beamer@rightsidebar=\dimen159
+\beamer@boxsize=\dimen160
+\beamer@vboxoffset=\dimen161
+\beamer@descdefault=\dimen162
+\beamer@descriptionwidth=\dimen163
+\beamer@lastskip=\skip49
+\beamer@areabox=\box56
+\beamer@animcurrent=\box57
+\beamer@animshowbox=\box58
+\beamer@sectionbox=\box59
+\beamer@logobox=\box60
+\beamer@linebox=\box61
+\beamer@sectioncount=\count281
+\beamer@subsubsectionmax=\count282
+\beamer@subsectionmax=\count283
+\beamer@sectionmax=\count284
+\beamer@totalheads=\count285
+\beamer@headcounter=\count286
+\beamer@partstartpage=\count287
+\beamer@sectionstartpage=\count288
+\beamer@subsectionstartpage=\count289
+\beamer@animationtempa=\count290
+\beamer@animationtempb=\count291
+\beamer@xpos=\count292
+\beamer@ypos=\count293
+\beamer@ypos@offset=\count294
+\beamer@showpartnumber=\count295
+\beamer@currentsubsection=\count296
+\beamer@coveringdepth=\count297
+\beamer@sectionadjust=\count298
+\beamer@toclastsection=\count299
+\beamer@tocsectionnumber=\count300
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaseoption
+s.sty (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.s
+ty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks18
+))
+\beamer@paperwidth=\skip50
+\beamer@paperheight=\skip51
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2026/03/07 v6.0 Page Geometry
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count301
+\Gm@cntv=\count302
+\c@Gm@tempcnt=\count303
+\Gm@bindingoffset=\dimen164
+\Gm@wd@mp=\dimen165
+\Gm@odd@mp=\dimen166
+\Gm@even@mp=\dimen167
+\Gm@layoutwidth=\dimen168
+\Gm@layoutheight=\dimen169
+\Gm@layouthoffset=\dimen170
+\Gm@layoutvoffset=\dimen171
+\Gm@dimlist=\toks19
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.st
+y
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
+-common.tex
+\pgfutil@everybye=\toks20
+\pgfutil@tempdima=\dimen172
+\pgfutil@tempdimb=\dimen173
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
+-latex.def
+\pgfutil@abb=\box62
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.
+code.tex (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revi
+sion.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.s
+ty
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+.code.tex
+\pgfkeys@pathtoks=\toks21
+\pgfkeys@temptoks=\toks22
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+libraryfiltered.code.tex
+\pgfkeys@tmptoks=\toks23
+)))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
+.tex
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathutil.
+code.tex
+\pgf@x=\dimen174
+\pgf@xa=\dimen175
+\pgf@xb=\dimen176
+\pgf@xc=\dimen177
+\pgf@y=\dimen178
+\pgf@ya=\dimen179
+\pgf@yb=\dimen180
+\pgf@yc=\dimen181
+\c@pgf@counta=\count304
+\c@pgf@countb=\count305
+\c@pgf@countc=\count306
+\c@pgf@countd=\count307
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparse
+r.code.tex
+\pgfmath@dimen=\dimen182
+\pgfmath@count=\count308
+\pgfmath@box=\box63
+\pgfmath@toks=\toks24
+\pgfmath@stack@operand=\toks25
+\pgfmath@stack@operation=\toks26
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.basic.code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.trigonometric.code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.random.code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.comparison.code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.base.code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.round.code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.misc.code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.integerarithmetics.code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathcalc.
+code.tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat
+.code.tex
+\c@pgfmathroundto@lastzeros=\count309
+))) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo
+File: size11.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.
+sty (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.s
+ty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\graphics-hooks
+.4ht
+version 2022-08-17-14:25
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: dvips.def on input line 106.
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\dvips.def
+File: dvips.def 2025/01/21 v3.2a Graphics/color driver for dvips
+))
+\Gin@req@height=\dimen183
+\Gin@req@width=\dimen184
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.
+sty
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@x=\dimen185
+\pgf@y=\dimen186
+\pgf@xa=\dimen187
+\pgf@ya=\dimen188
+\pgf@xb=\dimen189
+\pgf@yb=\dimen190
+\pgf@xc=\dimen191
+\pgf@yc=\dimen192
+\pgf@xd=\dimen193
+\pgf@yd=\dimen194
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count310
+\c@pgf@countb=\count311
+\c@pgf@countc=\count312
+\c@pgf@countd=\count313
+\t@pgf@toka=\toks27
+\t@pgf@tokb=\toks28
+\t@pgf@tokc=\toks29
+\pgf@sys@id@count=\count314
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.c
+fg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-tex4ht.def
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s-tex4ht.def
+File: pgfsys-tex4ht.def 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s-common-svg.def
+File: pgfsys-common-svg.def 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@sys@svg@objectcount=\count315
+\pgf@sys@svg@scopecount=\count316
+\pgf@sys@svg@type@count=\count317
+\pgf@sys@svg@canvascount=\count318
+)
+\pgf@sys@svg@picnum=\count319
+\pgf@sys@svg@nodenum=\count320
+\pgfsys@foreignobject@Box=\box64
+\pgf@s=\dimen195
+\pgf@t=\dimen196
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\xcolor-hooks.4
+ht
+version 2020-10-17-13:53
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+
+Package xcolor Warning: Package option `usenames' is obsolete and ignored on in
+put line 265.
+
+Package xcolor Info: Driver file: dvips.def on input line 274.
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+)))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+ssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count321
+\pgfsyssoftpath@bigbuffer@items=\count322
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+sprotocol.code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\xcolor-hooks.4
+ht
+version 2020-10-17-13:53
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+e.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.
+tex)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epoints.code.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen197
+\pgf@picmaxx=\dimen198
+\pgf@picminy=\dimen199
+\pgf@picmaxy=\dimen256
+\pgf@pathminx=\dimen257
+\pgf@pathmaxx=\dimen258
+\pgf@pathminy=\dimen259
+\pgf@pathmaxy=\dimen260
+\pgf@xx=\dimen261
+\pgf@xy=\dimen262
+\pgf@yx=\dimen263
+\pgf@yy=\dimen264
+\pgf@zx=\dimen265
+\pgf@zy=\dimen266
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen267
+\pgf@path@lasty=\dimen268
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathusage.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen269
+\pgf@shorten@start@additional=\dimen270
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+escopes.code.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box65
+\pgf@hbox=\box66
+\pgf@layerbox@main=\box67
+\pgf@picture@serial@count=\count323
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+egraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen271
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+etransformations.code.tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen272
+\pgf@pt@y=\dimen273
+\pgf@pt@temp=\dimen274
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+equick.code.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eobjects.code.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+earrows.code.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen275
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eshade.code.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen276
+\pgf@sys@shading@range@num=\count324
+\pgf@shadingcount=\count325
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eimage.code.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eexternal.code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box68
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+elayers.code.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+etransparency.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epatterns.code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+erdf.code.tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\xxcolor.s
+ty
+Package: xxcolor 2003/10/24 ver 0.1
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\xcolor-hooks.4
+ht
+version 2020-10-17-13:53
+)
+\XC@nummixins=\count326
+\XC@countmixins=\count327
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\hyperref-hooks
+.4ht
+version 2023-09-17-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2026-01-29 v7.01p Hypertext links for LaTeX
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
+keys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
+ty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
+.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
+ty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode is ignored in DVI mode.
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
+lestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count328
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.s
+ty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\@linkdim=\dimen277
+\Hy@linkcounter=\count329
+\Hy@pagecounter=\count330
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count331
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4072.
+Package hyperref Info: Option `bookmarks' set `true' on input line 4072.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 4072.
+Package hyperref Info: Option `implicit' set `false' on input line 4072.
+Package hyperref Info: Hyper figures OFF on input line 4201.
+Package hyperref Info: Link nesting OFF on input line 4206.
+Package hyperref Info: Hyper index ON on input line 4209.
+Package hyperref Info: Plain pages OFF on input line 4216.
+Package hyperref Info: Backreferencing OFF on input line 4221.
+Package hyperref Info: Implicit mode OFF; no redefinition of LaTeX internals.
+Package hyperref Info: Bookmarks ON on input line 4468.
+\c@Hy@tempcnt=\count332
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4807.
+\XeTeXLinkMargin=\dimen278
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
+.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count333
+\Field@Width=\dimen279
+\Fld@charsize=\dimen280
+\Field@toks=\toks30
+Package hyperref Info: Hyper figures OFF on input line 6084.
+Package hyperref Info: Link nesting OFF on input line 6089.
+Package hyperref Info: Hyper index ON on input line 6092.
+Package hyperref Info: backreferencing OFF on input line 6099.
+Package hyperref Info: Link coloring ON on input line 6102.
+Package hyperref Info: Link coloring with OCG OFF on input line 6109.
+Package hyperref Info: PDF/A mode OFF on input line 6114.
+\Hy@abspage=\count334
+
+Package hyperref Message: Stopped early.
+
+)
+Package hyperref Info: Driver: htex4ht.
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\htex4ht.def
+File: htex4ht.def 2026-01-29 v7.01p Hyperref driver for TeX4ht
+Package hyperref Info: tex4ht is already loaded.
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaserequir
+es.sty
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasecompat
+ibility.sty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasefont.s
+ty (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks31
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/sansmathaccent\sansmath
+accent.sty
+Package: sansmathaccent 2020/01/31
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/koma-script\scrlfile.st
+y
+Package: scrlfile 2026/02/02 v3.49.2 KOMA-Script package (file load hooks)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/koma-script\scrlfile-ho
+ok.sty
+Package: scrlfile-hook 2026/02/02 v3.49.2 KOMA-Script package (using LaTeX hook
+s)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/koma-script\scrlogo.sty
+Package: scrlogo 2026/02/02 v3.49.2 KOMA-Script package (logo)
+)))))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasetransl
+ator.sty
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator.s
+ty
+Package: translator 2021-05-31 v1.12d Easy translation of strings in LaTeX
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasemisc.s
+ty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasetwoscr
+eens.sty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaseoverla
+y.sty
+\beamer@argscount=\count335
+\beamer@lastskipcover=\skip52
+\beamer@trivlistdepth=\count336
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasetitle.
+sty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasesectio
+n.sty
+\c@lecture=\count337
+\c@part=\count338
+\c@section=\count339
+\c@subsection=\count340
+\c@subsubsection=\count341
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaseframe.
+sty
+\beamer@framebox=\box69
+\beamer@frametitlebox=\box70
+\beamer@zoombox=\box71
+\beamer@zoomcount=\count342
+\beamer@zoomframecount=\count343
+\beamer@frametextheight=\dimen281
+\c@subsectionslide=\count344
+\beamer@frametopskip=\skip53
+\beamer@framebottomskip=\skip54
+\beamer@frametopskipautobreak=\skip55
+\beamer@framebottomskipautobreak=\skip56
+\beamer@envbody=\toks32
+\framewidth=\dimen282
+\c@framenumber=\count345
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaseverbat
+im.sty
+\beamer@verbatimfileout=\write4
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaseframes
+ize.sty
+\beamer@splitbox=\box72
+\beamer@autobreakcount=\count346
+\beamer@autobreaklastheight=\dimen283
+\beamer@frametitletoks=\toks33
+\beamer@framesubtitletoks=\toks34
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaseframec
+omponents.sty
+\beamer@colheight=\skip57
+\beamer@footins=\box73
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasecolor.
+sty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasenotes.
+sty
+\beamer@frameboxcopy=\box74
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasetoc.st
+y)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasetempla
+tes.sty
+\beamer@sbttoks=\toks35
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaseauxtem
+plates.sty
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaseboxes.
+sty
+\bmb@box=\box75
+\bmb@colorbox=\box76
+\bmb@boxwidth=\dimen284
+\bmb@boxheight=\dimen285
+\bmb@prevheight=\dimen286
+\bmb@temp=\dimen287
+\bmb@dima=\dimen288
+\bmb@dimb=\dimen289
+\bmb@prevheight=\dimen290
+)
+\beamer@blockheadheight=\dimen291
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbaselocals
+tructure.sty (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/tools\enum
+erate.sty
+Package: enumerate 2023/07/04 v3.00 enumerate extensions (DPC)
+\@enLab=\toks36
+)
+\beamer@bibiconwidth=\skip58
+\c@figure=\count347
+\c@table=\count348
+\abovecaptionskip=\skip59
+\belowcaptionskip=\skip60
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasenaviga
+tion.sty
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasenaviga
+tionsymbols.tex)
+\beamer@section@min@dim=\dimen292
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasetheore
+ms.sty (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.
+sty
+Package: amsmath 2025/07/09 v2.17z AMS math features
+\@mathmargin=\skip61
+For additional information on amsmath, use the `?' option.
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+Package: amstext 2024/11/17 v2.01 AMS text
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks37
+\ex@=\dimen293
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen294
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count349
+LaTeX Info: Redefining \frac on input line 233.
+\uproot@=\count350
+\leftroot@=\count351
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count352
+\DOTSCASE@=\count353
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box77
+\strutbox@=\box78
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen295
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count354
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count355
+\dotsspace@=\muskip18
+\c@parentequation=\count356
+\dspbrk@lvl=\count357
+\tag@help=\toks38
+\row@=\count358
+\column@=\count359
+\maxfields@=\count360
+\andhelp@=\toks39
+\eqnshift@=\dimen296
+\alignsep@=\dimen297
+\tagshift@=\dimen298
+\tagwidth@=\dimen299
+\totwidth@=\dimen300
+\lineht@=\dimen301
+\@envbody=\toks40
+\multlinegap=\skip62
+\multlinetaggap=\skip63
+\mathdisplay@stack=\toks41
+LaTeX Info: Redefining \[ on input line 2950.
+LaTeX Info: Redefining \] on input line 2951.
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amscls\amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks42
+\thm@bodyfont=\toks43
+\thm@headfont=\toks44
+\thm@notefont=\toks45
+\thm@headpunct=\toks46
+\thm@preskip=\skip64
+\thm@postskip=\skip65
+\thm@headsep=\skip66
+\dth@everypar=\toks47
+)
+\c@theorem=\count361
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerbasethemes
+.sty))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerthemedefau
+lt.sty
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerfontthemed
+efault.sty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamercolortheme
+default.sty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerinnertheme
+default.sty
+
+Package pgf Warning: File "beamericonbook.20" not found when defining image "be
+americonbookshaded". Tried all extensions in "" on input line 18.
+
+
+Package pgf Warning: File "beamericonarticle.20" not found when defining image 
+"beamericonarticleshaded". Tried all extensions in "" on input line 25.
+
+
+Package pgf Warning: File "beamericononline" not found when defining image "bea
+mericononline". Tried all extensions in "" on input line 31.
+
+
+Package pgf Warning: File "beamericononline.20" not found when defining image "
+beamericononlineshaded". Tried all extensions in "" on input line 32.
+
+\beamer@dima=\dimen302
+\beamer@dimb=\dimen303
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beameroutertheme
+default.sty)))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerthemeBoadi
+lla.sty
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamercolortheme
+rose.sty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerinnertheme
+rounded.sty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamercolortheme
+dolphin.sty)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beameroutertheme
+infolines.sty))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamercolortheme
+spruce.sty) (../../LizStyle.sty
+\sympureletters=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
+ut line 12.
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/tools\bm.sty
+Package: bm 2025/10/21 v1.2g Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup7
+\symboldletters=\mathgroup8
+\symboldsymbols=\mathgroup9
+Package bm Info: No bold for \OMX/cmex/m/n, using \pmb.
+Package bm Info: No bold for \U/msa/m/n, using \pmb.
+Package bm Info: No bold for \U/msb/m/n, using \pmb.
+\symboldpureletters=\mathgroup10
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/ulem\ulem.sty
+\UL@box=\box79
+\UL@hyphenbox=\box80
+\UL@skip=\skip67
+\UL@hook=\toks48
+\UL@height=\dimen304
+\UL@pe=\count362
+\UL@pixel=\dimen305
+\ULC@box=\box81
+Package: ulem 2019/11/18
+\ULdepth=\dimen306
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\hyperref-hooks
+.4ht
+version 2023-09-17-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/xypic\xy.sty (C:\Us
+ers\firas\AppData\Local\Programs\MiKTeX\tex/generic/xypic\xy.tex Bootstrap'ing:
+catcodes, docmode, (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/xy
+pic\xyrecat.tex) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/xypi
+c\xyidioms.tex)
+
+ Xy-pic version 3.8.9 <2013/10/06>
+ Copyright (c) 1991-2013 by Kristoffer H. Rose <krisrose@tug.org> and others
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen307
+\Y@c=\dimen308
+\U@c=\dimen309
+\D@c=\dimen310
+\L@c=\dimen311
+\R@c=\dimen312
+\Edge@c=\toks49
+\X@p=\dimen313
+\Y@p=\dimen314
+\U@p=\dimen315
+\D@p=\dimen316
+\L@p=\dimen317
+\R@p=\dimen318
+\Edge@p=\toks50
+\X@origin=\dimen319
+\Y@origin=\dimen320
+\X@xbase=\dimen321
+\Y@xbase=\dimen322
+\X@ybase=\dimen323
+\Y@ybase=\dimen324
+\X@min=\dimen325
+\Y@min=\dimen326
+\X@max=\dimen327
+\Y@max=\dimen328
+\lastobjectbox@=\box82
+\zerodotbox@=\box83
+\almostz@=\dimen329
+direction,
+\d@X=\dimen330
+\d@Y=\dimen331
+\K@=\count363
+\KK@=\count364
+\Direction=\count365
+\K@dXdY=\dimen332
+\K@dYdX=\dimen333
+\xyread@=\read3
+\xywrite@=\write5
+\csp@=\count366
+\quotPTK@=\dimen334
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks51
+\connectobjectbox@@=\box84
+objects,
+\styletoks@=\toks52
+decorations; kernel objects: directionals, circles, text; options; algorithms: 
+directions, edges, connections;  Xy-pic loaded) (C:\Users\firas\AppData\Local\P
+rograms\MiKTeX\tex/generic/iftex\ifpdf.sty
+Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
+)
+Package: xy 2013/10/06 Xy-pic version 3.8.9
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/xypic\xycolor.tex  Xy
+-pic option: Colour extension v.3.11 loaded) (C:\Users\firas\AppData\Local\Prog
+rams\MiKTeX\tex/generic/xypic\xymatrix.tex  Xy-pic option: Matrix feature v.3.1
+4
+\Row=\count367
+\Col=\count368
+\queue@=\toks53
+\queue@@=\toks54
+\qcount@=\count369
+\qcount@@=\count370
+\matrixsize@=\count371
+loaded) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/xypic\xyarrow
+.tex  Xy-pic option: Arrow and Path feature v.3.9 path, \ar, loaded))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\tikz-hooks.4ht
+version 2023-08-27-08:01
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.
+sty (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.
+sty
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+shapes.code.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box85
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+plot.code.tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
+mp-version-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen335
+\pgf@nodesepend=\dimen336
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
+mp-version-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgffor.st
+y
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
+code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen337
+\pgffor@skip=\dimen338
+\pgffor@stack=\toks55
+\pgffor@toks=\toks56
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z\tikz.code.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count372
+\pgfplotmarksize=\dimen339
+)
+\tikz@lastx=\dimen340
+\tikz@lasty=\dimen341
+\tikz@lastxsaved=\dimen342
+\tikz@lastysaved=\dimen343
+\tikz@lastmovetox=\dimen344
+\tikz@lastmovetoy=\dimen345
+\tikzleveldistance=\dimen346
+\tikzsiblingdistance=\dimen347
+\tikz@figbox=\box86
+\tikz@figbox@bg=\box87
+\tikz@tempbox=\box88
+\tikz@tempbox@bg=\box89
+\tikztreelevel=\count373
+\tikznumberofchildren=\count374
+\tikznumberofcurrentchild=\count375
+\tikz@fig@count=\count376
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+matrix.code.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count377
+\pgfmatrixcurrentcolumn=\count378
+\pgf@matrix@numberofcolumns=\count379
+)
+\tikz@expandcount=\count380
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/tikz-cd\tikz-cd.sty
+Package: tikz-cd 2021/05/04 v1.0 Commutative diagrams with TikZ
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\tikz-hooks.4ht
+version 2023-08-27-08:01
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/tikz-cd\tikzlibrarycd.c
+ode.tex
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarymatrix.code.tex
+File: tikzlibrarymatrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryquotes.code.tex
+File: tikzlibraryquotes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen348
+\pgfarrowlength=\dimen349
+\pgfarrowwidth=\dimen350
+\pgfarrowlinewidth=\dimen351
+))) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/beamer\multimedia.s
+ty
+Package: multimedia 2012/05/02 ver 0.02
+\mm@movie=\count381
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\graphbox-hooks
+.4ht
+version 2021-12-02-14:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphbox\graphbox.sty
+Package: graphbox 2025/03/25 v1.1.1 extension for graphicx to adjust containing
+ box
+\Gin@box@box=\box90
+\Gin@box@width=\skip68
+\Gin@box@height=\skip69
+\Gin@box@raise=\skip70
+\Gin@box@hspace=\skip71
+\Gin@box@bwidth=\skip72
+\Gin@box@bheight=\skip73
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\tex4ht.4ht
+version 2022-07-05-14:37
+--------------------------------------
+--- Note --- for additional information, use the command line option `info'
+--------------------------------------
+::::::::::::::::::::::::::::::::::::::::::
+ TeX4ht info is available in the log file 
+::::::::::::::::::::::::::::::::::::::::::
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\tex4ht.sty
+version 2023-10-04-13:17
+l.870 --- TeX4ht warning --- nonprimitive \everypar ---
+--- needs --- tex4ht CMSE381-002-Lec01-FirstDay ---
+\tmp:cnt=\count382
+\openout15 = `CMSE381-002-Lec01-FirstDay.tmp'.
+
+(CMSE381-002-Lec01-FirstDay.tmp)
+\tmp:dim=\skip74
+l.1487 --- TeX4ht warning --- No file CMSE381-002-Lec01-FirstDay.xref ---
+\:refout=\write6
+\openout6 = `CMSE381-002-Lec01-FirstDay.xref'.
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+--------------------------------------
+--- Note --- to remove the <?xml version=...?> processing instruction use the c
+ommand line option `no-VERSION'
+--------------------------------------
+--------------------------------------
+--- Note --- to remove the DOCTYPE declaration use the command line option `no-
+DOCTYPE'
+--------------------------------------
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)
+--------------------------------------
+--- Note --- for marking of the base font, use the command line option `fonts+'
+
+--------------------------------------
+--------------------------------------
+--- Note --- for non active _, use the command line option `no_'
+--------------------------------------
+--------------------------------------
+--- Note --- for _ of catcode 13, use the command line option `_13'
+--------------------------------------
+--------------------------------------
+--- Note --- for non active ^, use the command line option `no^'
+--------------------------------------
+--------------------------------------
+--- Note --- for ^ of catcode 13, use the command line option `^13'
+--------------------------------------
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+--------------------------------------
+--- Note --- to ignore CSS font decoration, use the `NoFonts' command line opti
+on
+--------------------------------------
+--------------------------------------
+--- Note --- for jpg bitmaps of pictures, use the `jpg' command line option. (C
+haracter bitmaps are controled only by `g' records of tex4ht.env and `-g' switc
+hes of tex4ht.c) 
+--------------------------------------
+--------------------------------------
+--- Note --- for gif bitmaps of pictures, use the `gif' command line option. (C
+haracter bitmaps are controled only by `g' records of tex4ht.env and `-g' switc
+hes of tex4ht.c) 
+--------------------------------------
+--------------------------------------
+--- Note --- for content and toc in 2 frames, use the command line option `fram
+es'
+--------------------------------------
+--------------------------------------
+--- Note --- for content, toc, and footnotes in 3 frames, use the command line 
+option `frames-fn'
+--------------------------------------
+--------------------------------------
+--- Note --- for file extension name xht, use the command line option `xht'
+--------------------------------------
+TeX4ht package options: xhtml,mathml,mathjax,Gin-percent,charset=utf-8,html5,ht
+ml
+--------------------------------------
+--- Note --- To print a timestamp, use the command line option timestamp
+--------------------------------------
+--------------------------------------
+--- Note --- to ignore CSS code, use the command line option `-css
+--------------------------------------
+--------------------------------------
+--- Note --- for inline CSS code, use the command line option `css-in'
+--------------------------------------
+--------------------------------------
+--- Note --- for pop ups on mouse over, use the command line option `mouseover'
+
+--------------------------------------
+--------------------------------------
+--- Note --- for addressing images in a subdirectory, use the command line opti
+on `imgdir:.../'
+--------------------------------------
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+--------------------------------------
+--- Note --- To print a timestamp, use the command line option timestamp
+--------------------------------------
+--------------------------------------
+--- Note --- We use a default CSS style. Use the `nostyle' option if you want t
+o use custom a CSS design
+--------------------------------------
+)
+\:tokwrite=\toks57
+\:tokpage=\toks58
+--------------------------------------
+--- Note --- for back links to toc, use the command line option `sections+'
+--------------------------------------
+--------------------------------------
+--- Note --- for linear crosslinks of pages, use the command line option `next'
+
+--------------------------------------
+\:tocout=\write7
+\openout7 = `CMSE381-002-Lec01-FirstDay.4tc'.
+
+(CMSE381-002-Lec01-FirstDay.4tc) (C:\Users\firas\AppData\Local\Programs\MiKTeX\
+tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\latex.4ht
+version 2023-10-02-13:11
+LaTeX Info: Redefining \_ on input line 179.
+LaTeX Info: Redefining \begin on input line 597.
+LaTeX Info: Redefining \end on input line 645.
+LaTeX Info: Redefining \, on input line 807.
+LaTeX Info: Redefining \; on input line 808.
+LaTeX Info: Redefining \! on input line 809.
+LaTeX Info: Redefining \: on input line 810.
+LaTeX Info: Redefining \> on input line 811.
+--------------------------------------
+--- Note --- for links into captions, instead of float heads, use the command l
+ine option `refcaption'
+--------------------------------------
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+--------------------------------------
+--- Note --- For mini tocs immediately aftter the header use the command line o
+ption `minitoc<'
+--------------------------------------
+--------------------------------------
+--- Note --- for enumerated list elements with valued data, use the command lin
+e option `enumerate+'
+--------------------------------------
+--------------------------------------
+--- Note --- for enumerated list elements li's with value attributes, use the c
+ommand line option `enumerate-'
+--------------------------------------
+--------------------------------------
+--- Note --- for CSS2 code, use the command line option `css2'
+--------------------------------------
+--------------------------------------
+--- Note --- for pictorial tabular, use the command line option `pic-tabular'
+--------------------------------------
+--------------------------------------
+--- Note --- for bitmap fbox'es, use the command line option `pic-fbox'
+--------------------------------------
+--------------------------------------
+--- Note --- for bitmap framebox'es, use the command line option `pic-framebox'
+
+--------------------------------------
+--------------------------------------
+--- Note --- for inline footnotes use command line option `fn-in'
+--------------------------------------
+--------------------------------------
+--- Note --- for tracing of latex font commands, use the command line option `f
+onts'
+--------------------------------------
+--------------------------------------
+--- Note --- for width specifications of tabular p entries, use the `p-width' c
+ommand line option or a configuration similar to \Configure{HColWidth}{\HCode{ 
+style="width:\HColWidth"}}
+--------------------------------------
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\fontmath.4h
+t
+version 2022-10-25-13:59
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+\tmp:bx=\box91
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1426 ...riant="bold-script">}{</\a:mathml mi>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1426 ...riant="bold-script">}{</\a:mathml mi>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1426 ...riant="bold-script">}{</\a:mathml mi>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1426 ...riant="bold-script">}{</\a:mathml mi>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[1
+
+]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 143
+2.
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 143
+2.
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
+ut line 1432.
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/sansmathaccent\ot1mathk
+erncmss.fd
+File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
+thkerncmss.
+)
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[2]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[3]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[4]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[5]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[6]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[7]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[8]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[9]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[10]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[11]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[12]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[13]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[14]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[15]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[16]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[17]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[18]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[19]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[20]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[21]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[22]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[23]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[24]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[25]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[26]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1432 ...748494A4B4C4D4E4F505152535455565758595A}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[27]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1474 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1474 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1474 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1474 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[28]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1510 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1510 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1510 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1510 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[29]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1558 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1558 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1558 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1558 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[30]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1559 \Configure{MathClass}{4}{}{}{}{}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1559 \Configure{MathClass}{4}{}{}{}{}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1559 \Configure{MathClass}{4}{}{}{}{}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1559 \Configure{MathClass}{4}{}{}{}{}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[31]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1560 \Configure{MathDelimiters}{(}{)}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1560 \Configure{MathDelimiters}{(}{)}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1560 \Configure{MathDelimiters}{(}{)}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1560 \Configure{MathDelimiters}{(}{)}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[32]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1561 \Configure{MathDelimiters}{[}{]}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1561 \Configure{MathDelimiters}{[}{]}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1561 \Configure{MathDelimiters}{[}{]}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1561 \Configure{MathDelimiters}{[}{]}
+                                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[33]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1562 ...imiters}{\mathchar"4262}{\mathchar"5263}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1562 ...imiters}{\mathchar"4262}{\mathchar"5263}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1562 ...imiters}{\mathchar"4262}{\mathchar"5263}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1562 ...imiters}{\mathchar"4262}{\mathchar"5263}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[34]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1563 ...imiters}{\mathchar"4264}{\mathchar"5265}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1563 ...imiters}{\mathchar"4264}{\mathchar"5265}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1563 ...imiters}{\mathchar"4264}{\mathchar"5265}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1563 ...imiters}{\mathchar"4264}{\mathchar"5265}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[35]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1564 ...imiters}{\mathchar"4266}{\mathchar"5267}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1564 ...imiters}{\mathchar"4266}{\mathchar"5267}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1564 ...imiters}{\mathchar"4266}{\mathchar"5267}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1564 ...imiters}{\mathchar"4266}{\mathchar"5267}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[36]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1565 ...imiters}{\mathchar"4268}{\mathchar"5269}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1565 ...imiters}{\mathchar"4268}{\mathchar"5269}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1565 ...imiters}{\mathchar"4268}{\mathchar"5269}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1565 ...imiters}{\mathchar"4268}{\mathchar"5269}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[37]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1566 ...imiters}{\mathchar"4300}{\mathchar"5301}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1566 ...imiters}{\mathchar"4300}{\mathchar"5301}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1566 ...imiters}{\mathchar"4300}{\mathchar"5301}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1566 ...imiters}{\mathchar"4300}{\mathchar"5301}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[38]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1567 ...imiters}{\mathchar"4302}{\mathchar"5303}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1567 ...imiters}{\mathchar"4302}{\mathchar"5303}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1567 ...imiters}{\mathchar"4302}{\mathchar"5303}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1567 ...imiters}{\mathchar"4302}{\mathchar"5303}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[39]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1568 ...imiters}{\mathchar"4304}{\mathchar"5305}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1568 ...imiters}{\mathchar"4304}{\mathchar"5305}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1568 ...imiters}{\mathchar"4304}{\mathchar"5305}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1568 ...imiters}{\mathchar"4304}{\mathchar"5305}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[40]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1569 ...imiters}{\mathchar"4306}{\mathchar"5307}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1569 ...imiters}{\mathchar"4306}{\mathchar"5307}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1569 ...imiters}{\mathchar"4306}{\mathchar"5307}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1569 ...imiters}{\mathchar"4306}{\mathchar"5307}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[41]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1570 ...imiters}{\mathchar"4308}{\mathchar"5309}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1570 ...imiters}{\mathchar"4308}{\mathchar"5309}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1570 ...imiters}{\mathchar"4308}{\mathchar"5309}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1570 ...imiters}{\mathchar"4308}{\mathchar"5309}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[42]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1571 ...imiters}{\mathchar"430A}{\mathchar"530B}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1571 ...imiters}{\mathchar"430A}{\mathchar"530B}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1571 ...imiters}{\mathchar"430A}{\mathchar"530B}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1571 ...imiters}{\mathchar"430A}{\mathchar"530B}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[43]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1576 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1576 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1576 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1576 }
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[44]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1635 ...:mathml mi\Hnewline>}{</\a:mathml mi>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1635 ...:mathml mi\Hnewline>}{</\a:mathml mi>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1635 ...:mathml mi\Hnewline>}{</\a:mathml mi>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1635 ...:mathml mi\Hnewline>}{</\a:mathml mi>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[45]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1637 ...2061;<!--FUNCTION APPLICATION--></mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1637 ...2061;<!--FUNCTION APPLICATION--></mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1637 ...2061;<!--FUNCTION APPLICATION--></mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1637 ...2061;<!--FUNCTION APPLICATION--></mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[46]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1639 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1639 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1639 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1639 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[47]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1641 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1641 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1641 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1641 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[48]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1644                         {</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1644                         {</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1644                         {</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1644                         {</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[49]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1647                         {</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1647                         {</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1647                         {</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1647                         {</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[50]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1649 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1649 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1649 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1649 ...ml stretchy="false">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[51]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1651                            {0123456789}
+                                              
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1651                            {0123456789}
+                                              
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1651                            {0123456789}
+                                              
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1651                            {0123456789}
+                                              
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[52]
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1656 ...ass="MathClass-ord">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1656 ...ass="MathClass-ord">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...eanchortrue \Hy@colorlink 
+                                                  \@anchorcolor \anchor@spot...
+l.1656 ...ass="MathClass-ord">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\HyWrap@hyper@anchor ...hor@spot \Hy@endcolorlink 
+                                                  \special {t4ht=</a>}\Hy@ac...
+l.1656 ...ass="MathClass-ord">}{</\a:mathml mo>}{}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[53]) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml
+.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\beamer.4ht
+version 2022-10-04-13:07
+\sl:toks=\toks59
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+--------------------------------------
+--- Note --- for pagination of slides, use the command line option `1'
+--------------------------------------
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\geometry.4h
+t
+version 2016-07-01-08:55
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\graphicx.4h
+t
+version 2022-01-12-13:53
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\graphics.4h
+t
+version 2022-03-20-14:29
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+--------------------------------------
+--- Note --- if included graphics are of degraded quality, try the command line
+ options `graphics-num' or `graphics-'. The `num' should provide the density of
+ pixels in the bitmaps (e.g., 110). 
+--------------------------------------
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\dvips.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\pgf.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\xcolor.4ht
+version 2022-04-17-09:34
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\color.4ht
+version 2022-02-01-14:27
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\color.4ht
+version 2022-02-01-14:27
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\dvipsnam.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def) 
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\hyperref.4h
+t
+version 2022-07-01-14:27
+LaTeX Info: Redefining \autoref on input line 88.
+\Hy@SectionHShift=\skip75
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\nameref.4ht
+version 2022-12-30-15:46
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\pd1enc.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\url.4ht
+version 2023-02-19-10:11
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+--------------------------------------
+--- Note --- for URL encoding within href use the command line option `url-enc'
+
+--------------------------------------
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\beamerbasefont
+.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\amssymb.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+[54] [55] [56] [57] [58] [59] [60] [61] [62] [63] [64] [65] [66] [67] [68] [69]
+[70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85]
+[86] [87] [88] [89] [90] [91] [92] [93] [94] [95] [96] [97] [98] [99] [100] [10
+1] [102] [103] [104] [105] [106] [107] [108] [109] [110] [111] [112] [113] [114
+] [115] [116] [117] [118] [119] [120] [121] [122] [123] [124] [125] [126] [127]
+[128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139] [140] [
+141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151] [152] [153] [1
+54] [155] [156] [157] [158] [159] [160] [161] [162] [163] [164] [165] [166] [16
+7] [168] [169] [170] [171] [172] [173] [174] [175] [176] [177] [178] [179] [180
+] [181] [182] [183] [184] [185] [186] [187] [188] [189] [190] [191] [192] [193]
+[194] [195] [196] [197] [198] [199] [200] [201] [202] [203] [204] [205] [206] [
+207] [208] [209] [210] [211] [212] [213] [214] [215] [216] [217] [218] [219] [2
+20] [221] [222] [223] [224] [225] [226] [227] [228] [229] [230] [231] [232] [23
+3] [234] [235] [236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246
+] [247] [248] [249] [250] [251] [252] [253] [254] [255] [256] [257]) (C:\Users\
+firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\amsfonts.4h
+t
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\beamerbasetoc.
+4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\enumerate.4
+ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\amsmath.4ht
+version 2023-08-13-13:20
+\tmp:muskip=\muskip19
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\amstext.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\amsbsy.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\amsopn.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\amsthm.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\bm.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\ulem.4ht
+version 2022-05-01-08:25
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\xy.4ht
+version 2009-05-21-09:32
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+)) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html4.4ht
+version 2023-10-13-14:16
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\unicode.4ht
+version 2023-04-02-08:01
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\mathml.4ht
+version 2023-10-05-13:12
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html-mml.4ht
+version 2022-10-31-13:02
+) (C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/generic/tex4ht\html5.4ht
+version 2023-10-09-13:31
+))
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-dvi
+ps.def
+File: l3backend-dvips.def 2025-10-09 L3 backend support: dvips
+\l__pdfannot_backend_content_box=\box92
+\l__pdfannot_backend_model_box=\box93
+\g__pdfannot_backend_int=\count383
+\g__pdfannot_backend_link_int=\count384
+\g__pdfannot_backend_link_sf_int=\count385
+) (CMSE381-002-Lec01-FirstDay.aux)
+\openout1 = `CMSE381-002-Lec01-FirstDay.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+*geometry* driver: auto-detecting
+*geometry* detected driver: dvips
+
+LaTeX Warning: First page is already shipped out, ignoring
+               \AtBeginDvi on input line 50.
+
+*geometry* verbose mode - [ preamble ] result:
+* driver: dvips
+* paper: custom
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: includehead includefoot 
+* h-part:(L,W,R)=(10.95003pt, 433.34402pt, 10.95003pt)
+* v-part:(T,H,B)=(0.0pt, 256.0748pt, 0.0pt)
+* \paperwidth=455.24408pt
+* \paperheight=256.0748pt
+* \textwidth=433.34402pt
+* \textheight=227.62207pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-72.26999pt
+* \headheight=14.22636pt
+* \headsep=0.0pt
+* \topskip=11.0pt
+* \footskip=14.22636pt
+* \marginparwidth=4.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+LaTeX Warning: First page is already shipped out, ignoring
+               \AtBeginDvi on input line 50.
+
+Package hyperref Info: Link coloring ON on input line 50.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 50.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 50.
+\symnumbers=\mathgroup11
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 50.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/cmss/m/it on input line 5
+0.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
+(Font)                  OT1/mathkerncmss/bx/sl --> OT1/cmss/m/it on input line 
+50.
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 50.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 50.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 50.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 50.
+LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 50.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
+(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 50.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 50.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 50.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 5
+0.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
+(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 5
+0.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
+ut line 50.
+
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator-b
+asic-dictionary-English.dict
+Dictionary: translator-basic-dictionary, Language: English 
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator-b
+ibliography-dictionary-English.dict
+Dictionary: translator-bibliography-dictionary, Language: English 
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator-e
+nvironment-dictionary-English.dict
+Dictionary: translator-environment-dictionary, Language: English 
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator-m
+onths-dictionary-English.dict
+Dictionary: translator-months-dictionary, Language: English 
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator-n
+umbers-dictionary-English.dict
+Dictionary: translator-numbers-dictionary, Language: English 
+)
+(C:\Users\firas\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator-t
+heorem-dictionary-English.dict
+Dictionary: translator-theorem-dictionary, Language: English 
+) (CMSE381-002-Lec01-FirstDay.nav)
+--- file CMSE381-002-Lec01-FirstDay.css ---
+--- file CMSE381-002-Lec01-FirstDay2.html ---
+No file CMSE381-002-Lec01-FirstDay.4tc
+l. 68 Writing CMSE381-002-Lec01-FirstDay.idv[1] (CMSE381-002-Lec01-FirstDay0x.p
+ng)
+l. 68 Writing CMSE381-002-Lec01-FirstDay.idv[2] (CMSE381-002-Lec01-FirstDay1x.p
+ng)
+
+Package pgf Warning: Your graphic driver pgfsys-tex4ht.def does not support fad
+ings. This warning is given only once on input line 68.
+
+l. 68 Writing CMSE381-002-Lec01-FirstDay.idv[3] (CMSE381-002-Lec01-FirstDay2x.p
+ng)
+[1] [2
+
+]
+l.90 --- TeX4ht warning --- File `"firas_khasawneh.xbb"' not found ---
+l.90 --- TeX4ht warning --- Cannot determine size of graphic in "firas_khasawne
+h.xbb" (no BoundingBox) ---
+l. 90 --- needs --- firas_khasawneh.jpg ---
+l.90 --- TeX4ht warning --- File `"Haishen_Dai.xbb"' not found ---
+l.90 --- TeX4ht warning --- Cannot determine size of graphic in "Haishen_Dai.xb
+b" (no BoundingBox) ---
+l. 90 --- needs --- Haishen_Dai.png ---
+[3
+
+]
+l.126 --- TeX4ht warning --- extra \RecallEndP ---
+[4
+
+]
+l.143 --- TeX4ht warning --- extra \RecallEndP ---
+l.143 --- TeX4ht warning --- File `"D2L_s26_002.xbb"' not found ---
+l.143 --- TeX4ht warning --- Cannot determine size of graphic in "D2L_s26_002.x
+bb" (no BoundingBox) ---
+l. 143 --- needs --- D2L_s26_002.png ---
+[5
+
+]
+l.165 --- TeX4ht warning --- extra \RecallEndP ---
+l.165 --- TeX4ht warning --- File `"coursewebsite_s26.xbb"' not found ---
+l.165 --- TeX4ht warning --- Cannot determine size of graphic in "coursewebsite
+_s26.xbb" (no BoundingBox) ---
+l. 165 --- needs --- coursewebsite_s26.png ---
+[6
+
+]
+l.172 --- TeX4ht warning --- extra \RecallEndP ---
+l.172 --- TeX4ht warning --- File `"../../Figures/Day01-Crowdmark.xbb"' not fou
+nd ---
+l.172 --- TeX4ht warning --- Cannot determine size of graphic in "../../Figures
+/Day01-Crowdmark.xbb" (no BoundingBox) ---
+l. 172 --- needs --- ../../Figures/Day01-Crowdmark.png ---
+[7
+
+]
+l.210 --- TeX4ht warning --- extra \RecallEndP ---
+l.210 --- TeX4ht warning --- File `"../../Figures/googlecalendar_s25_001.xbb"' 
+not found ---
+l.210 --- TeX4ht warning --- Cannot determine size of graphic in "../../Figures
+/googlecalendar_s25_001.xbb" (no BoundingBox) ---
+l. 210 --- needs --- ../../Figures/googlecalendar_s25_001.png ---
+[8
+
+]
+l.222 --- TeX4ht warning --- extra \RecallEndP ---
+l.222 --- TeX4ht warning --- File `"../../Figures/Day01-TextbookScreenshot.xbb"
+' not found ---
+l.222 --- TeX4ht warning --- Cannot determine size of graphic in "../../Figures
+/Day01-TextbookScreenshot.xbb" (no BoundingBox) ---
+l. 222 --- needs --- ../../Figures/Day01-TextbookScreenshot.png ---
+[9
+
+]
+l.239 --- TeX4ht warning --- extra \RecallEndP ---
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.239 \end{frame}
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.239 \end{frame}
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[10
+
+]
+l.271 --- TeX4ht warning --- extra \RecallEndP ---
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.271 \end{frame}
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.271 \end{frame}
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.271 \end{frame}
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.271 \end{frame}
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[11
+
+]
+l.284 --- TeX4ht warning --- extra \RecallEndP ---
+[12
+
+]
+l.302 --- TeX4ht warning --- extra \RecallEndP ---
+l.302 --- TeX4ht warning --- File `"../../Figures/../Figures/Schedule-S26-1.xbb
+"' not found ---
+l.302 --- TeX4ht warning --- Cannot determine size of graphic in "../../Figures
+/../Figures/Schedule-S26-1.xbb" (no BoundingBox) ---
+l. 302 --- needs --- ../../Figures/../Figures/Schedule-S26-1.png ---
+l.302 --- TeX4ht warning --- File `"../../Figures/../Figures/Schedule-S26-2.xbb
+"' not found ---
+l.302 --- TeX4ht warning --- Cannot determine size of graphic in "../../Figures
+/../Figures/Schedule-S26-2.xbb" (no BoundingBox) ---
+l. 302 --- needs --- ../../Figures/../Figures/Schedule-S26-2.png ---
+l.302 --- TeX4ht warning --- File `"../../Figures/../Figures/Schedule-S26-3.xbb
+"' not found ---
+l.302 --- TeX4ht warning --- Cannot determine size of graphic in "../../Figures
+/../Figures/Schedule-S26-3.xbb" (no BoundingBox) ---
+l. 302 --- needs --- ../../Figures/../Figures/Schedule-S26-3.png ---
+[13
+
+]
+l.315 --- TeX4ht warning --- extra \RecallEndP ---
+! Interruption.
+<to be read again> 
+                   \egroup 
+l.315 \end{frame}
+                 
+? 

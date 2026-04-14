@@ -1,0 +1,637 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 3.2: Multiple Linear Regression}
+\subtitle{Lecture 6 - CMSE 381}
+\date{Mon, Sep 8, 2025}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	Last time:
+	\begin{itemize}
+		\item 3.1 (Simple) linear regression
+		% \item Started 3.2 Multiple Linear regression
+	\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\textbf{Announcements:}
+	\begin{itemize}
+		\item Homework \#2 Due Sunday 9/14 on Crowdmark
+	\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Multiple linear regression
+	\item Hypothesis test in that case
+	\item Forward and Backward Selection
+	% \item $R^2$ and RSE
+	% \item Confidence intervals and prediction intervals
+\end{itemize}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{Review from last time}
+%=================
+
+\begin{frame}[c]{Linear Regression with One Variable}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = .5\textwidth]{Fig3-1}
+\begin{itemize}
+	\item Predict $Y$ on a single variable $X$
+	\begin{equation*}
+		Y \approx \beta_0 + \beta_1 X
+	\end{equation*}
+	\item Find good guesses for $\hat \beta_0$, $\hat \beta_1$.
+\item $	\hat y_i = \hat \beta_0 + \hat \beta_1 x_i$
+\item $e_i = y_i - \hat y_i$ is the $i$th residual
+\item residual sum of squares RSS $= \sum_i e_i^2$
+\end{itemize}
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig3-2}
+\begin{itemize}
+	\item RSS is minimized at \textit{least squares coefficient estimates}
+\begin{align*}
+	\hat \beta_1 &=
+		\frac{\sum_{i=1}^n(x_i-\overline x) (y_i - \overline y)}
+			{\sum_{i=1}^n (x_i - \overline x)^2}\\
+			\hat \beta_0 & = \overline y - \hat \beta_1 \overline x
+\end{align*}
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Evaluating the model}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Linear regression is unbiased
+	\item Variance of linear regression estimates:
+	\begin{align*}
+		\SE(\hat \beta_0)
+				&= \sigma^2 \left[ \frac{1}{n} + \frac{\overline x^2}{\sum_{i=1}^n (x_i - \overline x)^2}\right]\\
+		\SE(\hat \beta_1)^2 &= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \overline x)^2}
+	\end{align*}
+	where $\sigma^2 = \Var(\e)$
+	\item Estimate $\sigma$:
+	$\hat \sigma^2 = \frac{RSS}{n-2}$
+\end{itemize}
+
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item The 95\% confidence interval for $\beta_1$ approximately takes the form
+	\begin{equation*}
+		\hat \beta_1 \pm 2 \cdot \SE(\hat \beta_1)
+	\end{equation*}
+	\item Hypothesis test:
+	\begin{itemize}
+			\item [ $H_0$:] $\beta_1 = 0$
+			\item [$H_a$:] $\beta_1 \neq 0$
+			\item Test statistic $	t = \frac{\hat \beta_1 - 0}{\SE(\hat \beta_1)}$
+		\end{itemize}
+\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}[c]{Assessing the accuracy of the model}
+	\centering
+\begin{columns}
+\column{.4\textwidth}
+% \centering
+\textbf{Residual standard error (RSE):}
+\begin{align*}
+	RSE &= \sqrt{ \frac{1}{n-2} RSS}\\
+\end{align*}
+\InstructorNotes{an estimate of $\sigma$. \\also measure lack of fit? ($MSE=RSS/n$) }
+
+
+
+\column{.45\textwidth}
+
+\textbf{R squared:}
+\begin{align*}
+	R^2 &= \frac{TSS-RSS}{TSS} = 1-\frac{RSS}{TSS}
+\end{align*}
+% where total sum of squares is
+\begin{equation*}
+	TSS = \sum_i (y_i - \overline y)^2
+\end{equation*}
+\InstructorList{
+\item TSS = total sum of squares
+\item Proportion in [0,1]; variability in $Y$ that can be explained using $X$
+\item 0 means $Y$ not explained by linear regression on $X$}
+\end{columns}
+\vspace{\fill}
+Test your understanding \href{https://PollEv.com/multiple_choice_polls/bSq5msaRQMQ3WhZ5w4UUz/respond}{PollEv}
+\end{frame}
+%----------------
+
+
+% \begin{frame}[c]{Least Squares Prediction for Multiple Linear Regression}
+
+% \begin{equation*}
+% 	Y = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p x_p + \e
+% \end{equation*}
+% \begin{columns}
+% \column{.45\textwidth}
+% 	Given estimates $\hat \beta_0, \hat \beta_1,\hat \beta_2,\cdots,\hat\beta_p$, prediction is
+% \begin{equation*}
+% 	\hat y = \hat \beta_0 +  \hat \beta_1x_1 + \cdots + \hat \beta_p x_p
+% \end{equation*}
+% \includegraphics[width = .5\textwidth]{Fig3-4}
+% % \centering
+% \column{.4\textwidth}
+% \centering
+% Minimize the sum of squares
+% \begin{align*}
+% 	RSS &= \sum_i (y_i - \hat y_i)^2\\
+% 	&= \sum (y_i - \hat \beta_0 - \hat \beta_1x_1 - \cdots - \hat \beta_p x_p)
+% \end{align*}
+
+% \begin{itemize}
+% 	\item 
+% Coefficients are closed form but UGLY
+% \item $\beta_j$ is average effect on $Y$ for one unit increase in $X_j$ if all other $X_i$ stay fixed
+% \end{itemize}
+
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+
+%=================
+\section{Multiple  Linear Regression}
+%=================
+
+\begin{frame}[c]{Setup }
+
+\begin{equation*}
+	Y = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p X_p + \e
+\end{equation*}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+\item $\beta_j$ is avg affect on $Y$ of one unit increase in $X_j$, 
+\emph{holding all other predictors fixed}.
+}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig3-4}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Estimation and Prediction}
+
+\begin{columns}
+\column{.4\textwidth}
+% \centering
+Given estimates $\hat \beta_0, \hat \beta_1,\hat \beta_2,\cdots,\hat\beta_p$, prediction is
+\begin{equation*}
+	\hat y = \hat \beta_0 +  \hat \beta_1x_1 + \cdots + \hat \beta_p x_p
+\end{equation*}
+\column{.45\textwidth}
+% \centering
+Minimize the sum of squares
+\begin{align*}
+	RSS &= \sum_i (y_i - \hat y_i)^2\\
+	&= \sum_i (y_i - \hat \beta_0 - \hat \beta_1x_{i1} - \cdots - \hat \beta_p x_{ip})^2
+\end{align*}
+
+Coefficients are closed form but UGLY
+
+\InstructorNotes{We won't write them down, your favorite code can do this for us}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Advertising data set example}
+\begin{equation*}
+	\texttt{Sales} = \beta_0 + \beta_1 \cdot \texttt{TV} + \beta_2 \cdot  \texttt{radio} + \beta_3 \cdot  \texttt{newspaper}
+\end{equation*}
+\begin{columns}
+\column{.3\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{Fig3-4}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth,trim = 0 0 650 0, clip]{Table3-4}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Interpretation of coefficients }
+
+\begin{equation*}
+	\texttt{Sales} = \beta_0 + \beta_1 \cdot \texttt{TV} + \beta_2 \cdot  \texttt{radio} + \beta_3 \cdot  \texttt{newspaper}
+\end{equation*}
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth,trim = 0 0 650 0, clip]{Table3-4}
+
+\column{.5\textwidth}
+\centering
+\InstructorList{
+\item Fixing TV and newspaper spending; Spending \$1K more on radio results in 189 units additional sales
+\item What's going on with newspaper? This says no relationship between newspaper and sales
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Single regression vs multi-regression }
+
+\begin{columns}
+\column{.5\textwidth}
+\centering
+
+\includegraphics[align = c, width = .5\textwidth]{Advertising-SalesVsTV}
+\includegraphics[align = c, width = .3\textwidth,trim = 0 0 650 0, clip]{Table3-1}
+
+\includegraphics[align = c, width = .5\textwidth]{Advertising-SalesVsRadio}
+\includegraphics[align = c, width = .3\textwidth,trim = 0 0 650 0, clip]{Table3-3a}
+
+\includegraphics[align = c, width = .5\textwidth]{Advertising-SalesVsNewspaper}
+\includegraphics[align = c, width = .3\textwidth,trim = 0 0 650 0, clip]{Table3-3b}
+
+\column{.4\textwidth}
+\centering
+
+\includegraphics[align = c, width = .4\textwidth]{Fig3-4}
+\includegraphics[align = c, width = .5\textwidth,trim = 0 0 650 0, clip]{Table3-4}
+
+\qquad
+
+Correlation matrix
+\includegraphics[width = \textwidth]{Table3-5}
+
+\tiny
+\InstructorList{
+\item Correlation between radio and newspaper high (0.35)
+\item Markets with lots of radio also have lots of newspaper ads
+\item In single reg, newspaper gets credit for radio
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+{
+	\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding group work}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Run the section titled ``Multiple Linear Regression''
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+
+%================
+\section{Ch 3.2.2: Questions to ask of your regression}
+%================
+
+%--- Next Frame ---%
+\begin{frame}
+
+\begin{columns}
+\column{.7\textwidth}
+\centering
+\begin{block}
+	{Question 1}
+	\centering 
+Is at least one of the predictors $X_1, \cdots, X_p$ \\
+useful in predicting the response?
+\end{block}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Q1: Hypothesis test}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item [$H_0 : $] $\beta_1 = \beta_2 = \cdots = \beta_p = 0$
+	\item [$H_a:$] At least one $\beta_j$ is non-zero
+\end{itemize}
+
+\column{.4\textwidth}
+\centering
+
+\textbf{F-statistic:}
+\begin{equation*}
+	F = \frac{(TSS-RSS)/p}{RSS/(n-p-1)} \sim F_{p,n- p - 1}
+\end{equation*}
+
+\InstructorList{
+\item TSS $= \sum_i (y_i - \overline y)^2$
+\item RSS $= \sum_i (y_i - \hat y_i)^2$
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{The F-statistic for the hypothesis test}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	F = \frac{(TSS-RSS)/p}{RSS/(n-p-1)} \sim F_{p,n- p - 1}
+\end{equation*}
+
+\includegraphics[align = c, width = \textwidth]{640px-F-distribution_pdf}
+
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+\item If linear model assumptions are true
+\begin{equation*}
+	E( RSS / (n- p - 1)) = \sigma^2
+\end{equation*}
+\item and if $H_0$ is true
+\begin{equation*}
+	E((TSS-RSS)/p) = \sigma^2
+\end{equation*}
+\item So if no relationship between response and predictors, $F$ is close to 1
+\item If $H_a$ is true,
+\begin{equation*}
+	E((TSS-RSS)/p) > \sigma^2
+\end{equation*}
+so then $F > 1$
+}
+\end{columns}
+\bvfill 
+\tiny
+Image from \href{https://commons.wikimedia.org/w/index.php?curid=34777108}{wikipedia, By IkamusumeFan - Own work, CC BY-SA 4.0, }
+\end{frame}
+%--- Next Frame ---%
+{
+	\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{}
+	\centering 
+	Do Q1 section in jupyter notebook 
+\begin{columns}
+\column{.5\textwidth}
+\centering
+\InstructorNotes{
+\includegraphics[width = \textwidth]{Table3-4}
+}
+\column{.3\textwidth}
+\InstructorNotes{
+\includegraphics[width = \textwidth]{Table3-6}
+}
+\centering
+
+\end{columns}
+
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item F stat is way bigger than 1, so reject null hypothesis
+\item How big is big enough? Use the p-value. Not included here but it's basically 0, so we're good
+}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Can also point out that how far from 1 required depends on the $p$, $n$ values. 
+  \item If $n$ large, an F-stat a little larger than 1 is still enough evidence against $H_0$
+  \item However, if $n$ small, might need to be further from 1 to be convinced.
+}
+
+
+\end{columns}
+
+
+\end{frame}
+}
+
+%--- Next Frame ---%
+%--- Next Frame ---%
+\begin{frame}
+
+\begin{columns}
+\column{.7\textwidth}
+\centering
+\begin{block}
+	{Q2}
+Do all the predictors help to explain $Y$, or is only a subset of the predictors useful?
+\end{block}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Q2: A first idea}
+{Great, you know at least one variable is important, so which is it?....}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+\item Bad idea plan A: All subsets or best subsets regression
+	\InstructorList{
+		\item Take every possible subset of $p$ variables
+		\item Figure out least squares fit
+		\item Choose the best one based on some criterion balancing training error with model size
+	}
+}
+\column{.4\textwidth}
+\centering
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+{
+	\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[c]{}
+
+	\centering 
+	Do Q2 section in jupyter notebook 
+
+\end{frame}
+}
+%--- Next Frame ---%
+
+%--- Next Frame ---%
+\begin{frame}[t]{Why is this a bad idea?}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item Why bad idea: $p=40$ variables, this is checking more than a billion models
+\item Better idea: Automated appbroach that searches the subsets for a good one without checking all of them
+}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Later in the class, we will discuss better options for this (Ch 6, $\sim$ a month from now)
+  \item Forward selection/ Backward selection to get subsets of variables without checking every possible subset 
+  \item Shrinkage methods (Lasso/Ridge)
+}
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+% \begin{frame}[c]{Preview Ch 6: Better ideas }
+
+% \begin{columns}
+% 	\column{.6\textwidth}
+% \centering
+% \textbf{Forward Selection:}
+% \InstructorList{
+% \item Greedy algorithm!
+% \item Start with null model- model with intercept but no predictors
+% \item Fit $p$ simple linear regressions, one for each variable
+% \item Add the variable with the lowest RSS to the model
+% \item Do it again adding the remaining $p-1$ variables to the 1-variable model, and add the one that results in the lowest RSS
+% \item Rinse and repeat until some stopping rule satisfied
+% \item e.g. when all remaining variables have $p$-value above some threshold
+% }
+% \column{.45\textwidth}
+% \centering
+% % \textbf{Backward Selection}
+% % \InstructorList{
+% % \item Same idea in reverse
+% % \item Start with all variables in the model
+% % \item Remove the variable with the largest p-value, so the one that is least statistically significant
+% % \item Refit model, rinse and repeat until some threshold
+% % \item e.g. when all remaining variables have $p$-value above some threshold
+% % }
+% % \column{.4\textwidth}
+% % \centering
+
+% \end{columns}
+
+% \end{frame}
+
+%--- Next Frame ---%
+% %----------------
+\begin{frame}[t]{Next time}
+
+
+	\includegraphics[align = c, width = .4\textwidth]{Schedule-F25-1.png}
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

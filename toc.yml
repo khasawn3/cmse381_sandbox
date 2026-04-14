@@ -1,0 +1,410 @@
+# Table of contents
+
+
+# version: 1
+project:
+  toc:
+    - file: intro.md
+    - file: Lectures/01-Ch1-PythonReview/index.md
+    # - title: Day 01 (M 8/25)          
+      # children:
+    #     - file: Lectures/01-Ch1-PythonReview/Sec001/CMSE381-Lec01_PythonReview.ipynb
+    #       title: Jupyter notebook 
+    #     - file: Lectures/01-Ch1-PythonReview/slides.md
+    #       title: Slides
+#### COURSE MATERIALS SECTION ####
+#   - caption: CMSE 381 - Fall 2025
+#     numbered: False
+#     chapters:
+#     - file: Course_Info/Schedule.md
+#       title: Course Schedule
+
+#     - file: Course_Info/Syllabus/Syllabus.md
+#       title: Syllabus
+
+#     - file: Course_Info/Textbook.md
+#       title: Textbook
+
+#     - file: Course_Info/SoftwareSetupGuide.md
+#       title: Software Setup Guide
+
+#     - file: DataSets/DataSets.md
+#       title: Datasets
+
+# #### OTHER RESOURCES SECTION ####
+#   - caption: Other Resources
+#     numbered: False
+#     chapters:
+#     - file: Course_Info/StudyGuide.md
+#       title: Study Guide
+#     - file: CodePortfolio/Code_Portfolio_Template.ipynb
+#       title: Code Portfolio Template
+
+
+# ### DAILY CONTENT SECTION #### 
+#   - caption: Lectures - Test 1
+#     numbered: False
+#     chapters:
+
+#     - file: Lectures/01-Ch1-PythonReview/index.md
+#       title: Day 01 (M 8/25)
+#       sections:
+#       - file: Lectures/01-Ch1-PythonReview/Sec001/CMSE381-Lec01_PythonReview.ipynb
+#         title: Section 001 - Jupyter notebook 
+#       - file: Lectures/01-Ch1-PythonReview/Sec002/CMSE381-Lec01_PythonReview.ipynb
+#         title: Section 002 - Jupyter notebook 
+#       - file: Lectures/01-Ch1-PythonReview/slides.md
+#         title: Slides
+
+#     - file: Lectures/02-Ch2_1-What_is_Stats_learning/index.md
+#       title: Day 02 (W 8/27)
+#       sections:
+#       - file: Lectures/02-Ch2_1-What_is_Stats_learning/slides.md
+#         title: Slides
+
+#     - file: Lectures/03-Ch2_2-ModelAccuracy/index.md
+#       title: Day 03 (W 8/29)
+#       sections:
+#       - file: Lectures/03-Ch2_2-ModelAccuracy/Sec001/CMSE381-001_Lec03_MSE.ipynb
+#         title: Jupyter notebook (Section 001)
+#       - file: Lectures/03-Ch2_2-ModelAccuracy/Sec002/CMSE381-002_Lec03_MSE.ipynb
+#         title: Jupyter notebook (Section 002)
+#       - file: Lectures/03-Ch2_2-ModelAccuracy/slides.md
+#         title: Slides
+
+#     - file: Lectures/04-Ch3_1-LinReg/index.md
+#       title: Day 04 (W 9/3)
+#       sections:
+#       - file: Lectures/04-Ch3_1-LinReg/Sec001/CMSE381-001_Lec04_LinRegLab.ipynb
+#         title: Jupyter - Day 4 - Section 001
+#       - file: Lectures/04-Ch3_1-LinReg/Sec002/CMSE381-002_Lec04_LinRegLab.ipynb
+#         title: Jupyter - Day 4 - Section 002        
+#       - file: Lectures/04-Ch3_1-LinReg/slides.md
+#         title: Slides
+
+
+#     - file: Lectures/05-Ch3_1-MoreLinReg/index.md
+#       title: Day 05 (F 9/5)
+#       sections:
+#       - file: Lectures/05-Ch3_1-MoreLinReg/Sec001/CMSE381-001_Lec05_MoreLinReg.ipynb
+#         title: Jupyter - Section 001
+#       - file: Lectures/05-Ch3_1-MoreLinReg/Sec002/CMSE381-002_Lec05_MoreLinReg.ipynb
+#         title: Jupyter - Section 002
+#       - file: Lectures/05-Ch3_1-MoreLinReg/slides.md
+#         title: Slides
+
+#     - file: Lectures/06-Ch3_2-MultLinReg/index.md
+#       title: Day 06 (M 9/8)
+#       sections:
+#       - file: Lectures/06-Ch3_2-MultLinReg/Sec001/CMSE381-001_Lec06_MultLinReg.ipynb
+#         title: Jupyter - Day 6 -Section 001 
+#       - file: Lectures/06-Ch3_2-MultLinReg/Sec002/CMSE381-002_Lec06_MultLinReg.ipynb
+#         title: Jupyter - Day 6 - Section 001 
+#       - file: Lectures/06-Ch3_2-MultLinReg/slides.md
+#         title: Slides
+
+#     - file: Lectures/07-Ch3_3-MoreLinReg/index.md
+#       title: Day 07 (W 9/10)
+#       sections:
+#       - file: Lectures/07-Ch3_3-MoreLinReg/Sec001/CMSE381-001_Lec07_EvenMoreLinReg.ipynb
+#         title: Jupyter - Section 001
+#       - file: Lectures/07-Ch3_3-MoreLinReg/Sec002/CMSE381-002_Lec07_EvenMoreLinReg.ipynb
+#         title: Jupyter - Section 002
+#       - file: Lectures/07-Ch3_3-MoreLinReg/slides.md
+#         title: Slides
+
+#     - file: Lectures/08-Ch3-FinishingLinReg/index.md
+#       title: Day 08 (F 9/12)
+#       sections:
+#       - file: Lectures/08-Ch3-FinishingLinReg/Sec001/CMSE381-001_Lec08.ipynb
+#         title: Jupyter - Secion 001
+#       - file: Lectures/08-Ch3-FinishingLinReg/Sec002/CMSE381-002_Lec08.ipynb
+#         title: Jupyter - Secion 001
+#       - file: Lectures/08-Ch3-FinishingLinReg/slides.md
+#         title: Slides
+
+#     - file: Lectures/09-IntroClassification/index.md
+#       title: Day 09 (M 9/15)
+#       sections:
+#       - file: Lectures/09-IntroClassification/Sec001/CMSE381-001_Lec09_IntroClassification.ipynb
+#         title: Jupyter - Section 001
+#       - file: Lectures/09-IntroClassification/Sec002/CMSE381-002_Lec09_IntroClassification.ipynb
+#         title: Jupyter - Section 002
+#       - file: Lectures/09-IntroClassification/slides.md
+#         title: Slides
+
+#     - file: Lectures/10-Ch4-LogisticRegression/index.md
+#       title: Day 10 (W 9/17)
+#       sections:
+#       - file: Lectures/10-Ch4-LogisticRegression/Sec001/CMSE381-001_Lec10_LogisticRegression.ipynb
+#         title: Jupyter - Section 001
+#       - file: Lectures/10-Ch4-LogisticRegression/Sec002/CMSE381-002_Lec10_LogisticRegression.ipynb
+#         title: Jupyter - Section 002
+#       - file: Lectures/10-Ch4-LogisticRegression/slides.md
+#         title: Slides
+
+#     - file: Lectures/11-Ch4_3-MoreLogisticReg/index.md
+#       title: Day 11 (F 9/19)
+#       sections:
+#       - file: Lectures/11-Ch4_3-MoreLogisticReg/Sec001/CMSE381-001-Lec11_MoreLogisticRegression.ipynb
+#         title: Jupyter notebook
+#       - file: Lectures/11-Ch4_3-MoreLogisticReg/Sec002/CMSE381-002_Lec11_MoreLogisticRegression.ipynb
+#         title: Jupyter notebook
+#       - file: Lectures/11-Ch4_3-MoreLogisticReg/slides.md
+#         title: Slides
+#   # -------
+#   - caption: Lectures - Test 2
+#     numbered: False
+#     chapters:
+
+#     - file: Lectures/12-Ch5_1-LOOCV/index.md
+#       title: Day 12 (F 9/26)
+#       sections:
+#       - file: Lectures/12-Ch5_1-LOOCV/Sec001/CMSE381-001-Lec12_LOOCV.ipynb
+#         title: Jupyter - Section 001
+#       - file: Lectures/12-Ch5_1-LOOCV/Sec002/CMSE381-002_Lec12_LOOCV.ipynb
+#         title: Jupyter - Section 002
+#       - file: Lectures/12-Ch5_1-LOOCV/slides.md
+#         title: Slides
+
+#     - file: Lectures/13-Ch5_1-KFoldCV/index.md
+#       title: Day 13 (M 9/29)
+#       sections:
+#       - file: Lectures/13-Ch5_1-KFoldCV/Sec001/CMSE381-001-Lec13-KFoldCV.ipynb
+#         title: Jupyter - Section 001
+#       - file: Lectures/13-Ch5_1-KFoldCV/Sec002/CMSE381-002_Lec13_KFoldCV.ipynb
+#         title: Jupyter - Section 002
+#       - file: Lectures/13-Ch5_1-KFoldCV/slides.md
+#         title: Slides
+
+#     - file: Lectures/14-Ch5_1-More_KFoldCV/index.md
+#       title: Day 14 (W 10/1)
+#       sections:
+#       - file: Lectures/14-Ch5_1-More_KFoldCV/Sec001/CMSE381-001_Lec14_MoreKFoldCV.ipynb
+#         title: Jupyter - Section 001
+#       - file: Lectures/14-Ch5_1-More_KFoldCV/Sec002/CMSE381-002_Lec14_MoreKFoldCV.ipynb
+#         title: Jupyter - Section 002
+#       - file: Lectures/14-Ch5_1-More_KFoldCV/slides.md
+#         title: Slides
+
+#     - file: Lectures/15-Ch05_1-KFoldCV-Classification/index.md
+#       title: Day 15 (F 10/3)
+#       sections:
+#       - file: Lectures/15-Ch05_1-KFoldCV-Classification/Sec001/CMSE381-001_Lec15_kfold_Classification.ipynb
+#         title: Jupyter - Sec 001
+#       - file: Lectures/15-Ch05_1-KFoldCV-Classification/Sec002/CMSE381-002_Lec15_kfold_Classification.ipynb
+#         title: Jupyter - Sec 002
+#       - file: Lectures/15-Ch05_1-KFoldCV-Classification/slides.md
+#         title: Slides
+
+#     - file: Lectures/16-SubsetSelection/index.md
+#       title: Day 16 (M 10/6)
+#       sections:
+#       - file: Lectures/16-SubsetSelection/Sec001/CMSE381-001_Lec16_Subset.ipynb
+#         title: Jupyter - 001
+#       - file: Lectures/16-SubsetSelection/Sec002/CMSE381-002_Lec16_Subset.ipynb
+#         title: Jupyter - 002
+#       - file: Lectures/16-SubsetSelection/slides.md
+#         title: Slides
+
+#     - file: Lectures/17-Ridge/index.md
+#       title: Day 17 (W 10/8)
+#       sections:
+#       - file: Lectures/17-Ridge/Sec001/CMSE381-001_Lec17_Ridge.ipynb
+#         title: Jupyter 001
+#       - file: Lectures/17-Ridge/Sec002/CMSE381-002_Lec17_Ridge.ipynb
+#         title: Jupyter 002
+#       - file: Lectures/17-Ridge/slides.md
+#         title: Slides
+
+#     - file: Lectures/18-Lasso/index.md
+#       title: Day 18 (F 10/10)
+#       sections:
+#       - file: Lectures/18-Lasso/Sec001/CMSE381-001_Lec18_Lasso.ipynb
+#         title: Jupyter - 001
+#       - file: Lectures/18-Lasso/Sec002/CMSE381-002_Lec18_Lasso.ipynb
+#         title: Jupyter - 002
+#       - file: Lectures/18-Lasso/slides.md
+#         title: Slides
+
+#     - file: Lectures/19-PCA/index.md
+#       title: Day 19 (M 10/13)
+#       sections:
+#       - file: Lectures/19-PCA/Sec001/CMSE381-001_Lec19_Ch6_3_PCA.ipynb
+#         title: Jupyter 001
+#       - file: Lectures/19-PCA/Sec002/CMSE381-002_Lec19_Ch6_3_PCA.ipynb
+#         title: Jupyter 002
+#       - file: Lectures/19-PCA/slides.md
+#         title: Slides
+
+#     - file: Lectures/20-PCR/index.md
+#       title: Day 20 (W 10/15)
+#       sections:
+#       - file: Lectures/20-PCR/Sec001/CMSE381-001_Lec20_PCR.ipynb
+#         title: Jupyter 001
+#       - file: Lectures/20-PCR/Sec002/CMSE381-002_Lec20_PCR.ipynb
+#         title: Jupyter 002
+#       - file: Lectures/20-PCR/slides.md
+#         title: Slides
+
+#   # -------
+#   - caption: Lectures - Test 3
+#     numbered: False
+#     chapters:
+
+#     - file: Lectures/21-Polynomial_Step_Functions/index.md
+#       title: Day 21 (F 10/24)
+#       sections:
+#       - file: Lectures/21-Polynomial_Step_Functions/Sec001/CMSE381-001_Lec21_PolynomialAndStepFunctions.ipynb
+#         title: Jupyter 001
+#       - file: Lectures/21-Polynomial_Step_Functions/Sec002/CMSE381-002_Lec21_PolynomialAndStepFunctions.ipynb
+#         title: Jupyter 002
+#       - file: Lectures/21-Polynomial_Step_Functions/slides.md
+#         title: Slides
+#     - file: Lectures/22-Splines/index.md
+#       title: Day 22 (M 10/27)
+#       sections:
+#       - file: Lectures/22-Splines/Sec001/CMSE381-001_Lec22_StepClassification.ipynb
+#         title: Jupyter 001
+#       - file: Lectures/22-Splines/Sec002/CMSE381-002_Lec22_StepClassification.ipynb
+#         title: Jupyter 002
+#       - file: Lectures/22-Splines/slides.md
+#         title: Slides
+#     - file: Lectures/23-MoreSplines/index.md
+#       title: Day 23 (W 10/29)
+#       sections:
+#       - file: Lectures/23-MoreSplines/Sec001/CMSE381-001_Lec23_Ch7_4_Splines.ipynb
+#         title: Jupyter 1
+#       - file: Lectures/23-MoreSplines/Sec002/CMSE381-002_Lec23_Ch7_4_Splines.ipynb
+#         title: Jupyter 2
+#       - file: Lectures/23-MoreSplines/slides.md
+#         title: Slides
+#     - file: Lectures/24-DecisionTrees/index.md
+#       title: Day 24 (F 10/31)
+#       sections:
+#       - file: Lectures/24-DecisionTrees/Sec001/CMSE381-001_Lec24_DecisionTrees.ipynb
+#         title: Jupyter 1
+#       - file: Lectures/24-DecisionTrees/Sec002/CMSE381-002_Lec24_DecisionTrees.ipynb
+#         title: Jupyter 2
+#       - file: Lectures/24-DecisionTrees/slides.md
+#         title: Slides
+#     - file: Lectures/25-RandomForests/index.md
+#       title: Day 25 (M 11/3)
+#       sections:
+#       - file: Lectures/25-RandomForests/Sec001/CMSE381-001_Lec25_RandomForests.ipynb
+#         title: Jupyter 1
+#       - file: Lectures/25-RandomForests/Sec002/CMSE381-002_Lec25_RandomForests.ipynb
+#         title: Jupyter 2
+#       - file: Lectures/25-RandomForests/slides.md
+#         title: Slides
+#     - file: Lectures/26-MaxMarginClassifier/index.md
+#       title: Day 26 (W 11/5)
+#       sections:
+#       - file: Lectures/26-MaxMarginClassifier/slides.md
+#         title: Slides
+#     - file: Lectures/27-SVC/index.md
+#       title: Day 27 (F 11/7)
+#       sections:
+#       - file: Lectures/27-SVC/Sec001/CMSE381-001_Lec27_SVC.ipynb
+#         title: Jupyter notebook 1
+#       - file: Lectures/27-SVC/Sec002/CMSE381-002_Lec27_SVC.ipynb
+#         title: Jupyter notebook 2
+#       - file: Lectures/27-SVC/slides.md
+#         title: Slides
+#     - file: Lectures/28-SVM/index.md
+#       title: Day 28 (M 11/10)
+#       sections:
+#       - file: Lectures/28-SVM/Sec001/CMSE381-001_Lec28_SVM.ipynb
+#         title: Jupyter notebook 1
+#       - file: Lectures/28-SVM/Sec002/CMSE381-002_Lec28_SVM.ipynb
+#         title: Jupyter notebook 2
+#       - file: Lectures/28-SVM/slides.md
+#         title: Slides
+#     - file: Lectures/29-NN/index.md
+#       title: Day 29 (W 11/12)
+#       sections:
+#       - file: Lectures/29-NN/Sec001/CMSE381-001_Lec29_NN_code.ipynb
+#         title: Jupyter notebook 1
+#       - file: Lectures/29-NN/Sec002/CMSE381-002_Lec29_NN_code.ipynb
+#         title: Jupyter notebook 2
+#       - file: Lectures/29-NN/slides.md
+#         title: Slides
+#     - file: Lectures/30-MultiLayer-NN/index.md
+#       title: Day 30 (F 11/13)
+#       sections:
+#       - file: Lectures/30-MultiLayer-NN/Sec001/CMSE381-001_Lec30_Multi_NN.ipynb
+#         title: Jupyter notebook 1
+#       - file: Lectures/30-MultiLayer-NN/Sec002/CMSE381-002_Lec30_Multi_NN.ipynb
+#         title: Jupyter notebook 2
+#       - file: Lectures/30-MultiLayer-NN/slides.md
+#         title: Slides
+#     - file: Lectures/31-CNN/index.md
+#       title: Day 31 (M 11/17)
+#       sections:
+#       - file: Lectures/31-CNN/Sec001/CMSE381-001_Lec31_CNN.ipynb
+#         title: Jupyter notebook 1
+#       - file: Lectures/31-CNN/Sec002/CMSE381-002_Lec31_CNN.ipynb
+#         title: Jupyter notebook 2
+#       - file: Lectures/31-CNN/slides.md
+#         title: Slides
+#     - file: Lectures/32-Clustering/index.md
+#       title: Day 32 (W 11/19)
+#       sections:
+#       - file: Lectures/32-Clustering/Sec001/CMSE381-001_Lec32_HierarchicalClustering.ipynb
+#         title: Jupyter notebook 1
+#       - file: Lectures/32-Clustering/Sec002/CMSE381-002_Lec32_HierarchicalClustering.ipynb
+#         title: Jupyter notebook 2
+#       - file: Lectures/32-Clustering/slides.md
+#         title: Slides
+
+        
+
+
+
+        
+
+
+
+# ### Homeworks ###
+#   - caption: Homeworks
+#     numbered: False
+#     chapters:
+    
+#     - file: Homeworks/Homework.md
+#       title: Homework Info
+#     - file: Homeworks/InternetPolicyAndCitation.md
+#       title: Internet and Citation Policy
+#     - file: Homeworks/CMSE381-HW-01.md
+#       title: HW 1
+#     - file: Homeworks/CMSE381-HW-02.md
+#       title: HW 2
+#     - file: Homeworks/CMSE381-HW-03.md
+#       title: HW 3
+#     - file: Homeworks/CMSE381-HW-04.md
+#       title: HW 4
+#     - file: Homeworks/CMSE381-HW-05.md
+#       title: HW 5
+#     - file: Homeworks/CMSE381-HW-06.md
+#       title: HW 6
+#     - file: Homeworks/CMSE381-HW-07.md
+#       title: HW 7
+#     - file: Homeworks/CMSE381-HW-08.md
+#       title: HW 8
+#     - file: Homeworks/CMSE381-HW-09.md
+#       title: HW 9
+     
+
+# ## Projects ###
+#   - caption: Project
+#     numbered: False
+#     chapters:
+#     - file: Project/ProjectDescription.md
+#       title: Project Info
+#     - file: Project/ProjectDescription-HonorsAddendum.md
+#       title: Honors Project Info
+#     - file: Project/ProjectTemplate.ipynb
+#       title: Project Template
+#     - file: Project/ProjectDataSection001.md
+#       title: Default dataset (Section 001)
+#     - file: Project/ProjectDataSection002.md
+#       title: Default dataset (Section 002)

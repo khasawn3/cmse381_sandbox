@@ -1,0 +1,726 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{} \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 4.4.2: Linear Discriminant Analysis $p\geq1$}
+\subtitle{Lecture 9 - CMSE 381}
+\date{Mon, Feb 7, 2022}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Munch]{Prof.~Elizabeth Munch}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	Last time:
+	\begin{itemize}
+		\item Lab on Discrimination
+	\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\textbf{Announcements:}
+	\begin{itemize}
+		\item Fourth homework due Friday! Covers:
+		\begin{itemize}
+			\item Fri 2/4 Lab
+			\item Mon 2/7 Lecture
+			\item Weds 2/9 Lecture
+		\end{itemize}
+		\item Office hours - ONLINE
+	\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item QDA
+	\item ROC Curve
+	\item AUC
+	\item Naive Bayes
+\end{itemize}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{LDA $p=1$ Review}
+%=================
+
+
+\begin{frame}[c]{Goal:}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+% Approximate $Pr(Y = k \mid X = x)$
+
+\begin{itemize}
+	\item Classify an observation into one of $K\geq 2 $ classes
+	\item $\pi_k$ is the \textit{prior} probability that a randomly chosen observation comes from the $k$th class, $P(Y = k)$
+	\item $f_k(X) = \Pr(X \mid Y = k)$ is the density function of $X$ for an observation from the $k$th class
+
+	\item $\Pr(X) = \sum_\ell \pi_\ell f_\ell(X)$
+\end{itemize}
+
+\column{.45\textwidth}
+\centering
+
+
+\begin{block}
+	{Bayes Theorem}
+\begin{equation*}
+P(A\mid B)={\frac {P(A) \cdot P(B\mid A)}{P(B)}}
+\end{equation*}
+\end{block}
+Posterior probability that an observation $X=x$ belongs to the $k$th class:
+\begin{equation*}
+	p_k(x) = \Pr(Y = k \mid X = x ) = \frac{ \pi_k f_k(x)}{\sum_{\ell = 1}^K \pi_\ell f_\ell(x)}
+\end{equation*}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Linear Discriminant Analysis for $p=1$}
+
+\begin{columns}
+\column{.45\textwidth}
+Assume $f_k(x)$ is normal/Gaussian:
+
+\begin{equation*}
+	f_k(x) = \frac{1}{\sqrt{2 \pi}}\exp \left(\frac{-1}{2\sigma_k^2}(x-\mu_k)^2 \right)
+\end{equation*}
+
+\begin{itemize}
+	\item $\mu_k$ = mean of $k$th class
+	\item $\sigma^2_k$ = variance of $k$th class
+	\item Assume $\sigma_1^2 = \cdots = \sigma_K^2$
+\end{itemize}
+\begin{equation*}
+	p_k(x) = \frac{ \pi_k \frac{1}{\sqrt{2 \pi}}\exp \left(\frac{-1}{2\sigma^2}(x-\mu_k)^2 \right)}{\sum_{\ell = 1}^K \pi_\ell \frac{1}{\sqrt{2 \pi}}\exp \left(\frac{-1}{2\sigma^2}(x-\mu_\ell)^2 \right)}
+\end{equation*}
+\column{.45\textwidth}
+\centering
+
+
+Finding  $k$ with largest $p_k(x)$ is the same as finding $k$ for which largest
+\begin{equation*}
+	\delta_k(x) = x \cdot \frac{\mu_k}{\sigma^2} - \frac{\mu_k^2}{2\sigma^2} + \log (\pi_k)
+\end{equation*}
+
+\begin{itemize}
+	\item $\displaystyle{
+	\hat \mu_k = \frac{1}{n_k} \sum_{i \mid y_i = k} x_i
+	}$
+	\item $\displaystyle{
+	\hat \sigma^2 = \frac{1}{n-K}\sum_{k=1}^K \sum_{i \mid y_i = k}(x_i - \hat \mu_k)^2
+	}$
+	\item $\hat \pi_k = n_k/n$
+\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+%--- Next Frame ---%
+\begin{frame}[c]{Example when $K = 2$, $\pi_1 = \pi_2$}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Decision boundary:}
+
+\begin{equation*}
+	x = \frac{\mu_1+\mu_2}{2}
+\end{equation*}
+\includegraphics[width = \textwidth, align = c]{Fig4-4a}
+\column{.45\textwidth}
+\centering
+
+Estimate
+\begin{equation*}
+	\delta_k(x) = x \cdot \frac{\mu_k}{\sigma^2} - \frac{\mu_k^2}{2\sigma^2} + \log (\pi_k)
+\end{equation*}
+\includegraphics[width = \textwidth, align = c]{Fig4-4b}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=============
+\section{LDA for $p \geq 1$}
+%=================
+
+\begin{frame}[c]{Multivariate Gaussians}
+
+Assume $X = (X_1,X_2,\cdots,X_p)$ is drawn from a multivariate Gaussian. $X \sim N(\mu,\Sigma)$
+
+\centering
+\includegraphics[width = .8\textwidth, align = c]{Fig4-5}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+$\Var(X_1) = \Var(X_2)$
+
+$\mathrm{Cor}(X_1,X_2) = 0$
+\column{.45\textwidth}
+\centering
+$\Var(X_1) \neq \Var(X_2)$
+
+$\mathrm{Cor}(X_1,X_2) \neq  0$
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{More on Multivariate Gaussians}
+
+% Assume $X = (X_1,X_2,\cdots,X_p)$ is drawn from a multivariate Gaussian.
+\begin{equation*}
+	f(x) = \frac{1}{(2\pi)^{p/2} |\Sigma|^{1/2}} \exp \left( -\frac{1}{2} (x-\mu)^T \Sigma^{-1}(x-\mu) \right)
+\end{equation*}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item $X \sim N(\mu,\Sigma)$
+	\item $E(X) = \mu $ vector of means
+	\item $\mathrm{Cov}(X) = {\Sigma} = $ $p \times p$ Covariance matrix
+\end{itemize}
+\column{.45\textwidth}
+\centering
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Assumptions for LDA}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\begin{itemize}
+	\item $p>1$ predictors $X_1,\cdots,X_p$
+	\item Assume observations in the $k$th class $\sim N(\mu_k,\Sigma)$
+	\InstructorList{
+	\item $\mu_k$ is class specific mean
+	\item $\Sigma$ is common to all $K$ classes
+	}
+\end{itemize}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig4-6a}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Bayes decision boundary}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+Combine density for $k$th class $f_k(X=x)$ with
+\begin{equation*}
+	p_k(x) = \Pr(Y = k \mid X = x ) = \frac{ \pi_k f_k(x)}{\sum_{\ell = 1}^K \pi_\ell f_\ell(x)}
+	% p_k(x) = \frac{ \pi_k \frac{1}{\sqrt{2 \pi}}\exp \left(\frac{-1}{2\sigma^2}(x-\mu_k)^2 \right)}{\sum_{\ell = 1}^K \pi_\ell \frac{1}{\sqrt{2 \pi}}\exp \left(\frac{-1}{2\sigma^2}(x-\mu_\ell)^2 \right)}
+\end{equation*}
+to get
+
+\begin{block}
+	{Bayes classifier}
+
+	Return the class $k$ for which
+\begin{equation*}
+	\delta_k(x) =
+	x^T \Sigma \inv \mu_k  - \frac{1}{2} \mu_k^T \Sigma\inv \mu_k + \log \pi_k
+\end{equation*}
+is largest.
+\end{block}
+\InstructorNotes{Note that $\delta_k(x)$ is actually linear function, hence the L in LDA}
+
+\column{.45\textwidth}
+\centering
+
+
+\includegraphics[width = \textwidth, align = c]{Fig4-6a}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}[c]{LDA for $p \geq 1$}
+
+\begin{columns}
+\column{.45\textwidth}
+% \centering
+Estimate
+\begin{itemize}
+	\item $\mu_1,\cdots,\mu_K$ \InstructorNotes{Class specific means}
+	\item $\pi_1, \cdots, \pi_K$ \InstructorNotes{Percent of observations in the class?}
+	\item $\Sigma$ \InstructorNotes{Covariance}
+\end{itemize}
+then plug into $\delta_k(x)$ for estimate.
+\column{.45\textwidth}
+\centering
+% \includegraphics[width = \textwidth, align = c]{Fig4-6a}
+\includegraphics[width = \textwidth, align = c]{Fig4-6b}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+%--- Next Frame ---%
+\begin{frame}[t]{Confusion Matrix: Predicting $\texttt{default}$ from $\texttt{balance}$}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+
+\includegraphics[width = \textwidth]{Table4-4}
+
+\InstructorList{
+\item Overall error $(c+d)/N = 2.75\%$
+\item Worry about overfitting, but $p=2$ and $n=10,000$ so not a concern here
+\item Only 3.33\% of people in set defaulted, the \textit{null} classifier (predict no one defaults) is only slightly higher than this
+\item Of those who defaulted, 252/333 = 75.7\% were missed by LDA.
+}
+\column{.45\textwidth}
+\centering
+% \includegraphics[width = \textwidth, align = c]{Fig4-6b}
+\includegraphics[width = \textwidth]{ConfusionMatrixEx.png}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Increasing LDA Sensitivity}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Table4-4}
+
+Predict default if $\Pr(\texttt{default} = yes \mid \texttt{balance}) > 0.5$
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Table4-5}
+Predict default if $\Pr(\texttt{default} = yes \mid \texttt{balance}) > 0.2$
+
+\InstructorList{
+\item Of the 333 default, LDA incorrectly predicts 138 or 41.4\%
+\item But, 235 who don't default are now incorrectly classified.
+\item Overall error goes to 3.73\%
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Messing with the threshold}
+
+\begin{columns}
+\column{.5\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig4-7}
+
+\column{.3\textwidth}
+\centering
+\InstructorList{
+\item Black solid overall error rate
+\item Blue dashed: fraction of defaulting customers that are incorrectly classified
+\item Orange dotted: fraction of errors among non-defaulting customers
+\item Not obvious what the "right" threshold is
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Types of errors}
+
+	\centering
+\includegraphics[width = .7 \textwidth]{TypesOfErrors.png}
+\begin{columns}
+\column{.5\textwidth}
+\centering
+\InstructorList{
+\item False Positive: FP/(TN+FP), Type I
+\item True Positive (recall, sensitivity): TP/(TP+FN), Type II Error
+}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Area under the ROC curve}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig4-8}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+\item ROC "reciever operating characteristics" from communications theory
+\item Call everything positive, means (0,0); call everything negative means (1,1)
+\item Larger area is better
+\item Max is 1; this example has 0.95
+\item If you classifier is no better than chance, should be 0.5
+\item Lots of other ways to measure classifier performance
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+%======
+\section{QDA}
+%=====
+\begin{frame}[c]{Quadratic Discriminant Analysis}
+	\begin{equation*}
+		p_k(x) = \Pr(Y = k \mid X = x ) = \frac{ \pi_k f_k(x)}{\sum_{\ell = 1}^K \pi_\ell f_\ell(x)}
+	\end{equation*}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Assume Gaussian and the same covariance matrix for each class $\Rightarrow$ LDA
+\end{itemize}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Assume Gaussian and different covariance matrix for each class $\Rightarrow$ QDA
+\end{itemize}
+
+\end{columns}
+
+\bvfill
+Choose $k$ for which $\delta_k(x)$ is largest:
+\centering
+\includegraphics[width = .8\textwidth]{Eq4-28}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Comparisons with same correlation}
+
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig4-9a}
+$\Sigma_{\texttt{orange}} = \Sigma_{\texttt{blue}} =
+\begin{pmatrix}
+	1 & 0.7\\
+	0.7 & 1
+\end{pmatrix}
+$
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Bayes: Purple dashed
+	\item LDA: Black dotted
+	\item QDA: Green solid
+\end{itemize}
+\InstructorList{
+\item Bayes decision boundary is linear
+\item Accurately approximated by LDA
+\item QDA has higher variance without decreasing the bias
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Comparisons with different correlation}
+
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig4-9b}
+$\Sigma_{\texttt{orange}} =
+\begin{pmatrix}
+	1 & 0.7\\
+	0.7 & 1
+\end{pmatrix}
+$,
+
+$\Sigma_{\texttt{blue}} =
+\begin{pmatrix}
+	1 & -0.7\\
+	-0.7 & 1
+\end{pmatrix}
+$
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Bayes: Purple dashed
+	\item LDA: Black dotted
+	\item QDA: Green solid
+\end{itemize}
+\InstructorList{
+\item Bayes decision boundary is quadradic
+\item QDA doing a better job in this case
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=======
+\section{Naive Bayes}
+%=======
+\begin{frame}[t]{Naive Bayes Assumptions}
+
+
+	\begin{equation*}
+		p_k(x) = \Pr(Y = k \mid X = x ) = \frac{ \pi_k f_k(x)}{\sum_{\ell = 1}^K \pi_\ell f_\ell(x)}
+	\end{equation*}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+Assume the features are independent:
+\begin{align*}
+	f_k(x) &= f_{k1}(x_1) \times f_{k2}(x_2) \times \cdots \times f_{kp}(x_p) \\
+	&= \prod_{j=1}^p f_{jk}(x_j)
+\end{align*}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+\item Note that no longer have a Gaussian assumption
+\item No need to worry about figuring out association between the p predictors, simplifies estimation
+\item Reasonable assumption? Probably not. But if $n$ is NOT large enough relative to $p$ to estimate joint distribution of predictors within class, this is a reasonable alternative.
+\item Naive Bayes introduces some bias, but reduces variance, so works well in practice
+
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Gaussian Naive Bayes}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+Let's assume:
+\begin{itemize}
+	\item Features are independent
+	\item They come from a Gaussian, $X_j \mid Y = k \sim N(\mu_{jk},\sigma^2_{jk})$
+\end{itemize}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+\item Looks like QDA, but has the independence assumption
+\item Result is class-specific  covariance matrix is diagonal, just has variance along the diagonal
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%====
+\section{Some comparisons}
+%====
+\begin{frame}[c]{Scenario 1}
+
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig4-11a}
+Test error rates
+\column{.55\textwidth}
+\centering
+\begin{itemize}
+	\item $p=2$, $K=2$, $n_k=20$ observations for each class
+	\item Each class drawn from uncorrelated normals.  Different means but same covariance matrix
+\end{itemize}
+\tiny
+\InstructorList{
+\item KNN with $K=1$ and with cross validation, haven't seen this yet
+\item LDA does well, expected since this is the model assumed by LDA
+\item Logistic regression does well b/c assumes linear decision boundary
+\item KNN doesn't do well because higher variance didn't come with reduction in bias
+\item QDA worse more flexible classifier than necessary
+\item naive Bayes slightly better because independence assumption is correct
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Scenario 2}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig4-11b}
+Test error rates
+\column{.55\textwidth}
+\centering
+\begin{itemize}
+	\item $p=2$, $K=2$, $n_k=20$ observations for each class
+	\item Each class drawn from normals.  Different means.
+	\item Correlation of predictors: $-0.5$
+\end{itemize}
+\InstructorList{
+\item Similar to previous, but Naive Bayes does worse because violating the independence assumption
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Scenario 3}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig4-11c}
+Test error rates
+\column{.55\textwidth}
+\centering
+\begin{itemize}
+	\item $p=2$, $K=2$, $n_k=50$ observations for each class
+	\item Each class drawn from $t$-distribtuion
+\end{itemize}
+\InstructorList{
+\item $t$-distribution gets more extreme points; otherwise similar to normal
+\item Decision bdy still linear so logistic works
+\item Violates LDA assumptions because not normal
+\item QDA awful because of non-normal
+\item Naive Bayes also bad because lost independence assumption
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Scenario 3}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig4-12a}
+Test error rates
+\column{.55\textwidth}
+\centering
+\begin{itemize}
+	\item $p=2$, $K=2$, $n_k=50$ observations for each class
+	\item Each class drawn from Gaussian with different mean and different covariance for each class
+\end{itemize}
+\InstructorList{
+\item QDA wins because we have the assumptions that fit
+\item Takehome from all these examples: No one method wins all the time.
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+% %----------------
+\begin{frame}[t]{Next time}
+
+	\begin{itemize}
+		\item Wed:
+		\begin{itemize}
+			\item CHANGED: Ch 5.1. Check the schedule link.
+		\end{itemize}
+		\item Fri:
+		\begin{itemize}
+			\item Lab on Classifiers
+			\item HW \#4 due. Covers:
+			\begin{itemize}
+				\item 2/4: Discrimination Lab
+				\item 2/2: 4.4.2, 4.4.3, 4.5 QDA, Naive Bayes, Some comparisons
+				\item 2/2: 5.1 Cross-Validation
+			\end{itemize}
+		\end{itemize}
+
+
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

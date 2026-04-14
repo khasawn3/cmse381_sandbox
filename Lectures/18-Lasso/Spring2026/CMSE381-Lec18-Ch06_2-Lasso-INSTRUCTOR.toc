@@ -1,0 +1,2 @@
+\beamer@sectionintoc {1}{Last time - Ridge Regression}{4}{0}{1}
+\beamer@sectionintoc {2}{The Lasso}{8}{0}{2}

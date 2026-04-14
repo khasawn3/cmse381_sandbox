@@ -1,0 +1,616 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+\usepackage{verbatim}
+
+% \usepackage{algpseudocode}
+
+
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 6.2: Shrinkage - Ridge regression}
+\subtitle{Lecture 17 - CMSE 381}
+\date{Wed, Oct 8, 2025}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+		\item Subset selection 
+	\end{itemize}
+	\textbf{This time:}
+	\begin{itemize}
+		\item Ridge regression
+	\end{itemize}
+\textbf{Announcements:}
+	\begin{itemize}
+		\item  HW \#4 due Sunday 10/12
+	\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{Schedule-F25-2.png}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%=================
+\section{Last time}
+%=================
+
+\begin{frame}[c]{Subset selection}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Alg6-1}
+
+\column{.45\textwidth}
+\includegraphics[width = \textwidth, align = c]{Alg6-2}
+\includegraphics[width = \textwidth, align = c]{Alg6-3}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+%--- Next Frame ---%
+\begin{frame}[t]{What should you learn from this lecture?}
+	\begin{itemize}
+		\item What is regularization? Why do we need it?
+		\item What are the two basic types of regularization methods? How are they implemented mathematically in linear regression?
+		\item How do you fit a ridge regression model in python?
+		\item How do you control the model flexibility \& bias-variance tradeoff when using regularization?
+		\item How do you find the right amount of regularization using cross-validation? How do you do this in python?
+		\item What additional precautions do you need to take when using regularization (compared to least squares)?
+		\item What are the advantages of regularization compared to Least Squares?
+		\item What are the advantages of regularization compared to subset selection?
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+%==========
+\section{Ridge Regression}
+%==========
+\begin{frame}[c]{Goal}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item Fit model using all $p$ predictors
+	\item Aim to constrain (regularize) coefficient estimates
+	\item Shrink the coefficient estimates towards 0
+\end{itemize}
+\column{.45\textwidth}
+\centering
+
+\begin{equation*}
+	Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4
+\end{equation*}
+\InstructorList{
+\item Ridge regression
+\item Lasso
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Ridge regression}
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\textbf{Before:}
+\footnotesize
+\begin{equation*}
+	RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+\end{equation*}
+
+\column{.55\textwidth}
+\centering
+\textbf{After:}
+\begin{equation*}
+	\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2 + \lambda \sum_{j=1}^p \beta_j^2 = RSS + \lambda \sum_{j=1}^p \beta_j^2
+\end{equation*}
+
+\end{columns}
+
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\footnotesize
+\InstructorList{
+\item $\lambda \geq 0$ is a tuning paramter to figure out separately.
+\item Second term is called ``shrinkage penalty''
+\item $\lambda = 0$ means least squares estimate
+\item first encouter of regularization, $l_2$ norm, $l_p$ norm
+\item regularization = constrain = less flexibility
+}
+\column{.45\textwidth}
+\centering
+
+\footnotesize
+\InstructorList{
+\item As $\lambda \to \infty$ impact of shrinkage penalty grows, ridge regression coeff will go towards 0
+% \item note different set of estimates every time
+\item Not applied to the intercept
+\item call coefficients found by ridge regression $\hat \beta_\lambda^R = (\beta_{1,\lambda}^R, \cdots,\beta_{p,\lambda}^R \cdots )$
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Example from the \texttt{Credit} data}
+
+\begin{equation*}
+RSS + \lambda \sum_{j=1}^p \beta_j^2
+\end{equation*}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig6-4a}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+\item Left x-axis, $\lambda \approx 0$
+\item Each line is the predicted coefficient value for a single variable
+\item as $\lambda$ increases everything goes to 0, basically giving the null model at the right end
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Same Setting, Different Plot }
+
+
+\begin{equation*}
+RSS + \lambda \sum_{j=1}^p \beta_j^2
+\qquad
+\|\beta\|_2 = \sqrt{ \sum_{j=1}^p \beta_j^2}
+\end{equation*}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig6-4b}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+	\small
+\item $\hat \beta$ is the vector of least squares coeff estimates
+\item $\| \cdot \|$ measures distance from 0
+\item $\|\hat \beta^R_\lambda\| / \|\hat \beta\|$ ranges from 1 (when $\lambda = 0$) down to 0
+\item Amount the coefficient estimates have been shrunk
+\item more comparable across different regularization methods
+\item left more flexible, right less flexible
+}
+Test your understanding:\href{https://PollEv.com/multiple_choice_polls/78Jh1W85AOsTKvjFHGARH/respond}{PollEv}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Scale equivavariance (or lack thereof)}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Scale equivariant:} Multiplying a variable by $c$ ($cX_i$) just returns a coefficient multiplied by $1/c$ ($1/c \beta_i$)
+
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item Ex: \texttt{income variable}.
+\item Least squares is scale equivariant
+\item Ridge regression very much is not
+\item $X_j\hat \beta_{j,\lambda}^R$ depends not only on $\lambda$ but also on values of other predictors
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Solution: Standardize predictors}
+
+\begin{equation*}
+	\widetilde x_{ij} = \frac{x_{ij}}{
+	\sqrt{ \tfrac{1}{n} \sum_{i=1}^n (x_{ij}-\overline x_j)^2}
+	}
+\end{equation*}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item Denominator is estimated standard deviation of the jth predictor
+\item Standardized predictors will all have a standard deviation of one
+\item Previous figures showe standardized ridge regression coeffs on the $y$-axis
+}
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Using Cross-Validation to find $\lambda$}
+	
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\begin{itemize}
+		\item Choose a grid of $\lambda$ values
+		\item Compute the ($k$-fold) cross-validation error for each value of $\lambda$
+		\item Select the tuning parameter value $\lambda$ for which the CV error
+	is smallest.
+	  \item The model is re-fit using all of the available observations and the selected value of the tuning parameter.
+	\end{itemize}
+	\column{.45\textwidth}
+	\centering
+	
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+\begin{frame}[t]{LOOCV choice of $\lambda$ for ridge regression and \texttt{Credit} data}
+
+\begin{columns}
+\column{.75\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig6-12}
+
+
+\end{columns}
+\InstructorList{
+\item Dashed vertical lines indicate the selected value of $\lambda$.
+\item In this case, small $\lambda$ so optimal fit involves small amount of shrinkage relative to least squares
+\item The dip is not very pronounced, so there is rather a wide range of values
+that would give a very similar error.
+\item  In a case like this we might simply use the least squares solution.
+}
+\end{frame}
+%--- Next Frame ---%
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+\begin{frame}[c]{Bias-Variance tradeoff}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\footnotesize
+\includegraphics[width = \textwidth, align = c]{Fig6-5a}
+Squared bias (black), variance (green), and test mean squared
+error (purple) for simulated data.
+
+\InstructorNotes{Horizontal dashed line is minimum possible test MSE}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+\item Bias-variance tradeoff
+\item Minimum MSE achieved around $\lambda = 30 $
+\item High variance means MSE for $\lambda = 0$ (least squares) and $\lambda = \infty$ (null model) are basically the same
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{More Bias-Variance Tradeoff}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\footnotesize
+\includegraphics[width = \textwidth, align = c]{Fig6-5b}
+Squared bias (black), variance (green), and test mean squared
+error (purple) for simulated data.
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Advantages of Ridge }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Ridge vs. Least Squares: }
+\InstructorList{
+\item Previous slide and ability to lower variance
+\item Ridge regression works best in situations where the least squares estimates have high variance
+\item Can trade off small increase in bias for a large decrease in variance
+}
+\column{.45\textwidth}
+\centering
+\textbf{Ridge vs. Subset Selection: }
+\InstructorList{
+\item So much better computationally!
+\item Only fits a single model rather than $2^p$
+\item Tricks available to solve all for all values of $\lambda$ simultaneous
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+% %=====
+% \section{The Lasso}
+% %=====
+
+% \begin{frame}[t]{Same goal as before }
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \begin{itemize}
+% 	\item Fit model using all $p$ predictors
+% 	\item Aim to constrain (regularize) coefficient estimates
+% 	\item Shrink the coefficient estimates towards 0 \InstructorNotes{Ridge shrunk but DID NOT GET RID OF which is what we actually want}
+% \end{itemize}
+% \column{.45\textwidth}
+% \centering
+
+% \begin{equation*}
+% 	Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4
+% \end{equation*}
+% \InstructorList{
+% \item Ridge regression
+% \item Lasso
+% }
+% \end{columns}
+
+% \end{frame}
+% % %----------------
+
+
+
+% \begin{frame}[t]{The lasso}
+
+% \begin{columns}
+% \column{.3\textwidth}
+% \centering
+% \textbf{Least Squares:}
+% \footnotesize
+% \begin{equation*}
+% 	RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+% \end{equation*}
+
+% \column{.55\textwidth}
+% \centering
+% \footnotesize
+% \textbf{Ridge:}
+% \begin{equation*}
+% 	\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2 + \lambda \sum_{j=1}^p \beta_j^2 = RSS + \lambda \sum_{j=1}^p \beta_j^2
+% \end{equation*}
+
+% \end{columns}
+% \centering
+% \qquad
+
+% \textbf{The Lasso:}
+% \begin{equation*}
+% 	\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+% 		+ \lambda \sum_{j=1}^p |\beta_j|
+% 	= RSS + \lambda \sum_{j=1}^p |\beta_j|
+% \end{equation*}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \footnotesize
+% \InstructorList{
+% \item $\ell_1$ penalty instead of $\ell_2$ penalty
+% \item $\ell_1$ norm: $\|\beta \|_1 = \sum |\beta_j|$
+% \item $\ell_2$ norm: $\|\beta \|_2 = \sum \beta_j^2$
+% }
+% \column{.45\textwidth}
+% \centering
+
+% \footnotesize
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Subsets with lasso}
+% 	\begin{equation*}
+% 		\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+% 			+ \lambda \sum_{j=1}^p |\beta_j|
+% 		= RSS + \lambda \sum_{j=1}^p |\beta_j|
+% 	\end{equation*}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+% \item Result of $\ell_1$ penalty is that it forces some coefficients to be exactly 0
+% \item Can be interpreted as something more like subset selection, but here called \textit{variable selection}
+% \item Yield are \textit{sparse} models, that is those using only a subset of variables
+% \item Selecing good $\lambda$ is critical..... more on that maybe next class???
+% }
+% \column{.45\textwidth}
+% \centering
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+
+% \begin{frame}[t]{An example on \texttt{Credit} data set}
+
+% \begin{columns}
+% \column{.4\textwidth}
+% \centering
+% Lasso
+% \includegraphics[width = \textwidth]{Fig6-6a}
+% \column{.4\textwidth}
+% \centering
+% Ridge
+% \includegraphics[width = \textwidth]{Fig6-4a}
+% \end{columns}
+% \InstructorList{
+% \item $\lambda = 0$: Both are least squares
+% \item $\lambda = \infty$: Everything is 0
+% \item
+% }
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{More example on \texttt{Credit} data set}
+
+% \begin{columns}
+% \column{.4\textwidth}
+% \centering
+% Lasso
+% \includegraphics[width = \textwidth]{Fig6-6b}
+% \column{.4\textwidth}
+% \centering
+
+% Ridge
+% \includegraphics[width = \textwidth]{Fig6-4b}
+
+
+% \end{columns}
+
+% \InstructorList{
+% \item Note that ridge always includes all variables, even if small coefficient
+% \item Lasso produces different sized subsets depending
+% }
+
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[c]{TL;DR}
+
+% \begin{columns}
+% \column{.3\textwidth}
+% \centering
+% \textbf{Least Squares:}
+% \footnotesize
+% \begin{equation*}
+% 	RSS = \sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+% \end{equation*}
+
+% \column{.55\textwidth}
+% \centering
+% \textbf{Ridge:}
+% \footnotesize
+% \begin{equation*}
+% 	\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2 + \lambda \sum_{j=1}^p \beta_j^2 = RSS + \lambda \sum_{j=1}^p \beta_j^2
+% \end{equation*}
+
+% \end{columns}
+% \centering
+
+% \vspace{.2in}
+
+% \textbf{The Lasso:}
+% \footnotesize
+% \begin{equation*}
+% 	\sum_{i=1}^n \left(y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij}\right)^2
+% 		+ \lambda \sum_{j=1}^p |\beta_j|
+% 	= RSS + \lambda \sum_{j=1}^p |\beta_j|
+% \end{equation*}
+
+
+% \end{frame}
+
+\begin{frame}[t]{Look back and look ahead}
+\begin{columns}
+	\begin{column}{0.4\textwidth}
+		\includegraphics[align = c, width = \textwidth]{Schedule-F25-2.png}
+	\end{column}
+	\begin{column}{0.6\textwidth}
+	\begin{itemize}
+		\small
+		\item What is regularization? Why do we need it?
+		\item What are the two basic types of regularization methods? How are they implemented mathematically in linear regression?
+		\item How do you fit a ridge regression model in python?
+		\item How do you control the model flexibility \& bias-variance tradeoff when using regularization?
+		\item How do you find the right amount of regularization using cross-validation? How do you do this in python?
+		\item What additional precautions do you need to take when using regularization (compared to least squares)?
+		\item What are the advantages of regularization compared to Least Squares?
+		\item What are the advantages of regularization compared to subset selection?
+	\end{itemize}
+		
+	\end{column}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

@@ -1,0 +1,991 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+\newcommand{\OnlyStudent}[1]{}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+ %\renewcommand{\OnlyStudent}[1]{#1}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 9.3-4: Support Vector Machine}
+\subtitle{Lecture 28 - CMSE 381}
+\date{Fri, Apr 3, 2026}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+%\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements }
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+	\item 9.2 Support Vector Classifier
+	\end{itemize}
+
+	\vspace{.2in}
+
+	\textbf{This lecture:}
+	\begin{itemize}
+		\item 9.3 Support Vector Machine
+\end{itemize}
+
+	\vspace{.2in}
+
+\textbf{Announcements:}
+	\begin{itemize}
+	\item HW \#6 due Sunday 4/12
+
+	\end{itemize}
+
+\column{.4\textwidth}
+\centering
+
+\includegraphics[align = c, width = \textwidth]{Schedule-S26-3.png}
+\end{columns}
+
+
+
+\end{frame}
+%--- Next Frame ---%
+
+
+
+%=================
+\section{Last Time}
+%=================
+
+\begin{frame}[t]{Classification Setup}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+ Data matrix:
+	\begin{equation*}
+		X =
+		\begin{pmatrix}
+			- & x_1^T & -\\
+			- & x_2^T & -\\
+			 & \vdots & \\
+			- & x_n^T & -
+		\end{pmatrix}_{n \times p}
+	\end{equation*}
+
+	\begin{equation*}
+		x_1 =
+		\begin{pmatrix}
+			x_{11} \\
+			\vdots \\
+			x_{1p}
+		\end{pmatrix}
+		,\cdots,
+		x_n =
+		\begin{pmatrix}
+			x_{n1} \\
+			\vdots \\
+			x_{np}
+		\end{pmatrix}
+	\end{equation*}
+
+\column{.45\textwidth}
+\centering
+ Observations in one of two classes, $y_i \in \{-1,1\}$
+	\begin{equation*}
+		Y =
+		\begin{pmatrix}
+			y_1 \\
+			y_2\\
+			\vdots \\
+			y_n
+		\end{pmatrix}
+	\end{equation*}
+
+
+% \column{.4\textwidth}
+% \centering
+
+\end{columns}
+\bvfill
+\centering
+Separate out a test observation
+\begin{equation*}
+	x^* = (x_1^* \; \cdots \; x^*_p)^T
+\end{equation*}
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Hyperplane becomes a classifier }
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	If you have a separating hyperplane:
+	\begin{itemize}
+		\item Check
+		\begin{equation*}
+			f(x^*) = \beta_0 + \beta_1x_{1}^* + \beta_2 x_{2}^* + \cdots + \beta_px_{p}^*
+		\end{equation*}
+		\item If positive, assign $\hat y = 1$
+		\item If negative, assign $\hat y = -1$
+	\end{itemize}
+	\column{.45\textwidth}
+	\centering
+	\includegraphics[width = \textwidth, align = c]{Fig9-2b}
+	\end{columns}
+	
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}[t]{How do we pick? Old version}
+	{Maximal margin classifier}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig9-3}
+\column{.45\textwidth}
+\centering
+	\begin{itemize}
+	\item For a hyperplane, the \textit{margin} is the smallest distance from any data point to the hyperplane.
+	\item Observations that are closest are called \textit{support vectors}.
+	\item The \textit{maximal margin hyperplane} is the hyperplane with the largest margin
+	\item The classifier built from this hyperplane is the \textit{maximal margin classifier}.
+	\end{itemize}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+% \begin{frame}[t]{Mathematical Formulation}
+
+% \begin{columns}
+% \column{.65\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Eq9-9}
+% \column{.35\textwidth}
+% \centering
+% \footnotesize
+% \InstructorList{
+%   \item
+% \InstructorNotes{There's lots of separating hyperplanes here, so how do we find a "best" one?}
+% \item Compute the perpendicular distance from each training observation to a given separating hyperplane
+% \item Smallest such distance is the \textit{margin}
+% }
+% \InstructorList{
+%   \item Last eq forces points to be on the correct side of the hyperplane if $M>0$
+% 	\item Making $M$ as big as possible is the maximal margin hyperplane
+% }
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+
+\begin{frame}[t]{Issues}
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig9-4}
+No separating hyperplane exists
+\column{.65\textwidth}
+\centering
+
+
+		\begin{columns}
+		\column{.4\textwidth}
+		\centering
+
+		\includegraphics[width = \textwidth, align = c]{Fig9-5a}
+		\column{.4\textwidth}
+		\centering
+		\includegraphics[width = \textwidth, align = c]{Fig9-5b}
+
+		\end{columns}
+
+Choice of hyperplane is sensitive to new points
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Support Vector Classifier}
+
+\begin{columns}
+\column{.25\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Fig9-6a}
+\includegraphics[width = \textwidth, align = c]{Fig9-6b}
+\column{.65\textwidth}
+\centering
+
+\includegraphics[width = \textwidth, align = c]{Eq9-12}
+
+\vspace{0.2in}
+
+Test your understanding in \href{https://PollEv.com/multiple_choice_polls/qqBBddUTxHVAKw5iIJqRc/respond}{PollEv}!
+\InstructorList{
+  \item Soft margin
+	\item Allow for violations across margin
+	\item Allow for violations across hyperplane
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Two formulations side by side}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\textbf{Maximal Margin Classifier}
+\includegraphics[width = \textwidth, align = c]{Eq9-9}
+\includegraphics[width = .5\textwidth, align = c]{Fig9-3}
+\column{.45\textwidth}
+\centering
+\textbf{Support Vector Classifier}
+\includegraphics[width = \textwidth, align = c]{Eq9-12}
+\includegraphics[width = .5\textwidth, align = c]{Fig9-7d}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{So many variables}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Eq9-12}
+
+\column{.5\textwidth}
+\centering
+\footnotesize
+\begin{itemize}
+  \item $C$ is nonnegative tuning parameter
+
+	\InstructorList{
+		\item Bounds sum of $\e_i$; number \& severity of violating margin (budget)
+		\item $C=0$ means no violations allowed
+		\item $C>0$ means at most $C$ observations can be on wrong side of hyperplane
+		}
+
+	\item $M$ is the width of the margin
+	\item $\e_1, \cdots, \e_n$ are slack variables allowing observations to go to the other side
+			\InstructorList{
+		  \item If $\e_i = 0$, then on correct side of margin
+			\item If $\e_i>0$ then on the wrong side of margin  (Violated margin)
+			\item If $\e_i >1$ then on the wrong side of hyperplane
+		}
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+%
+% \begin{frame}[t]{Examples messing with $C$}
+%
+% \centering
+%
+% \includegraphics[width = .24\textwidth, align = c]{Fig9-7a}
+% \includegraphics[width = .24\textwidth, align = c]{Fig9-7b}
+% \includegraphics[width = .24\textwidth, align = c]{Fig9-7c}
+% \includegraphics[width = .24\textwidth, align = c]{Fig9-7d}
+%
+% Decreasing $C$ $\rightarrow$
+%
+%
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{What affects the hyperplane?}
+%
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+%
+% \includegraphics[width = \textwidth, align = c]{Fig9-7d}
+% \column{.45\textwidth}
+% \centering
+% \InstructorList{
+%   \item Only observations on the margin or violating the margin affect the hyperplane
+% 	\item These observations are called support vectors
+% 	\item Changing other points positions doesn't affect hyperplane found
+% 	\item
+% }
+%
+% \end{columns}
+%
+% \end{frame}
+% %--- Next Frame ---%
+
+
+\begin{frame}[t]{Limiting factor of SVC}
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+
+
+\includegraphics[width = \textwidth]{Fig9-8a}
+
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig9-8b}
+
+\end{columns}
+\InstructorList{
+  \item Requires linear boundaries
+	\item "Non-linear" is a lot of things, how do you choose features to learn?
+	\item Right side is result from SVC
+}
+\end{frame}
+
+%--- Next Frame ---%
+\begin{frame}[t]{What will you learn today?}
+
+\begin{itemize}
+\item How is nonlinearity introduced in Support Vector Machine?
+	\begin{itemize}
+	\item You should be able to describe how kernels work conceptually and mathematically.
+	\end{itemize}
+\item What type of kernel makes Support Vector Machine equivalent to Support Vector Classifier?
+\item What other kernels are there?
+\item What type of kernel leads to more local behavior?
+\item How to use Support Vector Machine in Python?
+	\begin{itemize}
+	\item You should be able to fit a Support Vector Machine using different kernels covered in class.
+	\item You should be able select the appropriate hyperparameter that optimize bias-variance trade off.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+
+%=================
+
+
+%=====
+\section{Support Vector Machine}
+%=====
+
+\begin{frame}[t]{How to bend the plane: polynomial features?}
+
+\begin{columns}
+% \column{.45\textwidth}
+% \centering
+
+\column{.6\textwidth}
+\centering
+% \textbf{Example:}
+
+Want $2p$ features:
+\begin{equation*}
+	X_1,X_1^2,X_2,X_2^2,\cdots,X_p,X_p^2
+\end{equation*}
+
+\vspace{.2in}
+
+Optimization becomes:
+\includegraphics[width = \textwidth]{Eq9-16}
+
+\column{.3\textwidth}
+\InstructorNotes{This becomes unwieldly if we have to check, say every degree 2 monomoial $X_iX_j$, so need something more efficient}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Kernels - "There is no plane" }
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+$y_i f(x_i)\geq M(1-\epsilon_i)$
+
+
+
+\small
+\InstructorList{
+	\item Main idea: we can change up $f(x_i)$ to be nonlinear
+	\item In fact, we do not need absolute coordinates of $x_i$. just need to know how close or similar to each other (draw points w/o coordinates)
+	\item turns out just need to know general similarity between every two points - more computationally efficient
+	\item Kernel: a more generalized way of thinking about how close or similar two samples are
+	\item draw some examples in 1D
+}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width=0.7\textwidth]{No_spoon.jpg}
+
+$f(x_i)$ should give you some more general way of talking about how far is point $x_i$ away from the decision boundary.
+\footnotesize
+\InstructorList{
+	\item alternatively, we can simply write $f(K(x_i, x1),K(x_i, x2),\cdots, K(x_i,x_p))$
+	\item this is essentially in relative coordinates
+}
+\end{columns}
+
+\end{frame}
+
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{The kernel - replacing global coordinate with local similarity}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	K(x_i,x_i')
+\end{equation*}
+\InstructorList{
+	\item $K(x_i,x_i')$ can be thought of as similarity function.
+  	\item An example is inner product $\langle x, x_i \rangle$ will be talked about in more detail on the next slide.
+	\item $\langle x, x_i \rangle$ is known as a linear kernel
+	% \item near kernel essentially quantifies the similarity of a
+% pair of observations using Pearson (standard) correlation
+}
+
+\column{.45\textwidth}
+\centering
+$y_i f(x_i)\geq M(1-\epsilon_i)$, where
+\begin{equation*}
+	f(x) = \beta_0 + \sum_{j \in \mathcal{S}}\alpha_i K(x,x_j)
+\end{equation*}
+
+\InstructorList{
+  \item The function defined is as above with whatever choice of $K$
+  
+	\item When the support vector classifier is combined with a non-linear kernel the resulting classifier is 	known as a support vector machine.
+}
+
+\end{columns}
+
+\end{frame}
+
+
+%--- Next Frame ---%
+
+\begin{frame}[t]{Inner products}
+\begin{equation*}
+	\langle a,b \rangle = \sum_{i=1}^r a_ib_i
+\end{equation*}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+%   \item Inner product of two observations $x_i,x_{i'}$ is
+% 	\begin{equation*}
+% 		\langle x_i,x_{i'} \rangle = \sum_{j=1}^p x_{ij}x_{i'j}
+% 	\end{equation*}
+\item sort of a measure of similarity between vectors, if they are the same length
+\item example draw $(1/2,\sqrt{3}/2)$ and $(0,1)$
+\item example draw $(1,0)$ and $(0,1)$
+\item Example in slightly higher dimension $\langle (1,2,3), (5,0,2)\rangle= 5 + 0 + 6 = 11 $
+
+}
+
+\column{.45\textwidth}
+\centering
+
+% \InstructorList{
+% \item For an example, you can use $Y + X -2 = 0$, dividing by $\sqrt 2$ to make unit vector
+% 		\item Then check $-2/\sqrt{2} + \langle (1/\sqrt{2},1/\sqrt{2}),(2,1)\rangle = 2/\sqrt{2}$ to get distance to the point $(2,1)$
+% }
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Quick computations}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+What are the following? 
+\begin{itemize}
+	\item $\langle (1,1), (0,3) \rangle$ 
+	\InstructorNotes{$=0+3=3$}
+	\item $\langle (1,1), (3,2) \rangle$
+	\InstructorNotes{$=3+2=5$}
+	\item $\langle (2,3), (0,3) \rangle$
+	\InstructorNotes{$=0+9=9$}
+	\item $\langle (2,3), (3,2) \rangle$
+	\InstructorNotes{$=6+6=12$}
+\end{itemize}
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+\begin{frame}[t]{SVC via inner products}
+	\centering
+%   $f(x) = \beta_0 + \beta_1x_1 + \cdots + \beta_px_p = \beta_0 + \langle \beta, x\rangle$
+\begin{equation*}
+	f(x) = \beta_0 + \sum_{i=1}^n \alpha_i \langle x, x_i \rangle
+\end{equation*}
+
+\begin{equation*}
+	f(x) = \beta_0 + \sum_{i\in\mathcal{S}} \alpha_i \langle x, x_i \rangle
+\end{equation*}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+	\item Via some magic, there are coefficients $\alpha_i$ which give the linear support vector classifier 
+	\item In this notation, the $x_i$'s are all the training points 
+	% \item How to actually get it is outside the scope of this class
+	% \item To estimate the paramters $\alpha_1,\cdots,\alpha_n$ and $\beta_0$, need $\binom{n}{2} = n(n-1)/2$ inner products $\langle x_i,x_{i'} \rangle$
+}
+
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item How to actually get it is outside the scope of this class
+  \item To estimate the paramters $\alpha_1,\cdots,\alpha_n$ and $\beta_0$, need $\binom{n}{2} = n(n-1)/2$ inner products $\langle x_i,x_{i'} \rangle$
+  \item BUT, $\alpha$ is only non-zero for support vectors. so actually few terms
+}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Example}
+\begin{equation*}
+	-2\sqrt 2 + \frac{\sqrt{2}}{2} X_1 + \frac{\sqrt{2}}{2} X_2 = 0
+\end{equation*}
+\begin{equation*}
+	-2\sqrt 2 + \frac{\sqrt2}{18}\langle (X_1,X_2), (0,3) \rangle + \frac{\sqrt2}{6}\langle (X_1,X_2), (3,2) \rangle  = 0
+\end{equation*}
+
+\begin{columns}
+\column{.25\textwidth}
+\centering
+\includegraphics[align = c, width = \textwidth]{SVM-Kernel-DesmosExample}
+
+
+\column{.65\textwidth}
+\centering
+
+\InstructorList{
+	\item work throught the formulation $\beta_0+\alpha_1\langle(X_1,X_2),(0,3)\rangle+\alpha_2\langle(X_1,X_2),(3,0)\rangle+\alpha_3\langle(X_1,X_2),(3,2)\rangle=0$ for the hyperplane
+%   \item $f(1,1) = -2\sqrt2 + \frac{\sqrt2}{18}\langle (1,1), (0,3) \rangle + \frac{\sqrt2}{6}\langle (1,1), (3,2) \rangle $
+%   \item $= -2\sqrt2 + \frac{\sqrt2}{18}\cdot 3 + \frac{\sqrt2}{6}\cdot 5 $
+%   \item $= (-2 + \frac{3}{18} + \frac{5}{6})\sqrt 2 = -\sqrt 2$
+	\item to get unique coefficients, I let $\alpha_2 =0$. other options are too complicated
+	\item test $f((3,1))=f((2,2))=0$ (points on hyper plane)
+	\item test $f((1,1))=-\sqrt{2}$
+	\item The point: representing linear classifier $f(x)$ just needs inner products
+}
+
+
+\end{columns}
+\end{frame}
+% %--- Next Frame ---%
+% {
+% \setbeamercolor{background canvas}{bg=Apricot!25}
+% \begin{frame}[t]{What are the $\alpha_i$s?}
+% \begin{columns}
+% \column{.35\textwidth}
+% \centering
+% \begin{tabular}{c|c}
+% 	Data point   & $\alpha_i$ \\ \hline 
+% 	$(3,4)$      &   \phantom{XXXXXXXXX}         \\
+% 	&\\
+% 	$(2.5,3.5)$  &            \\
+% 	&\\
+% 	$(3,2)$      &            \\
+% 	&\\
+% 	$(3,0)$      &            \\
+% 	&\\
+% 	$(0,3)$      &            \\
+% 	&\\
+% 	$(1,1)$      &            \\
+% 	&\\
+% 	$(0.5,1.25)$ &   \\        
+% 	&
+% 	\end{tabular}
+% \column{.59\textwidth}
+% % \centering
+% What $\alpha_i$'s are needed to write the hyperplane
+% \begin{equation*}
+% 	-2\sqrt 2 + \frac{\sqrt2}{18}\langle (X_1,X_2), (0,3) \rangle + \frac{\sqrt2}{6}\langle (X_1,X_2), (3,2) \rangle 
+% \end{equation*}
+% of the previous page in the form 
+% \begin{equation*}
+% 	f(x) = \beta_0 + \sum_{i \in \mathcal{S}} \alpha_i\langle x, x_i \rangle?
+% \end{equation*}
+
+% \InstructorNotes{
+% $\alpha_0=\dfrac{\sqrt2}{18}$, $\alpha_2=0$,$\alpha_3=\dfrac{\sqrt2}{6}$
+% }
+% \end{columns}
+% \end{frame}
+% }
+%--- Next Frame ---%
+
+% \begin{frame}[t]{SVC via inner products of support vectors}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+
+% \begin{equation*}
+% 	f(x) = \beta_0 + \sum_{i \in \mathcal{S}} \alpha_i\langle x, x_i \rangle
+% \end{equation*}
+% \InstructorList{
+%   \item Turns out $\alpha_i$ are only nonzero for support vectors
+% 	\item To estimate the paramters $\alpha_1,\cdots,\alpha_n$ and $\beta_0$, need $\binom{n}{2} = n(n-1)/2$ inner products $\langle x_i,x_{i'} \rangle$
+% 	% \item Uses fewer terms, so way fewer computations to figure out $f(x)$ for some new $x$
+% }
+
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth]{Fig9-6b}
+% \end{columns}
+% \InstructorNotes{The point: representing linear classifier $f(x)$ just needs inner products}
+% \end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{The kernel - more generally}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	K(x_i,x_i')
+\end{equation*}
+\InstructorList{
+  \item Swap out my inner product $\langle x, x_i \rangle$ for something potentially more complicated
+	\item $\langle x, x_i \rangle$ is known as a linear kernel
+	% \item near kernel essentially quantifies the similarity of a
+% pair of observations using Pearson (standard) correlation
+}
+
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	f(x) = \beta_0 + \sum_{i \in \mathcal{S}}\alpha_i K(x,x_i)
+\end{equation*}
+
+\InstructorList{
+  \item The function defined is as above with whatever choice of $K$
+  \item $K(x_i,x_i')$ can be thought of as similarity function.
+	\item When the support vector classifier is combined with a non-linear kernel the resulting classifier is 	known as a support vector machine.
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{A polynomial kernel}
+\begin{equation*}
+	K(x_i,x_{i'}) = \left(1 + \sum_{j=1}^p x_{ij}x_{i'j} \right)^d
+\end{equation*}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item much more flexible decision boundary.
+	\item amounts to fitting a support vector
+classifier in a higher-dimensional space involving polynomials of degree $ d$,
+rather than in the original feature space.
+\item Right: degree 3 polynomial kernel
+
+}
+
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig9-9a}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{A radial kernel}
+\begin{equation*}
+	K(x_i,x_i') = \exp \left( -\gamma \sum_{j=1}^p(x_{ij} - x_{i'j})^2 \right)
+\end{equation*}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+%   \item Draw picture of circular values around a point
+  \item this is essentially a gaussian kernel
+	\item big distance makes $\sum (x_{ij}-x_{i'j})^2$ big, but then $e^{-big}$ is tiny.
+	\item In $f(x)$, this means that $x_i$ plays little role if it's far away.
+	\item Radial kernel has local behavior
+}
+
+\column{.35\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig9-9b}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Support Vector Machine}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	f(x) = \beta_0 + \sum_{i \in \mathcal{S}}\alpha_i K(x,x_i)
+\end{equation*}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Learning function above
+  \item Choose $K$ in advance 
+}
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+% \begin{frame}[t]{Example with heart data}
+% 	{SVC}
+
+% \begin{columns}
+% \column{.3\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig9-10a}
+% Training
+% \column{.3\textwidth}
+% \centering
+% \includegraphics[width = \textwidth, align = c]{Fig9-11a}
+% Testing
+% \column{.35\textwidth}
+% \centering
+% \InstructorList{
+%   \item 207 training, 90 test observations
+% 	\item SVC is SVM with polynomial kernel of degree $d=1$
+% 	\item In test data, SVC has small advantage over LDA, but not statistically significant
+% }
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+% \begin{frame}[t]{Example with heart data}
+% 	{SVM}
+
+% \begin{columns}
+% 	\column{.3\textwidth}
+% 	\centering
+% 	\includegraphics[width = \textwidth, align = c]{Fig9-10b}
+% 	Training
+% 	\column{.3\textwidth}
+% 	\centering
+% 	\includegraphics[width = \textwidth, align = c]{Fig9-11b}
+% 	Testing
+% \column{.35\textwidth}
+% \centering
+% \InstructorList{
+%   \item Increasing $\gamma$ roc curves improve
+% 	\item But this is training data
+% 	\item $\gamma = 10^{-1}$ is worst on test data even though it was best on training data
+% 	\item SVMs with $\gamma = 10^{-2}$ and $10^{-3}$ comparable to the SVC, all three outperform SVM with $\gamma = 10^{-1}$
+% }
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+
+%==========
+\section{SVM with more than two classes}
+%==========
+
+\begin{frame}[t]{One-Vs-One Classification}
+	{Also called all-pairs}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item
+Predict for $K>2$ classes
+\item Construct $\binom{K}{2}$ SVMs, each of which compairs a pair of classes
+\item Write example with \{ apples, bananas, oranges, strawberries\}
+\item Assign the observation to the class which was most frequently assigned
+}
+
+
+
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{One-Vs-All Classification}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Fit $K$ SVMs each time comparing one class to remaining $K-1$ classes.
+	\item Again, do  \{ apples, bananas, oranges, strawberries\}
+	\item Figure out coefficients for that class, and determine $f_k(x) = \beta_{0k} + \beta_{1k}x_1^* + \cdots + \beta_{pk}x_p^*$
+	\item Assign observation to the class for which $f_k(x)$ is largest
+}
+
+\column{.45\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{TL;DR}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{equation*}
+	f(x) = \beta_0 + \sum_{i \in \mathcal{S}} \alpha_iK(x, x_i )
+\end{equation*}
+
+\column{.45\textwidth}
+\centering
+\footnotesize
+\textbf{Kernels}
+\begin{itemize}
+	\item Linear
+\begin{equation*}
+	K(x_i,x_{i'}) = \sum_{j=1}^p x_{ij}x_{i'j}
+\end{equation*}
+	\item Polynomial
+\begin{equation*}
+	K(x_i,x_{i'}) = \left(1 + \sum_{j=1}^p x_{ij}x_{i'j} \right)^d
+\end{equation*}
+	\item Radial
+\begin{equation*}
+	K(x_i,x_i') = \exp \left( -\gamma \sum_{j=1}^p(x_{ij} - x_{i'j})^2 \right)
+\end{equation*}
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Next time}
+
+	\includegraphics[align = c, width =.4 \textwidth]{Schedule-S26-3.png}
+
+\vspace{.2in}
+% Q of the day:
+
+% Why would you want to use SVM rather than SVC?
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

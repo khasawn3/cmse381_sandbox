@@ -1,0 +1,622 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 10.3: Convolutional Neural Nets}
+\subtitle{Lecture 31 - CMSE 381}
+\date{Mon, 11/17, 2025}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Zhang]{Prof.~Mengsen Zhang}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements }
+
+\begin{columns}
+\column{.35\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+	\item Multilayer  NN
+	\item pyTorch
+	\end{itemize}
+
+	\vspace{.2in}
+
+	\textbf{This lecture:}
+	\begin{itemize}
+		\item CNNs
+\end{itemize}
+
+\textbf{Final countdown:}
+	\begin{itemize}
+	% \item Google Colab for last lecture notebook 
+	\item HW \#9 is due Sunday 11/23
+	\item Exam 3 is 11/24
+	\item Project is due 12/5
+	% \item Involves running pytorch, so start early!
+	
+	\end{itemize}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Schedule-F25-3.png}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+
+%==========
+\section{Last time: Neural Nets}
+%==========
+
+
+\begin{frame}[t]{MNIST}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-3}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+  \item Goal: Build a model to classify images into their correct digit class
+	\item Each image has $p=28 \cdot 28 = 784$ pixels
+	\item Each pixel is grayscale value in [0,255]
+	\item Data converted into column order
+	\item Output represented by one-hot vector $Y = (Y_0,Y_1,\cdots,Y_9)$
+	\item 60K training images, 10K test images
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Neural network architecture for MNIST}
+\begin{columns}
+\column{.3\textwidth}
+\centering
+\includegraphics[width = .6\textwidth, align = c]{Fig10-4}
+\includegraphics[width = \textwidth, align = c]{Eq10-10}
+\includegraphics[width = \textwidth, align = c]{Eq10-11}
+\includegraphics[width = \textwidth, align = c]{Eq10-12}
+\includegraphics[width = \textwidth, align = c]{Eq10-13}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+  \item Two hidden layers. 
+  \item Softmax for classification output 
+  \item We used $L_1$ has 128 units; $L_2$ has 64
+	\item 10 output variables due to class labeling
+	\item Result is we are training approx 110K weights
+\end{itemize}
+\vspace{0.2in}
+Test your understanding: \href{https://PollEv.com/multiple_choice_polls/NzcPqZOnKP1YKTxg0FBxB/respond}{PollEv}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{MNIST learning}
+\begin{columns}
+\column{.2\textwidth}
+\centering
+\includegraphics[align = c, width = \textwidth, trim = 0 0 220 0, clip]{MNIST-ExamplePrediction.png}
+
+\column{.5\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-4}
+\column{.2\textwidth}
+\centering
+\includegraphics[align = c, width = \textwidth, trim = 210 0 0 0, clip]{MNIST-ExamplePrediction.png}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{What will you learn today?}
+
+\begin{itemize}
+	\item What is the architecture of a convolutional neural network?
+		\begin{itemize}
+			\item You should be able to describe the types of layers, how they are arranged, and the purpose of each of them. 
+		\end{itemize}
+	\item How does convolution work? 
+		\begin{itemize}
+			\item You should be able to compute the result of the convolution between a simple matrix and a simple filter by hand. 
+		\end{itemize}
+	\item What information does Convolutional Neural Network capture through convolution? 
+\end{itemize}
+
+\end{frame}
+
+
+%==========
+\section{Convolutional Neural Network }
+%==========
+
+\begin{frame}[t]{Last time: Flattening the image -- why is it not great?}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\[
+\begin{pmatrix}
+	1 & 1 & 0 \\
+	4 & 2 & 1 \\
+	0 & 2 & 1
+\end{pmatrix}	
+\longrightarrow
+\begin{pmatrix}
+	1 \\ 1 \\ 0 \\
+	4 \\ 2 \\ 1 \\
+	0 \\ 2 \\ 1
+\end{pmatrix}
+\]
+
+
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+  \item Just ignore the fact that we have a picture 
+  \item Loses a lot of the structure that we might want for more complicated
+  \item Answer is CNNs, which take in image data and build a neural net that specifically tracks that structure
+}
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Example data set: CIFAR100 Data}
+
+	\centering
+\includegraphics[width = .6\textwidth, align = c]{Fig10-5}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\begin{itemize}
+	\item 60,000 images: 50K training, 10K  test
+	  \item Labels with 20 super classes (e.g.~aquatic mammals)
+	  \item 5 classes per super class (beaver, dolphin, otter, seal, whale)
+	  \item Images are 32x32
+  \end{itemize}
+
+\column{.45\textwidth}
+\centering
+\footnotesize
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Image channel data}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+	\item 3 eight bit numbers per pixel (red, green, blue)
+	\item Numbers are organized in a \textit{feature map} , which is 3 dimensional array
+	\item First two directions are spatial (32x32)
+	\item Third is the \textit{channel} axis representing teh three colors
+}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = .5\textwidth]{Fig10-8-onlychannels.png}
+\end{columns}
+
+\end{frame}
+% --- NEXT FRAME --- 5
+\begin{frame}[t]{How does your brain do it? The visual hierarchy}
+	\centering
+	\vspace{0.2in}
+
+	\includegraphics[width = 0.9\textwidth]{Visual_Hierarchy.jpeg}
+
+	\vspace{0.2in}
+	
+	Mauro Manassi, Bilge Sayim, Michael H. Herzog; When crowding of crowding leads to uncrowding. Journal of Vision 2013;13(13):10. \url{https://doi.org/10.1167/13.13.10}.
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{CNNs}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+	\item really similar to the human visual hierarchy
+  \item earlier layers Identify low level features on the input image such as small edges, patches of color, etc
+	\item Low level features combined into higher-level features (parts of ears, eyes, etc) in later layers
+	\item Does this using special types of hidden layers: \textit{convolution} layers and \textit{pooling layers}
+}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Fig10-6}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Convolution layer }
+	{Convolution Filter}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Original Image:
+\begin{equation*}
+	\begin{bmatrix}
+		a & b & c\\
+		d & e & f \\
+		g & h & i\\
+		j & k & l
+	\end{bmatrix}
+\end{equation*}
+
+Convolution filter:
+\begin{equation*}
+	\begin{bmatrix}
+		\alpha & \beta \\
+		\gamma & \delta
+	\end{bmatrix}
+\end{equation*}
+\column{.45\textwidth}
+\centering
+Convolved Image
+\includegraphics[width = \textwidth, align = c]{CNN-ConvolvedImage.png}
+
+\InstructorNotes{Note we are just doing inner product here, which measure(ish) similar}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Convolution Filter Example}
+
+\begin{columns}
+\column{.25\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{CNN-examplematrix}
+% \includegraphics[width = .5\textwidth, align = c]{CNN-examplematrix-Mask}
+
+Filter:
+\begin{equation*}
+	\begin{bmatrix}
+		0 & 1 \\
+		0 & 1
+	\end{bmatrix}
+\end{equation*}
+\column{.45\textwidth}
+\centering
+
+\InstructorList{
+\item $\begin{bmatrix}
+	1 & 3 \\
+	0 & 3 \\
+	1 & 3
+\end{bmatrix}$
+\item Convolved image highlights regions that resemble the convolution filter. 
+\item Conv or filtering is traditional signal processing, but in CNN the filter is learned (mentioned again later)
+\item Note that the result is smaller than original
+}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Same example, different filter}
+	What is the convolved image?
+	\begin{columns}
+		\column{.25\textwidth}
+		\centering
+		\includegraphics[width = \textwidth, align = c]{CNN-examplematrix}
+		% \includegraphics[width = .5\textwidth, align = c]{CNN-examplematrix-Mask}
+		
+		Filter:
+		\begin{equation*}
+			\begin{bmatrix}
+				1 & 1 \\
+				0 & 0
+			\end{bmatrix}
+		\end{equation*}
+		\column{.45\textwidth}
+		\centering
+		
+		\InstructorList{
+		\item $\begin{bmatrix}
+			4 & 3 \\
+			2 & 1 \\
+			3 & 2
+		\end{bmatrix}$
+		}
+		\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+\begin{frame}[t]{Convolution filter: Bigger example}
+
+	\centering
+\begin{columns}
+\column{.6\textwidth}
+\centering
+	\includegraphics[width = \textwidth, align = c]{Fig10-7}
+
+\column{.35\textwidth}
+\centering
+\InstructorList{
+  \item 192x179 image of tiger
+	\item Convolution filters are 15x15 images with mostly zero (black) narrow strip of ones (white)
+	\item Highlights areas of the tiger that resemble the filter
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Convolution layer}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c, trim = 0 0 890 0, clip]{Fig10-8}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Image is in color, so 3 channels
+	\item This means the convolution filter will have three channels, one per color, each of dimension 3x3
+	\item Results of the three convolutions are summed to form a 2-dimensional output. Color is "forgotton" at this point
+	\item $K$ different filters here means $K$ 2-d output 
+	maps, which can then be treated as channels
+	\item Padding to make the updated image the same size
+}
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{More notes on convolution}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Filters idea from image processing
+	\item Novelty in DL is that the choice of filters are learned
+	\item Filter weights: one hidden unit per pixel in convolved image; but more constrained than that
+	\item same weight used for all patches for the images and channels of only m-by-m weights per filter, where m is patch size. 
+	\item Applying ReLU to convolved image. Sometimes viewed as separate layer in CNN, and then called a detector layer.
+}
+
+\column{.45\textwidth}
+\centering
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Pooling layers}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\InstructorList{
+  \item Condense a large image into a smaller summary image
+	\item Lots of options, but max pooling is common:
+	\item For each 2x2 non-overlapping block of pixels, get a single new pixel with the maximum value from the block
+	\item Provides location invariance: so long as large value in one of the four pixels, the whole block registers as a large value
+}
+
+\column{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth, align = c]{Eq10-3-2.png}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Putting it together to make a CNN}
+
+\includegraphics[width = \textwidth, align = c]{Fig10-8}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\footnotesize
+\InstructorList{
+  \item Start with three channels
+	\item get a new channel at first hidden layer for each filter. Padding to keep the same size
+	\item Next is max pool layer,
+	\item convolve \& pool several more times
+	% \item Can repeat several convolves before pool, this effectively increases the dimension fo the feature
+}
+
+\column{.45\textwidth}
+\centering
+\footnotesize
+\InstructorList{
+	\item Since size of image decreased, we increase number of filters in the next convolve layer to compensate
+  \item Flattened, then fed into 1 or more fully-connected layers
+	\item Last is softmax activation for the 100 classes
+}
+
+\end{columns}
+\bvfill
+\url{https://poloclub.github.io/cnn-explainer/}
+
+\end{frame}
+%--- Next Frame ---%
+
+{
+\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+
+% \begin{frame}[t]{Data Augmentation}
+
+% 	\includegraphics[width = \textwidth]{Fig10-9}
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+
+% \InstructorList{
+%   \item Replicate training image many times
+% 	\item each time randomly distorted in a natural way that doesn't affect human recognition
+% }
+
+% \column{.45\textwidth}
+% \centering
+
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[t]{Results on pretrained classifier: \texttt{resnet50}}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \includegraphics[width = \textwidth]{Fig10-10}
+% \column{.45\textwidth}
+% \centering
+
+% \InstructorList{
+%   \item Trained on \textit{imagenet} data set
+% 	\item Millions of images
+% 	\item At left, shows top three categories for the images
+% 	\item Note when hawk is zoomed out, labels as fountain
+% 	\item Cape weaver is classified as a different tropical bird, jacamar
+% 	\item One tool: use some pretrained layers, and then train the last on your particular data
+% }
+
+
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{TL;DR}
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\textbf{Feed Forward Neural Net}
+	\includegraphics[width = .5\textwidth, align = c]{Fig10-4}
+	\includegraphics[width = \textwidth, align = c]{Eq10-2}
+	
+	\begin{itemize}
+		\item Combines input data using learned weights
+		\item Linear combo of those to get output
+		\item Sometimes softmax to get probability of classification
+	\end{itemize}
+	
+	\column{.45\textwidth}
+	\centering
+	\textbf{CNN}
+	\includegraphics[width = \textwidth, align = c]{Fig10-8}
+	
+	\begin{itemize}
+		\item Specialized NN
+		\item Gets next layer via
+		\begin{itemize}
+			\item Convolution layer
+			\item Pooling Layer
+			\item Fully connected layer
+		\end{itemize}
+	\end{itemize}
+	
+	\end{columns}
+	
+	
+	\end{frame}
+	%--- Next Frame ---%
+
+\begin{frame}[t]{Next time}
+
+
+	
+
+	\includegraphics[align = c, width = .45\textwidth ]{Schedule-F25-3.png}
+
+	\vspace{0.2in}
+
+	% Q of the Day: which layer(s) in CNN are more similar in dimension as its previous layer?
+
+
+
+
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

@@ -1,0 +1,552 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+
+
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 3.1: More Linear Regression}
+\subtitle{Lecture 5 - CMSE 381}
+\date{Mon, Sep 9, 2024}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+\author[Dr.~Munch]{Prof.~Elizabeth Munch}
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Last time:}
+	\begin{itemize}
+		\item Started 3.1 - Single linear regression
+	\end{itemize}
+\column{.45\textwidth}
+\centering
+
+	\textbf{Announcements:}
+	\begin{itemize}
+		\item Office Hours
+		\item Homework \#1 Grading TBD 
+		\item Homework \#2 Due Sun, Sep 15
+	\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	% \item Least squares coefficient estimates for linear regression
+	% \item Residual sum of squares (RSS)
+	\item Confidence interval, hypothesis test, and p-value for coefficient estimates
+	\item Residual standard error (RSE)
+	\item R squared
+	% \item Setup for multiple linear regression
+\end{itemize}
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\section{Last time}
+
+\begin{frame}[c]{Setup}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Predict $Y$ on a single predictor variable $X$
+	\begin{equation*}
+		Y \approx \beta_0 + \beta_1 X
+	\end{equation*}
+	\item "$\approx$'' .... ``is approximately modeled as''
+\end{itemize}
+\column{.4\textwidth}
+\begin{itemize}
+\item Given $(x_1,y_1),\cdots,(x_n,y_n)$
+\item Let $	\hat y_i = \hat \beta_0 + \hat \beta_1 x_i$ be prediction for $Y$ on $i$th value of $X$.
+\item $e_i = y_i - \hat y_i$ is the $i$th residual
+\end{itemize}
+\includegraphics[width = \textwidth]{Fig3-1}
+\centering
+
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Least squares criterion: RSS}
+
+\begin{columns}
+\column{.6\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig3-2}
+\column{.34\textwidth}
+\centering
+Residual sum of squares RSS is
+\begin{align*}
+	RSS &= e_1^2 + \cdots + e_n^2\\
+	 	  &= \sum_i (y_i - \hat \beta_0 - \hat \beta_1 x_i)^2
+\end{align*}
+\end{columns}
+
+\begin{columns}
+\column{.5\textwidth}
+\centering
+
+\begin{block}{Least squares criterion}
+Find $\beta_0$ and $\beta_1$ that minimize the RSS. 
+\end{block}
+
+\column{.4\textwidth}
+\begin{align*}
+	\hat \beta_1 &=
+		\frac{\sum_{i=1}^n(x_i-\overline x) (y_i - \overline y)}
+			{\sum_{i=1}^n (x_i - \overline x)^2}\\
+			\hat \beta_0 & = \overline y - \hat \beta_1 \overline x
+\end{align*}
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+
+
+
+
+
+%=============
+\section{Assessing Coefficient Estimate Accuracy}
+%=============
+
+
+\begin{frame}[c]{Bias in estimation}
+	{Analogy with mean}
+
+	\InstructorNotes{Everything here is about determining if linear model is doing a good job}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{itemize}
+	\item Assume a true value $\mu ^*$
+	\item An estimate from training data $\hat \mu$
+	\item The estimate is unbiased if $E(\hat \mu = \mu^*)$
+\end{itemize}
+
+\column{.5\textwidth}
+\centering
+\begin{itemize}
+	\item Sample mean is unbiased for population mean:
+	\begin{equation*}
+		E(\hat \mu) = E\left(\frac{1}{n}\sum_i X_i \right) = \mu
+	\end{equation*}
+	\item Standard variance estimate is biased
+	\begin{equation*}
+		E(\hat \sigma ^2) = E\left[\frac{1}{n} \sum_i(X_i - \overline X)^2\right] \neq \sigma^2
+	\end{equation*}
+\end{itemize}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Linear regression is unbiased }
+
+\begin{columns}
+\column{.3\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{Fig3-3a}
+\column{.3\textwidth}
+\centering
+
+\includegraphics[width = \textwidth]{Fig3-3b}
+\column{.4\textwidth}
+\centering
+\InstructorList{
+  \item 100 data points drawn from $Y = 2 + 3X + \e$
+  \item $\e$ drawn from normal distribution with mean 0
+  \item Red line is true relationship, blue is least squares estimate 
+  \item Repeat this 10 times and plot all the found lines (in variations of blue)
+  \item The resulting models are slightly different but are all around the red true relationship 
+}
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Variance in estimation}
+	{Continuing analogy with mean}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+
+\begin{itemize}
+	\item True value $\mu^*$
+	\item Estimate from training data $\hat \mu$
+	\item Variance of sample mean $\Var(\hat \mu) = \SE(\hat \mu)^2 = \frac{\sigma^2}{n}$
+\end{itemize}
+\column{.55\textwidth}
+\InstructorList{
+  \item Standard error 
+  \item The more data you have, the smaller variance, the better the estimate 
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Variance of linear regression estimates }
+\begin{columns}
+\column{.55\textwidth}
+\centering
+\centering
+\begin{itemize}
+	\item Variance of linear regression estimates:
+	\begin{align*}
+		\SE(\hat \beta_0)^2
+				&= \sigma^2 \left[ \frac{1}{n} + \frac{\overline x^2}{\sum_{i=1}^n (x_i - \overline x)^2}\right]\\
+		\SE(\hat \beta_1)^2 &= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \overline x)^2}
+	\end{align*}
+	where $\sigma^2 = \Var(\e)$
+	\item Residual standard error is an estimate of $\sigma$
+	\begin{equation*}
+		RSE = \sqrt{RSS/ (n-2)}
+	\end{equation*}
+	% Estimate $\sigma$:
+	% $\hat \sigma^2 = \frac{RSS}{n-2}$
+\end{itemize}
+\column{.35\textwidth}
+\centering
+
+
+\end{columns}
+\end{frame}
+%--- Next Frame ---%
+{
+	\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding group work}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Run the section titled ``Simulating data''
+\column{.45\textwidth}
+
+\centering
+\InstructorNotes{Didn't quite finish this in class Fall 2023, had them just run the part of the code that got the simulation up and running to thepoint of having a histogram. Moved the variance slides to next class}
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+
+
+
+
+
+%----%
+
+\begin{frame}[c]{Confidence Interval}
+
+\begin{columns}
+\column{.4\textwidth}
+% \centering
+The 95\% confidence interval for $\beta_1$ approximately takes the form
+\begin{equation*}
+	\hat \beta_1 \pm 2 \cdot \SE(\hat \beta_1)
+\end{equation*}
+\column{.4\textwidth}
+% \centering
+\textbf{Interpretation: }
+
+There is approximately a 95\% chance that the interval
+\begin{equation*}
+	\left[ 	\hat \beta_1 - 2 \cdot \SE(\hat \beta_1),
+	\hat \beta_1 + 2 \cdot \SE(\hat \beta_1)
+\right ]
+\end{equation*}
+will contain $\beta_1$ where we repeatedly approximate $\hat \beta_1$ using repeated samples.
+\end{columns}
+
+\InstructorNotes{Same form works for $\beta_0$}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{CI in Advertising data}
+
+\begin{columns}
+\column{.55\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Fig3-1}
+\column{.4\textwidth}
+\centering
+For the advertising data set, the 95\% CIs are:
+\begin{itemize}
+	\item $\beta_1$ :: $[0.042,0.053]$
+		\InstructorList{
+		\item First line through [0,8] and [300,20.6]
+		\item Second line through [0,7] and [300,21.9]
+		}
+	\item $\beta_0$ :: $[6.130, 7.935]$
+\end{itemize}
+\end{columns}
+
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Hypothesis testing}
+
+\begin{columns}
+\column{.5\textwidth}
+\centering
+\begin{itemize}
+	\item [ $H_0$:] There is no relationship between $X$ and $Y$
+	\InstructorNotes{(null hypothesis)}
+	\item [$H_1$:] There is some relationship between $X$ and $Y$
+	\InstructorNotes{(alternative hypothesis)}
+\end{itemize}
+\column{.4\textwidth}
+\centering
+\InstructorNotes{
+\begin{align*}
+	H_0: &\beta_1 = 0 \\
+	H_A: &\beta_1 \neq 0
+\end{align*}
+since if $\beta_1 = 0$ then the model reduces to $Y = \beta_0+\e$, and thus $X$ is not associated with $Y$
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Test statistic and p-value }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+Test statistic:
+\begin{equation*}
+	t = \frac{\hat \beta_1 - 0}{\SE(\hat \beta_1)}
+\end{equation*}
+t-distribution with $n-2$ degrees of freedom
+\includegraphics[width = \textwidth]{Student_t_pdf-wikipedia.pdf}
+\column{.4\textwidth}
+\InstructorNotes{
+	A small p-value indicates that it is unlikely to observe such a substantial association between the predictor and the response due to chance, in the absence of any real association between the predictor and the response.
+}
+
+\centering
+\InstructorNotes{
+Draw me:
+\includegraphics[width = \textwidth]{p-value}
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Advertising example}
+
+\begin{columns}
+\column{.6\textwidth}
+\centering
+\includegraphics[width = \textwidth]{Table3-1}
+\includegraphics[width = \textwidth]{Fig3-1}
+% \column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Assessing the accuracy of the module: RSE}
+	\centering
+\InstructorNotes{Quantify the extent to which the model fits the data}
+\begin{columns}
+\column{.4\textwidth}
+% \centering
+\textbf{Residual standard error (RSE):}
+\begin{align*}
+	RSE &= \sqrt{ \frac{1}{n-2} RSS}\\
+	& = \sqrt{ \frac{1}{n-2} \sum_i (y_i - \hat y_i)^2}
+\end{align*}
+
+\column{.45\textwidth}
+\InstructorList{
+\item estimate of the standard deviation of $\e$
+\item Avg amount that the response will deviate from the true regression line 
+\item  avg amount response will deviate from the true regression line}
+% \centering
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Assessing the accuracy of the module: $R^2$}
+	\centering
+\begin{columns}
+\column{.4\textwidth}
+% \centering
+\textbf{R squared:}
+\begin{align*}
+	R^2 &= \frac{TSS-RSS}{TSS} = 1-\frac{RSS}{TSS}
+\end{align*}
+where total sum of squares is
+\begin{equation*}
+	TSS = \sum_i (y_i - \overline y)^2
+\end{equation*}
+\column{.45\textwidth}
+\InstructorList{
+\item TSS is total variance in teh response $Y$, variability before regression
+\item RSS amount of variability after the regression
+\item $R^2$ is proportion of variability in $Y$ that can be explained using $X$
+\item Close to 1, large proportion of varaiability is explained by regression
+\item Close to 0, regression does not explain much of the variability in the response
+}
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Advertising example}
+% \includegraphics[width = \textwidth]{Fig2-1}
+\centering
+
+\includegraphics[width = .3\textwidth]{Advertising-SalesVsTV}
+\includegraphics[width = .3\textwidth]{Advertising-SalesVsRadio}
+\includegraphics[width = .3\textwidth]{Advertising-SalesVsNewspaper}
+
+\begin{equation*}
+	R^2 = 0.61
+	\hspace{1.2in}
+	R^2 = 0.33
+	\hspace{1.2in}
+	R^2 = 0.05
+\end{equation*}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+
+\column{.4\textwidth}
+\centering
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+{
+	\setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Coding group work}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+Run the section titled ``Assessing Coefficient Estimate Accuracy''
+\column{.45\textwidth}
+\centering
+\InstructorNotes{Point out that the homework uses the code slightly differently. statsmodels.formula.api vs statsmodels.api. You can use whatever you want on the homework.}
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+% ---------------
+\begin{frame}[t]{Next time}
+
+	\begin{columns}
+	\column{.4\textwidth}
+	\centering
+	% \includegraphics[align = c, trim = 0 0 300 0, clip, width = \textwidth]{Day01-Schedule1}
+	\includegraphics[align = c, width = \textwidth, trim = 0 280 0 0, clip]{Schedule-S24-1.png}
+	
+	\column{.4\textwidth}
+	\centering
+	\textbf{Announcements} 
+	\begin{itemize}
+		% \item We had a quiz last time!
+		\item Homework 2
+		\begin{itemize}
+			\item Due Sun, Sep 15 
+		\end{itemize}
+	\end{itemize}
+	\end{columns}
+	
+
+\end{frame}
+%--- Next Frame ---%
+
+\end{document}

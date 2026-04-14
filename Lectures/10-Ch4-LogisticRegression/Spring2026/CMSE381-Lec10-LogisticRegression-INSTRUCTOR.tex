@@ -1,0 +1,870 @@
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+\beamertemplatenavigationsymbolsempty
+% \documentclass{beamer}
+
+% UNCOMMENT FOR HANDOUTS
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{2 on 1}[landscape,letterpaper,border shrink=5mm]
+% \setbeameroption{show notes}
+
+\mode<presentation>
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usepackage{../../LizStyle,ulem}
+\usepackage{color}
+\usepackage[color,matrix,arrow]{xy}
+% \input xy
+% \xyoption{all}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/diagrams={ampersand replacement=\&}}
+
+\AtBeginSection{\frame{\sectionpage}}
+
+
+% ==========Command for putting comments and removing them=======
+% Visible:
+\newcommand{\InstructorNotes}[1]{\textit{\color{orange}#1}}
+\newcommand{\InstructorList}[1]{
+\begin{itemize}
+	\color{orange}
+	#1
+\end{itemize}
+}
+% Removed:
+% \renewcommand{\InstructorNotes}[1]{}
+% \renewcommand{\InstructorList}[1]{}
+
+
+\newcommand{\bvfill}{\vskip0pt plus 1filll}
+
+\usepackage{multimedia}
+\usepackage{graphbox}
+
+% \usepackage{algpseudocode}
+
+
+\newcommand{\Reeb}{\textbf{Reeb}}
+\newcommand{\Rtopc}{\textbf{Rtopc}}
+% \newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Vect}{\textbf{Vect}}
+\newcommand{\Top}{\textbf{Top}}
+\newcommand{\Int}{\textbf{Int}}
+
+
+\graphicspath{ {Figures/} {../Figures/}{../../Figures/} }
+
+
+
+\begin{document}
+%\pdfoptionpdfminorversion 5
+%\logo{\includegraphics[height=1.5cm]{dukeshield.pdf}}
+\title[]{Ch 4.3 - Logistic Regression}
+\subtitle{Lecture 10 - CMSE 381}
+\date{Wed, Feb 4, 2026}
+
+
+
+\institute[MSU-CMSE]{Michigan State University\\
+			::\\
+          Dept of Computational Mathematics, Science \& Engineering}
+
+
+\begin{frame}
+ \titlepage
+
+
+\end{frame}
+%--------------------------
+\begin{frame}[c]{Announcements}
+
+	% Saving some slides from section 2.2.3
+	% Makes more sense later with the classification stuff
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\includegraphics[align = c, width = \textwidth, clip, trim = 0 0 0 0  ]{Schedule-S26-Lecs11_to_20}
+	\centering
+	
+	\column{.4\textwidth}
+	\centering
+	\textbf{Announcements:}
+	\begin{itemize}
+		\item Homework \#2 Due Monday 2/9 on learning space
+		\item Monday 2/9 - Review day		
+		\item Wednesday 2/11 - Exam \#1 
+		\begin{itemize}
+			\item Bring 8.5x11 sheet of paper 
+			\item \textbf{Handwritten} both sides 
+			\item Anything you want on it, but must be your work 
+			\item Must have your name and group number
+			\item You will turn it in
+			\item Calculator w/o internet
+		\end{itemize}
+	\end{itemize}
+	\end{columns}
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}[c]{Covered in this lecture }
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+	\textbf{Last Time:}
+
+	\begin{itemize}
+		\item Classification basics 
+		\item Bayes classifier
+		\item KNN classifier 
+	\end{itemize}
+\column{.4\textwidth}
+\centering
+\textbf{This time:}
+\begin{itemize}
+	
+	\item Logistic Regression
+	% \item What else?????
+\end{itemize}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+%=================
+\section{Review from last time}
+%=================
+
+
+
+\begin{frame}[t]{Error rate}
+
+
+
+	\begin{columns}
+	\column{.5\textwidth}
+	\centering
+	\begin{itemize}
+		\item
+	Training data:
+	
+	$\{ (x_1,y_1),\cdots,(x_n,y_n) \}$ with $y_i$ qualitative
+	
+	\item Estimate $\hat y = \hat f (x)$
+	\item Indicator variable
+	% \vspace{.5in}
+	
+	\InstructorNotes{$\mathrm{I}(y_i \neq \hat y_i)$ is 1 if not the same (misclassified) and 0 else}
+	% \item
+	\end{itemize}
+	
+	\column{.4\textwidth}
+	Training error rate:
+	\begin{equation*}
+	\frac{1}{n} \sum_{i = 1}^n \mathrm{I}(y_i \neq \hat y_i)
+	\end{equation*}
+	
+	Test error rate:
+	\begin{equation*}
+		\mathrm{Ave}(\mathrm{I} (y_0 \neq \hat y_0))
+	\end{equation*}
+	
+	\InstructorNotes{Good classifier: one that minimizes test error rate, GET BETTER EXAMPLE FOR THIS}
+	
+	% \vspace{1.5in}
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	
+	
+	\begin{frame}[c]{Best ever classifier }
+		\framesubtitle{We can't have nice things}
+	
+	\begin{columns}
+	\column{.4\textwidth}
+	% \centering
+	\textbf{Bayes Classifier:}
+	
+	Give every observation the highest probability class given its predictor variables
+	\begin{equation*}
+		\Pr (Y = j \mid X = x_0)
+	\end{equation*}
+	\InstructorList{
+	  \item It is possible to show (though the proof is outside of the scope of this
+	  book) that the test error rate  is minimized, on average, by a
+	  very simple classifier that assigns each observation to the most likely class,
+	  given its predictor values.
+	}
+	\column{.4\textwidth}
+	\centering
+	Bayes Decision Boundary
+		\includegraphics[width = \textwidth]{Fig2-13.png}
+	
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	
+	
+	
+	\begin{frame}[t]{Bayes error rate}
+	
+	\begin{columns}
+	
+	\column{.5\textwidth}
+	\centering
+	\begin{itemize}
+		\item Error at $X = x_0$
+		\begin{equation*}
+			1 - \max_j \Pr(Y = j \mid X = x_0)
+		\end{equation*}
+		\item Overall Bayes error:
+		\begin{equation*}
+			1 - E \left(\max_j \Pr(Y = j \mid X = x_0) \right)
+		\end{equation*}
+	
+		\InstructorNotes{This is the irreduceable error}
+	\end{itemize}
+	
+	\column{.4\textwidth}
+	\centering
+		\includegraphics[width = \textwidth]{Fig2-13.png}
+	\end{columns}
+	\InstructorList{
+		\item Game: do as good a job as possible estimating the Bayes decision boundary
+		\item Classify given observation with highest estimated probability
+		}
+	\end{frame}
+	%--- Next Frame ---%
+	
+	
+	\begin{frame}[t]{$K$-Nearest Neighbors}
+	
+	
+	\begin{columns}
+	\column{.2\textwidth}
+	\centering
+	\includegraphics[width = \textwidth]{Fig2-14a}
+	
+	$K = 3$
+	\column{.2\textwidth}
+	\centering
+	\includegraphics[width = \textwidth]{Fig2-14b}
+	
+	decision boundary
+	\column{.5\textwidth}
+	\centering
+	\begin{itemize}
+		\item Fix $K$ positive integer
+		\item $N(x) = $ the set of $K$ closest neighbors to $x$
+		\item Estimate conditional proability
+		\begin{equation*}
+			\Pr(Y = j \mid X = x_0)
+			= \frac{1}{K} \sum_{i \in N(x_0)} \mathrm{I}(y_i = j)
+		\end{equation*}
+		\item Pick $j$ with highest value
+	\end{itemize}
+	\end{columns}
+	
+	\begin{columns}
+	\column{.3\textwidth}
+	\centering
+	\includegraphics[width = \textwidth]{Fig2-16}
+	
+	\column{.3\textwidth}
+	\centering
+	\includegraphics[width = \textwidth]{Fig2-17}
+	\end{columns}
+	
+	
+	\end{frame}
+	%--- Next Frame ---%
+% =============
+\section{Logistic Regression}
+%=============
+\begin{frame}[t]{Simulated \texttt{Default} data set}
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	
+	\includegraphics[width = \textwidth, align = c]{Fig4-1a}
+	\column{.45\textwidth}
+	\centering
+	\includegraphics[width = .8\textwidth, align = c]{Fig4-1b}
+	\tiny
+	\InstructorList{
+	\item 10,000 data points
+	\item Individuals who defaulted shown in orange (reality is deafault rate is actualy 3\% so only a fraction of those who didn't default are plotted)
+	\item Goal: function $C(balance, income) = default/not$.
+	}
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	
+\begin{frame}[t]{What is classification }
+
+	\begin{columns}
+	\column{.5\textwidth}
+	% \centering
+	\begin{itemize}
+		\item
+	Classification: When the response variable is qualitative\\
+		\item
+	Goal: Model the probability that $Y$ belongs to a particular category
+	
+	
+	\end{itemize}
+	$$p(\texttt{balance}) =
+	\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance}) $$
+	\column{.35\textwidth}
+	
+	\includegraphics[width = \textwidth, align = c]{Fig4-1a}
+	
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+	\begin{frame}[c]{Goal for \texttt{Balance} data set}
+
+		\begin{columns}
+		\column{.35\textwidth}
+		\centering
+		
+		\includegraphics[width = \textwidth, align = c]{Fig4-1a}
+		
+		\column{.45\textwidth}
+		Goal: Model the probability that $Y$ belongs to a particular category
+		
+		Ex. \\
+		$\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance}) $
+		\InstructorList{
+		\item Use notation $p(\texttt{balance})$
+		\item Choice of threshold depends on comfort with risk
+		\item Note that highly contrived fake data means that largely decideable by balance, so we'll just look at that
+		}
+		\end{columns}
+		
+		\end{frame}
+		%--- Next Frame ---%
+	
+	\begin{frame}[t]{Let's just use linear regression!}
+		{JK that's a bad idea}
+	
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	\textbf{Bad idea:}
+	\begin{itemize}
+		\item Set $Y$ to be a dummy variable taking values in $\{1,2,3,\cdots\}$
+		\item Run regression, and choose $k$ based on what integer value $\hat y$ is closest to
+	\end{itemize}
+	\column{.45\textwidth}
+	% \centering
+	
+	Ex.
+	\begin{equation*}
+		Y =
+		\begin{cases}
+			1 & \text{if stroke }\\
+			2 & \text{if drug overdose }\\
+			3 & \text{if epileptic seizure}
+		\end{cases}
+	\end{equation*}
+	vs.
+	\begin{equation*}
+		Y =
+		\begin{cases}
+			1 & \text{if mild }\\
+			2 & \text{if moderate }\\
+			3 & \text{if severe}
+		\end{cases}
+	\end{equation*}
+	\end{columns}
+	\InstructorNotes{Ordering implies something about closeness, i.e., there has to be a monotonic relation between catergories. \\Draw a number line to emphasize this distinction. }
+	\end{frame}
+	%--- Next Frame ---%
+	\begin{frame}[c]{Bad idea is still not a great idea for two levels}
+	
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	$$
+	p(\texttt{balance})=\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance})
+	$$
+	\begin{equation*}
+		Y =
+		\begin{cases}
+			0 & \text{if not default}\\
+			1 & \text{if default}\\
+		\end{cases}
+	\end{equation*}
+	\begin{itemize}
+		\item Fit linear regression
+		\item Predict default if $\hat y > 0.5$; not default otherwise
+	\end{itemize}
+	
+	\tiny
+	\InstructorList{
+	\item Could spit out values outside of [0,1]
+	\item Can't interpret this as probability
+	\item Regression methods can't accomdate qualitative response with more than two classes
+	\item Doesn't provide meaningful estimates of $\Pr(Y \mid X)$ even with two classes
+	}
+	\column{.45\textwidth}
+	\centering
+
+	\includegraphics[width = \textwidth, align = c, trim = 0 0 720 0, clip]{Fig4-2}
+	$$
+	p(\texttt{balance}) = \beta_0 + \beta_1 \texttt{balance}
+	$$
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+
+	
+
+% \begin{frame}[t]{Linear regression (Don't want to do this)}
+	
+% 	$$
+% 	p(\texttt{balance})=\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance})
+% 	$$
+% 	\begin{columns}
+% 	\column{.45\textwidth}
+% 	\centering
+% 	\includegraphics[width = \textwidth, align = c, clip, trim = 0 0 750 0  ]{Fig4-2}
+% 	\column{.45\textwidth}
+% 	\centering
+% 	$$
+% 	p(\texttt{balance}) = \beta_0 + \beta_1 \texttt{balance}
+% 	$$
+% 	\end{columns}
+% 	\end{frame}
+% 	%--- Next Frame ---%
+	
+
+
+\begin{frame}[c]{Approximating the probability }
+
+	\begin{columns}
+	\column{.4\textwidth}
+	\centering
+	
+$\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance}) $
+
+\includegraphics[width = \textwidth, align = c]{Fig4-2-NoLine}
+
+	\column{.4\textwidth}
+	\centering
+\InstructorList{
+\item Trying to approximate the probability with a function
+\item Draw some example functions 
+\item Issues with linear, density on the bottom over-compenasates
+\item issues going outside of the [0,1] bound
+\item Better job: note 0, when balance below 1000, note 1 when balance over 2000, then simple add a soft curve connecting them. 
+}
+	\end{columns}
+	\centering
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}[c]{Logistic function}
+
+	\begin{columns}
+	\column{.45\textwidth}
+	\centering
+	
+	\includegraphics[width = \textwidth, align = c]{LogisticFunction}
+	\column{.45\textwidth}
+	\centering
+	
+	\begin{equation*}
+		p(X) =
+		\frac{e^{\beta_0 + \beta_1X}}{1 +e^{\beta_0 + \beta_1X} }
+	\end{equation*}
+	\InstructorNotes{demonstrate the relation between equation and graph by moving the exp to the denom? }
+	\vspace{.5in}
+
+	\textbf{Try it out:}
+
+	\href{https://www.desmos.com/calculator/cw1pyzzqci}{desmos.com/calculator/cw1pyzzqci}
+	\end{columns}
+	
+	\end{frame}
+	%--- Next Frame ---%
+% \begin{frame}[c]{Logistic Regression }
+
+
+% \begin{columns}
+% \column{.35\textwidth}
+% \centering
+% \begin{itemize}
+% 	\item Let $p(X) = \Pr(Y =1 \mid X)$.
+% 	\item Logistic function is
+% \begin{equation*}
+% 	p(X) =
+% 	\frac{e^{\beta_0 + \beta_1X}}{1 +e^{\beta_0 + \beta_1X} }
+% \end{equation*}
+% 	\item Rearranging gets 
+% 	% \item Turn this into something with range $\R$
+% 	\begin{equation*}
+% 		\ln \left( \frac{p(X)}{1-p(X)} \right)  = \beta_0 + \beta_1X
+% 	\end{equation*}
+% 	\item Called \textit{log odds}, or \textit{logit}
+% \end{itemize}
+% \column{.55\textwidth}
+% \centering
+
+% \InstructorList{
+% 	\item The fraction $p/(1-p)$ is called the odds. 
+% 	\item Can take any value from 0 (high chance of default) to $\infty$ (low chance of default).
+% 	\item Note that this means the log odds are linear
+% 	\item Note that we can't use the linear interpretation from before since one unit increase in $\beta_1$ doesn't correspond to one unit of odds if that made sense 
+% 	\item But can say that positive $\beta_1$ corresponds to increasing $p(X)$ and vice versa
+% }
+
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[c]{Logistic Regression }
+
+$$
+\Pr(\texttt{default} = \texttt{yes} \mid \texttt{balance})
+=
+	\frac{e^{\beta_0 + \beta_1 \texttt{balance}}}{1 +e^{\beta_0 + \beta_1\texttt{balance}} }
+$$
+\InstructorNotes{beta0 and beta1 shift the curve left, right and change gain}
+\centering
+\includegraphics[width = .45\textwidth, align = c,trim = 750 0 0 0, clip]{Fig4-2}
+
+Linear Regression \hspace{1.2 in} Logistic Regression
+\end{frame}
+%--- Next Frame ---%
+{
+  \setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{}
+
+	What will the drawn logistic regression classifer predict for each of the following values of \texttt{Balance}
+	\InstructorNotes{(you can choose decision boundary to be $p>0.1$)}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\includegraphics[align = c, width = \textwidth]{Fig4-2b}
+\column{.45\textwidth}
+\centering
+\begin{tabular}{c||c}
+	\textbf{Balance} & \textbf{Prediction} \\
+	\hline 
+	& \\
+	0  &\InstructorNotes{No}\\
+	& \\
+	500 &\InstructorNotes{No}\\
+	& \\
+	1000 &\InstructorNotes{No}\\
+	& \\
+	1500 &\InstructorNotes{Yes}\\
+	& \\
+	2000 &\InstructorNotes{Yes}\\
+	& \\
+	2500 &\InstructorNotes{Yes}\\
+	& \\
+\end{tabular}
+
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+
+
+%--- Next Frame ---%
+
+
+\begin{frame}[t]{Odds}
+	\begin{equation*}
+		\frac{p(x)}{1-p(x)}
+		= \frac{\Pr(Y = 1 \mid X=x)}{1-\Pr(Y = 1 \mid X=x)}
+		= \frac{\Pr(Y = 1 \mid X=x)}{\Pr(Y = 0 \mid X=x)}
+	\end{equation*}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\includegraphics[width = .6\textwidth,align = c]{1024px-Probability_vs_odds.png}
+
+\InstructorList{
+\item Logistic function is chosen so that log odds are linear
+\item Can take any value from 0 (low odds) to $\infty$ (high odds)
+}
+
+
+\column{.4\textwidth}
+Examples:
+\begin{itemize}
+	\item If the probability of default is 90\% what are the odds?
+	\begin{itemize}
+		\item $p(x) =0.9$ 
+		\item $\frac{0.9}{1-0.9} = 9$
+	\end{itemize}
+	\item   If the odds are 1/3, what is the probability of default?
+	\begin{itemize}
+	  \item $\frac{p}{1-p} = 1/3$
+	  \item $3p = 1-p$
+	  \item $4p = 1$
+	  \item $p = 1/4$
+	\end{itemize}
+\end{itemize}
+\end{columns}
+\bvfill 
+
+\end{frame}
+  %--- Next Frame ---%
+
+% {
+%   \setbeamercolor{background canvas}{bg=Apricot!25}
+%   \begin{frame}[t]{Calculate the odds}
+%   \begin{columns}
+%   \column{.45\textwidth}
+%   If the probabilty of default is 90\%, what are the odds?
+
+%   \InstructorList{
+% 	\item $p(x) =0.9$ 
+% 	\item $\frac{0.9}{1-0.9} = 9$
+%   }
+  
+%   \column{.45\textwidth}
+%   If the odds are 1/3, what is the probability of default?
+%   \InstructorList{
+% 	\item $\frac{p}{1-p} = 1/3$
+% 	\item $3p = 1-p$
+% 	\item $4p = 1$
+% 	\item $p = 1/4$
+%   }
+  
+%   \end{columns}
+%   \end{frame}
+% }
+%--- Next Frame ---%
+\begin{frame}[c]{Making the nonlinear linear}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+Assume the (natural) log odds (logits) follow a linear model
+
+\begin{equation*}
+	\log \left( \frac{p(x)}{1-p(x)} \right) = \beta_0 + \beta_1x
+\end{equation*}
+
+Do some algebra and get $p(x)$:
+\begin{equation*}
+	p(x) = \frac{e^{\beta_0 + \beta_1x}}{1+e^{\beta_0 + \beta_1x}}
+\end{equation*}
+
+\column{.4\textwidth}
+\centering
+\InstructorList{
+	\item refer to Weber's law in psychophysics: perception works by times not by additions
+	\item or in gambling, one doubles down.
+}
+\includegraphics[width=.6\textwidth, align = c]{WebersLaw.png}
+
+\href{https://commons.wikimedia.org/wiki/File:Weber-Fechner_law_demo_-_dots.svg}{(wiki image link)}
+\end{columns}
+
+\bvfill
+
+Playing with the logistic function: \href{https://www.desmos.com/calculator/cw1pyzzqci}{desmos.com/calculator/cw1pyzzqci}
+\end{frame}
+%--- Next Frame ---%
+{
+  \setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Using coefficients to make predictions }
+	
+		\includegraphics[width=.6\textwidth, align = c]{Table4-1}
+
+	What is the estimated probability of default for someone with a balance of \$1,000?
+	\InstructorNotes{
+	\includegraphics[width = .8\textwidth, align = c]{LogReg-ExampleA.png}
+	}
+	\bvfill
+	What is the estimated probability of default for someone with a balance of \$2,000:
+	\InstructorNotes{\includegraphics[width = .8\textwidth, align = c]{LogReg-ExampleB.png}}
+	\bvfill
+	
+	\end{frame}
+}
+	%--- Next Frame ---%
+
+\begin{frame}[c]{Interpreting the coefficients}
+
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\begin{equation*}
+	p(x) = \frac{e^{\beta_0 + \beta_1x}}{1+e^{\beta_0 + \beta_1x}}
+\end{equation*}
+
+\begin{equation*}
+	\log \left( \frac{p(x)}{1-p(x)} \right) = \beta_0 + \beta_1x
+\end{equation*}
+\column{.5\textwidth}
+\centering
+		\includegraphics[width=\textwidth, align = c]{Table4-1}
+		\InstructorList{
+		  \item 
+$\beta_1$ means increasing $x$ by one unit increases the log odds by $\beta_1$ unit
+			\item In this case, increasing the balance by 1 means increasing the log odds of default by  0.0055
+		}
+		
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+% \begin{frame}[c]{Estimating Coefficients: Maximum Likelihood Estimation}
+
+% \begin{columns}
+% \column{.45\textwidth}
+% \centering
+% \begin{itemize}
+% 	\item
+% \textbf{Likelihood:} Probability that data is generated from a model
+% \begin{equation*}
+% 	\ell(model) = \P[data \mid model]
+% \end{equation*}
+% \item Find the most likely model
+% \begin{equation*}
+% 	\max_{model} \ell(model)
+% \end{equation*}
+% \item Hard to maximize likelihood, instead maximize log
+% \begin{equation*}
+% 	\max_{model} \log (\ell(model))
+% \end{equation*}
+% \item Strictly increasing log function doesn't change maximum
+% \end{itemize}
+% \column{.45\textwidth}
+% \centering
+
+% \begin{align*}
+% 	\Pr(Y=1 \mid X) &= p(X)\\
+% 	&  =
+% 	\frac{e^{\beta_0 + \beta_1X}}{1 +e^{\beta_0 + \beta_1X} }
+% \end{align*}
+% \begin{equation*}
+% 	\ell(\beta_0,\beta_1) =
+% 	\prod_{i \mid y_i = 1} p(x_i)
+% 	\prod_{i'\mid y_{i'} = 0} (1-p(x_{i'}))
+% \end{equation*}
+
+% \InstructorList{
+% \item Last time I said no $\beta_i$'s..... they're hidden in the $p(x_i)$ function
+% % \item
+% }
+% \end{columns}
+
+% \end{frame}
+% %--- Next Frame ---%
+% \begin{frame}[c]{More on that likelihood function }
+
+% \begin{columns}
+% \column{.4\textwidth}
+% \centering
+% \begin{align*}
+% 	\Pr(Y=1 \mid X) &= p(X)\\
+% 	&  =
+% 	\frac{e^{\beta_0 + \beta_1X}}{1 +e^{\beta_0 + \beta_1X} }
+% \end{align*}
+% \begin{equation*}
+% 	\ell(\beta_0,\beta_1) =
+% 	\prod_{i \mid y_i = 1} p(x_i)
+% 	\prod_{i'\mid y_{i'} = 0} (1-p(x_{i'}))
+% \end{equation*}
+
+% \InstructorNotes{goal is to get this function to be close to 1 if lots of the $(x_i,1)$ have value close to 1 and lots of the $(x_{i'},0)$ have value close to 0}
+
+% \column{.4\textwidth}
+% \centering
+% \includegraphics[width = \textwidth]{Fig4-2b}
+% \end{columns}
+
+% \end{frame}
+%--- Next Frame ---%
+\begin{frame}[t]{Confusion Matrix: Predicting $\texttt{default}$ from $\texttt{balance}$}
+
+\begin{columns}
+\column{.45\textwidth}
+\centering
+
+
+\includegraphics[width = \textwidth]{Table4-4}
+
+\InstructorList{
+\item Overall error $(c+b)/N = 2.75\%$
+% \item Worry about overfitting, but $p=2$ and $n=10,000$ so not a concern here
+% \item Only 3.33\% of people in set defaulted, the \textit{null} classifier (predict no one defaults) is only slightly higher than this
+% \item Of those who defaulted, 252/333 = 75.7\% were missed by LDA.
+\item This table is from the LDA section, but we can use this for understanding confusion matrix
+}
+\column{.45\textwidth}
+\centering
+% \includegraphics[width = \textwidth, align = c]{Fig4-6b}
+\includegraphics[width = \textwidth]{ConfusionMatrixEx.png}
+
+
+\end{columns}
+
+\end{frame}
+%--- Next Frame ---%
+
+{
+  \setbeamercolor{background canvas}{bg=Apricot!25}
+\begin{frame}[t]{Do coding in jupyter notebook}
+\begin{columns}
+\column{.45\textwidth}
+\centering
+\column{.45\textwidth}
+\centering
+\end{columns}
+\end{frame}
+}
+%--- Next Frame ---%
+% \begin{frame}[c]{Default data set example}
+
+% 	\begin{columns}
+% 	\column{.45\textwidth}
+% 	\centering
+% 	\includegraphics[width = \textwidth, align = c]{Fig4-1a}
+% 	\includegraphics[width = \textwidth, align = c]{Table4-1}
+% 	\column{.45\textwidth}
+% 	\centering
+% 	\InstructorList{
+% 	\item Positive $\beta_1$ means increase in balance increases the probability of default
+% 	\item $z$-stat is for the hypothesis test, null hypothesis is that no relationship so $H_0: \beta_1 = 0$, so
+% 	$p(X) = \frac{e^{\beta_0}}{1+e^{\beta_0}}$.
+% 	\item Intercept not really interesting. Purpose is to adjust avg fitted probabilities to proportion of ones in the data
+% 	}
+% 	\end{columns}
+	
+% 	\end{frame}
+% 	%--- Next Frame ---%
+
+%
+
+% %----------------
+\begin{frame}[t]{Next time}
+
+
+	\includegraphics[align = c, width = .65\textwidth,  ]{Schedule-S26-Lecs11_to_20}
+\end{frame}
+%--- Next Frame ---%
+
+
+\end{document}

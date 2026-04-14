@@ -1,0 +1,41 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: 86c184ed-662b-4500-aa89-e8e520b9340b
+  title: CMSE 381 - Fundamentals of Data Science Methods
+  description: Experimental Course website to test accessible content
+  keywords:
+    - Data Science
+    - CMSE
+    - MSU
+  # authors: []
+  github: https://github.com/khasawn3/cmse381_sandbox
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+  extends:
+    - toc.yml
+  exclude:
+    - Lectures/**/Liz/**
+    - Lectures/**/Sec001/**
+    - Lectures/**/Sec002/**
+    - "Lectures/**/Old Content/**"
+    - "Lectures/**/Old_Content/**"
+    - "Lectures/**/Old-Content/**"
+    - Lectures/**/Spring2026/**
+    - "Lectures/**/Spring 2026/**"
+    - "Lectures/**/Spring_2026/**"
+    - "Lectures/**/Spring-2026/**"
+    - "Lectures/**/Spring_26/**"
+    - "Lectures/**/Spring 26/**"
+    - "Lectures/**/Spring-26/**"
+    - "Lectures/**/99**/**"
+    - "Lectures/**/Figures/**"
+    - "Lectures/**/2022-Spring-Annotated/**"
+site:  
+  template: book-theme
+  options:
+  #   favicon: favicon.ico
+    logo: cmse_logo.png
+  parts:
+    footer: |
+      My nifty footer!
+    primary_sidebar_footer: primary-sidebar-footer.md
